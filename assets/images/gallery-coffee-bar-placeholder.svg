@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Ảnh quầy pha chế chờ bổ sung">
+  <!-- PLACEHOLDER: thay bằng ảnh chi tiết quầy pha chế (tỉ lệ 4:3, ánh sáng ấm tự nhiên). -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe6d8"/>
+      <stop offset="1" stop-color="#e2d4c0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect x="36" y="36" width="1128" height="828" fill="none" stroke="#a77b52" stroke-opacity=".45" stroke-width="3" stroke-dasharray="14 12" rx="6"/>
+  <!-- simple pour-over dripper + kettle outline as a neutral hint -->
+  <g fill="none" stroke="#8a6440" stroke-opacity=".7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" transform="translate(600 380)">
+    <path d="M-150 -60 h120 l-30 70 h-60 z"/>
+    <path d="M-120 10 v14 M-60 10 v14"/>
+    <path d="M-160 24 h140 v86 a20 20 0 0 1 -20 20 h-100 a20 20 0 0 1 -20 -20 z"/>
+    <path d="M40 130 v-110 a50 50 0 0 1 100 0 v110 z"/>
+    <path d="M140 40 q60 -10 80 -70"/>
+    <path d="M70 -30 q20 -24 40 0"/>
+    <path d="M-220 130 h460"/>
+  </g>
+  <g font-family="Be Vietnam Pro, system-ui, sans-serif" text-anchor="middle">
+    <text x="600" y="610" font-size="34" font-weight="600" letter-spacing="3" fill="#8a6440">ẢNH QUẦY PHA CHẾ</text>
+    <text x="600" y="656" font-size="26" fill="#786b60">Placeholder · chờ bổ sung</text>
+  </g>
+</svg>

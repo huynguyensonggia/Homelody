@@ -1,0 +1,170 @@
+{
+  "results": [
+    {
+      "label": "header navigation order",
+      "passed": true
+    },
+    {
+      "label": "unverified counters removed, four experiences",
+      "passed": true
+    },
+    {
+      "label": "no visible placeholders or menu preview",
+      "passed": true
+    },
+    {
+      "label": "all Zalo links use booking number and safe new tabs",
+      "passed": true
+    },
+    {
+      "label": "all Maps links use supplied place URL",
+      "passed": true
+    },
+    {
+      "label": "missing delivery URLs never point to invented destinations",
+      "passed": true
+    },
+    {
+      "label": "all visible photographic assets use WebP",
+      "passed": true
+    },
+    {
+      "label": "hero image immediate and high priority",
+      "passed": true
+    },
+    {
+      "label": "header transparent at top",
+      "passed": true
+    },
+    {
+      "label": "header opaque above hero content after 80px",
+      "passed": true
+    },
+    {
+      "label": "cream product stage and pause in thumbnail row",
+      "passed": true
+    },
+    {
+      "label": "autoplay remains active",
+      "passed": true
+    },
+    {
+      "label": "empty Brunch category hidden",
+      "passed": true
+    },
+    {
+      "label": "category filtering keeps list height",
+      "passed": true
+    },
+    {
+      "label": "one modal with delivery actions and scroll lock",
+      "passed": true
+    },
+    {
+      "label": "Escape closes modal and restores focus",
+      "passed": true
+    },
+    {
+      "label": "single desktop booking CTA 1440",
+      "passed": true
+    },
+    {
+      "label": "no horizontal overflow 1440",
+      "passed": true
+    },
+    {
+      "label": "two-line hero heading 1440",
+      "passed": true
+    },
+    {
+      "label": "five contact rows, no fake photo 1440",
+      "passed": true
+    },
+    {
+      "label": "single desktop booking CTA 1024",
+      "passed": true
+    },
+    {
+      "label": "no horizontal overflow 1024",
+      "passed": true
+    },
+    {
+      "label": "two-line hero heading 1024",
+      "passed": true
+    },
+    {
+      "label": "five contact rows, no fake photo 1024",
+      "passed": true
+    },
+    {
+      "label": "no horizontal overflow 768",
+      "passed": true
+    },
+    {
+      "label": "two-line hero heading 768",
+      "passed": true
+    },
+    {
+      "label": "five contact rows, no fake photo 768",
+      "passed": true
+    },
+    {
+      "label": "no horizontal overflow 375",
+      "passed": true
+    },
+    {
+      "label": "two-line hero heading 375",
+      "passed": true
+    },
+    {
+      "label": "hero text stays below header before opaque threshold",
+      "passed": true
+    },
+    {
+      "label": "mobile sticky hidden on hero",
+      "passed": true
+    },
+    {
+      "label": "fullscreen mobile navigation and booking CTA",
+      "passed": true
+    },
+    {
+      "label": "mobile sticky appears below hero",
+      "passed": true
+    },
+    {
+      "label": "mobile delivery menu",
+      "passed": true
+    },
+    {
+      "label": "booking click tracking includes position",
+      "passed": true
+    },
+    {
+      "label": "sticky hidden under modal",
+      "passed": true
+    },
+    {
+      "label": "five contact rows, no fake photo 375",
+      "passed": true
+    },
+    {
+      "label": "directions and phone tracking carry contact position",
+      "passed": true
+    },
+    {
+      "label": "reduced motion: readable story and no autoplay",
+      "passed": true
+    },
+    {
+      "label": "no browser JavaScript exceptions",
+      "passed": true
+    },
+    {
+      "label": "no HTTP errors for loaded assets",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "requests": []
+}

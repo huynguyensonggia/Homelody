@@ -1,0 +1,341 @@
+{
+  "base": "http://localhost:3000/",
+  "results": [
+    {
+      "label": "story cover enabled 1440",
+      "passed": true
+    },
+    {
+      "label": "story reaches measured pin 1440",
+      "passed": true,
+      "detail": {
+        "top": -318.875,
+        "pin": -319
+      }
+    },
+    {
+      "label": "last paragraph and signature readable before cover 1440",
+      "passed": true,
+      "detail": {
+        "last": {
+          "top": 611.578125,
+          "bottom": 711.328125,
+          "height": 99.75
+        },
+        "sign": {
+          "top": 741.328125,
+          "bottom": 779.71875,
+          "height": 38.390625
+        },
+        "bar": 0
+      }
+    },
+    {
+      "label": "original story boundary spacing retained 1440",
+      "passed": true,
+      "detail": 56
+    },
+    {
+      "label": "story remains pinned while incoming section rises 1440",
+      "passed": true
+    },
+    {
+      "label": "space moves up to header 1440",
+      "passed": true
+    },
+    {
+      "label": "fully covered story photo loop pauses 1440",
+      "passed": true
+    },
+    {
+      "label": "incoming space actually covers story 1440",
+      "passed": true
+    },
+    {
+      "label": "fixed header remains above both chapters 1440",
+      "passed": true
+    },
+    {
+      "label": "reverse scroll restores same geometry 1440",
+      "passed": true
+    },
+    {
+      "label": "native wheel scroll remains active 1440",
+      "passed": true
+    },
+    {
+      "label": "menu remains reachable after stack 1440",
+      "passed": true
+    },
+    {
+      "label": "story anchor from below targets flow start 1440",
+      "passed": true,
+      "detail": {
+        "top": 76.125,
+        "header": 76
+      }
+    },
+    {
+      "label": "space anchor stays below header 1440",
+      "passed": true,
+      "detail": {
+        "spaceTop": 75.71875,
+        "header": 76
+      }
+    },
+    {
+      "label": "fresh story hash opens chapter start 1440",
+      "passed": true,
+      "detail": {
+        "top": 76.125,
+        "header": 76
+      }
+    },
+    {
+      "label": "no horizontal page overflow 1440",
+      "passed": true
+    },
+    {
+      "label": "story cover enabled 390",
+      "passed": true
+    },
+    {
+      "label": "story reaches measured pin 390",
+      "passed": true,
+      "detail": {
+        "top": -208,
+        "pin": -208
+      }
+    },
+    {
+      "label": "last paragraph and signature readable before cover 390",
+      "passed": true,
+      "detail": {
+        "last": {
+          "top": 573.1041259765625,
+          "bottom": 688.396240234375,
+          "height": 115.2921142578125
+        },
+        "sign": {
+          "top": 712.35302734375,
+          "bottom": 743.484375,
+          "height": 31.13134765625
+        },
+        "bar": 77
+      }
+    },
+    {
+      "label": "original story boundary spacing retained 390",
+      "passed": true,
+      "detail": 32
+    },
+    {
+      "label": "story remains pinned while incoming section rises 390",
+      "passed": true
+    },
+    {
+      "label": "space moves up to header 390",
+      "passed": true
+    },
+    {
+      "label": "fully covered story photo loop pauses 390",
+      "passed": true
+    },
+    {
+      "label": "incoming space actually covers story 390",
+      "passed": true
+    },
+    {
+      "label": "fixed header remains above both chapters 390",
+      "passed": true
+    },
+    {
+      "label": "reverse scroll restores same geometry 390",
+      "passed": true
+    },
+    {
+      "label": "native wheel scroll remains active 390",
+      "passed": true
+    },
+    {
+      "label": "menu remains reachable after stack 390",
+      "passed": true
+    },
+    {
+      "label": "story anchor from below targets flow start 390",
+      "passed": true,
+      "detail": {
+        "top": 63.625,
+        "header": 64
+      }
+    },
+    {
+      "label": "space anchor stays below header 390",
+      "passed": true,
+      "detail": {
+        "spaceTop": 64.109375,
+        "header": 64
+      }
+    },
+    {
+      "label": "fresh story hash opens chapter start 390",
+      "passed": true,
+      "detail": {
+        "top": 63.625,
+        "header": 64
+      }
+    },
+    {
+      "label": "no horizontal page overflow 390",
+      "passed": true
+    },
+    {
+      "label": "short viewport pin accounts for full content and mobile CTA 1440",
+      "passed": true
+    },
+    {
+      "label": "short viewport signature stays readable 1440",
+      "passed": true,
+      "detail": {
+        "sign": {
+          "top": 441.203125,
+          "bottom": 479.59375,
+          "height": 38.390625
+        },
+        "bar": 0
+      }
+    },
+    {
+      "label": "short viewport pin accounts for full content and mobile CTA 390",
+      "passed": true
+    },
+    {
+      "label": "short viewport signature stays readable 390",
+      "passed": true,
+      "detail": {
+        "sign": {
+          "top": 412.3873291015625,
+          "bottom": 443.484375,
+          "height": 31.0970458984375
+        },
+        "bar": 77
+      }
+    },
+    {
+      "label": "content resize recomputes story pin",
+      "passed": true
+    },
+    {
+      "label": "reduced motion uses normal document flow",
+      "passed": true
+    },
+    {
+      "label": "reduced motion leaves story and space content visible",
+      "passed": true
+    },
+    {
+      "label": "turning motion back on restores chapter cover",
+      "passed": true
+    },
+    {
+      "label": "no JavaScript preserves static readable sections",
+      "passed": true
+    },
+    {
+      "label": "no browser JavaScript exceptions",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "measurements": [
+    {
+      "width": 1440,
+      "height": 900,
+      "y": 2916,
+      "pageWidth": 1425,
+      "origin": 2597.125,
+      "spaceOrigin": 3815.71875,
+      "header": {
+        "top": 0,
+        "bottom": 76,
+        "height": 76
+      },
+      "story": {
+        "top": -318.875,
+        "bottom": 899.71875,
+        "height": 1218.59375
+      },
+      "space": {
+        "top": 899.71875,
+        "bottom": 1933.90625,
+        "height": 1034.1875
+      },
+      "sign": {
+        "top": 741.328125,
+        "bottom": 779.71875,
+        "height": 38.390625
+      },
+      "last": {
+        "top": 611.578125,
+        "bottom": 711.328125,
+        "height": 99.75
+      },
+      "bar": 0,
+      "pin": -319,
+      "storyHeight": 1219,
+      "enabled": true,
+      "position": "sticky",
+      "storyPadding": 56,
+      "spaceZ": "2",
+      "storyZ": "1",
+      "scale": "matrix(1, 0, 0, 1, 0, 0)",
+      "shade": "0",
+      "covered": false
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "y": 3176,
+      "pageWidth": 375,
+      "origin": 2967.625,
+      "spaceOrigin": 3999.109375,
+      "header": {
+        "top": 0,
+        "bottom": 64,
+        "height": 64
+      },
+      "story": {
+        "top": -208,
+        "bottom": 823.484375,
+        "height": 1031.484375
+      },
+      "space": {
+        "top": 823.109375,
+        "bottom": 2095.671875,
+        "height": 1272.5625
+      },
+      "sign": {
+        "top": 712.35302734375,
+        "bottom": 743.484375,
+        "height": 31.13134765625
+      },
+      "last": {
+        "top": 573.1041259765625,
+        "bottom": 688.396240234375,
+        "height": 115.2921142578125
+      },
+      "bar": 77,
+      "pin": -208,
+      "storyHeight": 1031,
+      "enabled": true,
+      "position": "sticky",
+      "storyPadding": 32,
+      "spaceZ": "2",
+      "storyZ": "1",
+      "scale": "matrix(0.9982, 0, 0, 0.9982, 0, 0)",
+      "shade": "0.011",
+      "covered": false
+    }
+  ],
+  "errors": []
+}

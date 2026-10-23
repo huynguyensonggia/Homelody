@@ -1,0 +1,630 @@
+{
+  "base": "http://localhost:3000/",
+  "results": [
+    {
+      "label": "responsive column count 1440",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "label": "every real review remains reachable 1440",
+      "passed": true
+    },
+    {
+      "label": "no horizontal page overflow 1440",
+      "passed": true
+    },
+    {
+      "label": "visible columns animate 1440",
+      "passed": true
+    },
+    {
+      "label": "loop copies have matching height 1440",
+      "passed": true,
+      "detail": [
+        [
+          1123,
+          1123
+        ],
+        [
+          1242,
+          1242
+        ],
+        [
+          957,
+          957
+        ]
+      ]
+    },
+    {
+      "label": "clones hidden from accessibility and Tab 1440",
+      "passed": true
+    },
+    {
+      "label": "read more only for clipped reviews 1440",
+      "passed": true
+    },
+    {
+      "label": "all columns move upward 1440",
+      "passed": true
+    },
+    {
+      "label": "pause button removed 1440",
+      "passed": true
+    },
+    {
+      "label": "hover holds all columns 1440",
+      "passed": true
+    },
+    {
+      "label": "original review opens matching modal 1440",
+      "passed": true
+    },
+    {
+      "label": "Escape restores original opener 1440",
+      "passed": true
+    },
+    {
+      "label": "keyboard focus enables stable unclipped reading 1440",
+      "passed": true
+    },
+    {
+      "label": "reduced motion keeps complete static list 1440",
+      "passed": true
+    },
+    {
+      "label": "responsive column count 768",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "label": "every real review remains reachable 768",
+      "passed": true
+    },
+    {
+      "label": "no horizontal page overflow 768",
+      "passed": true
+    },
+    {
+      "label": "visible columns animate 768",
+      "passed": true
+    },
+    {
+      "label": "loop copies have matching height 768",
+      "passed": true,
+      "detail": [
+        [
+          1735,
+          1735
+        ],
+        [
+          1617,
+          1617
+        ]
+      ]
+    },
+    {
+      "label": "clones hidden from accessibility and Tab 768",
+      "passed": true
+    },
+    {
+      "label": "read more only for clipped reviews 768",
+      "passed": true
+    },
+    {
+      "label": "all columns move upward 768",
+      "passed": true
+    },
+    {
+      "label": "pause button removed 768",
+      "passed": true
+    },
+    {
+      "label": "hover holds all columns 768",
+      "passed": true
+    },
+    {
+      "label": "original review opens matching modal 768",
+      "passed": true
+    },
+    {
+      "label": "Escape restores original opener 768",
+      "passed": true
+    },
+    {
+      "label": "keyboard focus enables stable unclipped reading 768",
+      "passed": true
+    },
+    {
+      "label": "reduced motion keeps complete static list 768",
+      "passed": true
+    },
+    {
+      "label": "responsive column count 390",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "label": "every real review remains reachable 390",
+      "passed": true
+    },
+    {
+      "label": "no horizontal page overflow 390",
+      "passed": true
+    },
+    {
+      "label": "visible columns animate 390",
+      "passed": true
+    },
+    {
+      "label": "loop copies have matching height 390",
+      "passed": true,
+      "detail": [
+        [
+          3206,
+          3206
+        ]
+      ]
+    },
+    {
+      "label": "clones hidden from accessibility and Tab 390",
+      "passed": true
+    },
+    {
+      "label": "read more only for clipped reviews 390",
+      "passed": true
+    },
+    {
+      "label": "all columns move upward 390",
+      "passed": true
+    },
+    {
+      "label": "pause button removed 390",
+      "passed": true
+    },
+    {
+      "label": "hover holds all columns 390",
+      "passed": true
+    },
+    {
+      "label": "original review opens matching modal 390",
+      "passed": true
+    },
+    {
+      "label": "Escape restores original opener 390",
+      "passed": true
+    },
+    {
+      "label": "keyboard focus enables stable unclipped reading 390",
+      "passed": true
+    },
+    {
+      "label": "reduced motion keeps complete static list 390",
+      "passed": true
+    },
+    {
+      "label": "visual duplicate opens matching review",
+      "passed": true
+    },
+    {
+      "label": "duplicate modal returns focus to Maps link",
+      "passed": true
+    },
+    {
+      "label": "breakpoint rebuild deferred while modal open",
+      "passed": true
+    },
+    {
+      "label": "closing modal applies pending responsive layout",
+      "passed": true
+    },
+    {
+      "label": "focus remains connected after modal resize",
+      "passed": true
+    },
+    {
+      "label": "loop wrap advances exactly one copy height",
+      "passed": true,
+      "detail": [
+        {
+          "before": -1123.28,
+          "after": 0,
+          "height": 1123,
+          "delta": 0.0012500000000272848
+        },
+        {
+          "before": -1241.66,
+          "after": 0,
+          "height": 1242,
+          "delta": 0.0037500000000818545
+        },
+        {
+          "before": -956.906,
+          "after": 0,
+          "height": 957,
+          "delta": 0.0002500000000509317
+        }
+      ]
+    },
+    {
+      "label": "short dataset uses complete static list 1 at 1440",
+      "passed": true,
+      "detail": {
+        "count": 1,
+        "static": true
+      }
+    },
+    {
+      "label": "short dataset has no overflow or visible clones 1 at 1440",
+      "passed": true
+    },
+    {
+      "label": "short dataset uses complete static list 1 at 390",
+      "passed": true,
+      "detail": {
+        "count": 1,
+        "static": true
+      }
+    },
+    {
+      "label": "short dataset has no overflow or visible clones 1 at 390",
+      "passed": true
+    },
+    {
+      "label": "short dataset uses complete static list 2 at 1440",
+      "passed": true,
+      "detail": {
+        "count": 2,
+        "static": true
+      }
+    },
+    {
+      "label": "short dataset has no overflow or visible clones 2 at 1440",
+      "passed": true
+    },
+    {
+      "label": "short dataset uses complete static list 2 at 390",
+      "passed": true,
+      "detail": {
+        "count": 2,
+        "static": true
+      }
+    },
+    {
+      "label": "short dataset has no overflow or visible clones 2 at 390",
+      "passed": true
+    },
+    {
+      "label": "no JavaScript exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "label": "no local asset HTTP errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "measurements": [
+    {
+      "width": 1440,
+      "pageWidth": 1425,
+      "columns": 3,
+      "count": 12,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "static": false,
+      "reading": false,
+      "visible": true,
+      "mask": "linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0) 8%, rgb(0, 0, 0) 92%, rgba(0, 0, 0, 0))",
+      "wallHeight": 640,
+      "hasPauseControl": false,
+      "y": [
+        -13.5035,
+        -11.4376,
+        -12.7348
+      ],
+      "play": [
+        "running",
+        "running",
+        "running"
+      ],
+      "groups": [
+        [
+          1123,
+          1123
+        ],
+        [
+          1242,
+          1242
+        ],
+        [
+          957,
+          957
+        ]
+      ],
+      "clones": [
+        {
+          "hidden": "true",
+          "tabbable": 0,
+          "display": "flex"
+        },
+        {
+          "hidden": "true",
+          "tabbable": 0,
+          "display": "flex"
+        },
+        {
+          "hidden": "true",
+          "tabbable": 0,
+          "display": "flex"
+        }
+      ],
+      "excerpts": [
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": true,
+          "hidden": false
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": true,
+          "hidden": false
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "pageWidth": 753,
+      "columns": 2,
+      "count": 12,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "static": false,
+      "reading": false,
+      "visible": true,
+      "mask": "linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0) 8%, rgb(0, 0, 0) 92%, rgba(0, 0, 0, 0))",
+      "wallHeight": 640,
+      "hasPauseControl": false,
+      "y": [
+        -13.4993,
+        -11.4374
+      ],
+      "play": [
+        "running",
+        "running"
+      ],
+      "groups": [
+        [
+          1735,
+          1735
+        ],
+        [
+          1617,
+          1617
+        ]
+      ],
+      "clones": [
+        {
+          "hidden": "true",
+          "tabbable": 0,
+          "display": "flex"
+        },
+        {
+          "hidden": "true",
+          "tabbable": 0,
+          "display": "flex"
+        }
+      ],
+      "excerpts": [
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": true,
+          "hidden": false
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": true,
+          "hidden": false
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "pageWidth": 375,
+      "columns": 1,
+      "count": 12,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "static": false,
+      "reading": false,
+      "visible": true,
+      "mask": "linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0) 8%, rgb(0, 0, 0) 92%, rgba(0, 0, 0, 0))",
+      "wallHeight": 560,
+      "hasPauseControl": false,
+      "y": [
+        -13.4993
+      ],
+      "play": [
+        "running"
+      ],
+      "groups": [
+        [
+          3206,
+          3206
+        ]
+      ],
+      "clones": [
+        {
+          "hidden": "true",
+          "tabbable": 0,
+          "display": "flex"
+        }
+      ],
+      "excerpts": [
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": true,
+          "hidden": false
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": true,
+          "hidden": false
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        },
+        {
+          "overflow": false,
+          "hidden": true
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "requests": []
+}

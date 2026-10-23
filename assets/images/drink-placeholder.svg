@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 780" width="400" height="780" role="img" aria-label="Ảnh ly chờ bổ sung">
+  <!-- PLACEHOLDER: thay bằng ảnh nền trong suốt 400×780 của món (ly chính diện, đáy ly sát mép dưới ảnh). -->
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".55"/>
+      <stop offset=".18" stop-color="#ffffff" stop-opacity=".18"/>
+      <stop offset=".82" stop-color="#ffffff" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".45"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 26 H350 L336 748 Q200 779 64 748 Z" fill="url(#g)" stroke="#916738" stroke-opacity=".75" stroke-width="3" stroke-dasharray="12 9" stroke-linejoin="round"/>
+  <path d="M64 703 Q200 731 336 703" fill="none" stroke="#916738" stroke-opacity=".45" stroke-width="2" stroke-dasharray="8 8"/>
+  <g font-family="Be Vietnam Pro, system-ui, sans-serif" text-anchor="middle" fill="#7A5530">
+    <text x="200" y="368" font-size="22" font-weight="600" letter-spacing="2">ẢNH LY</text>
+    <text x="200" y="400" font-size="22" font-weight="600" letter-spacing="2">CHỜ BỔ SUNG</text>
+    <text x="200" y="442" font-size="17" fill="#5D6043">Placeholder</text>
+  </g>
+</svg>

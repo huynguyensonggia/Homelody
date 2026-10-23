@@ -1,0 +1,3359 @@
+{
+  "measurements": [
+    {
+      "width": 1440,
+      "name": "hero",
+      "height": 1000,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(44, 47, 30)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một góc nhà,giữa vườn xanh.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "86.4px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "93.312px",
+          "letterSpacing": "-1.296px",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "HOMELODY · COFFEE & BRUNCH",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "19.2px",
+          "letterSpacing": "2.2px",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Một tách cà phê thơm, một khu vườn xanh mát và chút bình yên giữa lòng Hội An.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "27.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "rgba(44, 47, 30, 0.3) 0px 1px 3px"
+        },
+        {
+          "text": "Hoặc đặt giao tận nơi: GrabFood · ShopeeFood",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "25.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "rgba(44, 47, 30, 0.3) 0px 1px 3px"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "stats",
+      "height": 193,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [],
+      "paragraphs": [
+        {
+          "text": "Đánh giá trên Google",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Điểm đánh giá Google",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Món trong thực đơn",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Năm bắt đầu hành trình",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "drinks",
+      "height": 701,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Chậm một nhịp. Nhấp một ngụm.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "56px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "64.96px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Matcha Latte",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "30px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "37.5px",
+          "letterSpacing": "-0.3px",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Đồ uống được yêu thích",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "01/02",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "13px",
+          "letterSpacing": "1.04px",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Matcha thanh nhẹ, quyện cùng sữa tươi béo dịu.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "26.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Hương vịThanh nhẹ · Béo dịu · Hậu trà",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "bakery",
+      "height": 803,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Bánh nhà làm,cho buổi ghé chơi.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "48px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "57.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Một tách cà phê. Một mẻ bánh nhà.",
+          "fontFamily": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "fontSize": "26px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "39px",
+          "letterSpacing": "normal",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "BÁNH NHÀ LÀM",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Thêm một miếng bánh bên tách cà phê. Những chiếc bánh được làm tại Homelody, dành cho một buổi ngồi ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.9px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "story",
+      "height": 1219,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Cứ tự nhiên như ở nhà.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "56px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "64.96px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Câu chuyện",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Homelody là một ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An. Men theo lối",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "19px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "33.25px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cứ chọn một chỗ bạn thích: trong nhà, ngoài hiên, bên hồ cá koi hay cạnh cây đàn piano giữa vườn. Tầ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "19px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "33.25px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Buổi sáng, nắng xuyên qua tán lá. Khi trời tối, ánh đèn vàng làm ấm cả hiên nhà. Bạn có thể mang the",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "19px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "33.25px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "space",
+      "height": 1034,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(232, 226, 214)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một góc nhỏ, ngồi lại lâu hơn.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "48px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "57.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "KHÔNG GIAN",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Chọn một chỗ bên hiên, giữa vườn xanh hay trong nhà ấm cúng. Ở Homelody, bạn có thể thong thả uống c",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "menu",
+      "height": 1361,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(248, 245, 239)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Hôm nay, bạn uống gì?",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "48px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "57.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cà phê ViệtVietnamese Coffee",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "19.89px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "32.8185px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "TràTea",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "19.89px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "32.8185px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "THỰC ĐƠN",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "experiences",
+      "height": 695,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(57, 60, 54)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một nơi để bạn thấy thoải mái.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "48px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "57.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Đón bạn từ sáng đến tối",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Vườn xanh và hồ cá",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Một góc bên piano",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Góc làm việc yên tĩnh",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Ở HOMELODY",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ghé uống cà phê, ngồi bên khu vườn hoặc tìm một góc yên tĩnh để làm việc.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.9px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Mở cửa mỗi ngày, 6:30–22:00. Cho ly cà phê đầu ngày hay cuộc hẹn khi chiều xuống.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ngồi giữa cây xanh, ngắm đàn cá koi và tận hưởng một khoảng nghỉ thong thả.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "reviews",
+      "height": 1128,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(63, 56, 38)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một lần ghé, một lời thương.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "48px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "60px",
+          "letterSpacing": "-0.96px",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "KHÁCH KỂ VỀ HOMELODY",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.2px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Về những ly cà phê, góc vườn xanh và những lần muốn ngồi lại lâu hơn.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Nội dung mẫu minh họa, chưa phải đánh giá thực tế của khách hàng.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "19.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ordered delicious coconut coffee and iced americano each morning while in Hoi An. Delivered on Grab.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "29.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "visit",
+      "height": 908,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(44, 47, 30)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Ghé thăm Homelody",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "56px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "67.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Hẹn bạn ở Homelody",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "38px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "47.5px",
+          "letterSpacing": "normal",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Một góc hẹn giữa Hội An",
+          "fontFamily": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "fontSize": "26px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "36.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Homelody Coffee & Brunch",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "19px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "26.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cứ tự nhiên như ở nhà",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.96px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ghé uống cà phê, gặp gỡ bạn bè hoặc dành một buổi thảnh thơi bên khu vườn. Bạn có thể xem chỉ đường ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "name": "footer",
+      "height": 546,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "17px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "28.05px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(57, 60, 54)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Điều hướng",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "23px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "32.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Liên hệ",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "23px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "32.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Điều bạn sẽ yêu",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "23px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "32.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Make yourself at home",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "fontStyle": "italic",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cảm ơn bạn đã để Homelody trở thành một góc quen.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "25.9px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "© 2024 Homelody Coffee & Brunch",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.1px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "special": [
+        {
+          "selector": ".site-header__cta",
+          "text": "Đặt bàn",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgb(210, 173, 129)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".hero__menu-cta",
+          "text": "Xem thực đơn",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(63, 56, 38)",
+          "bg": "rgb(210, 173, 129)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".bakery__page",
+          "text": "Một tách cà phê. Một mẻ bánh nhà.\n      \n        \n          BÁNH NHÀ LÀM\n       ",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "17px",
+          "weight": "400",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "radial-gradient(at 75% 45%, rgb(248, 245, 239), rgb(232, 226, 214))"
+        },
+        {
+          "selector": ".drinks .stage",
+          "text": "",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "17px",
+          "weight": "400",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgb(242, 237, 228)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__heading>p",
+          "text": "Một góc hẹn giữa Hội An",
+          "font": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "size": "26px",
+          "weight": "400",
+          "color": "rgb(210, 173, 129)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__card",
+          "text": "Cứ tự nhiên như ở nhà\n            Hẹn bạn ở Homelody\n            Ghé uống cà phê",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "17px",
+          "weight": "400",
+          "color": "rgb(63, 56, 38)",
+          "bg": "rgb(248, 245, 239)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__eyebrow",
+          "text": "Cứ tự nhiên như ở nhà",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "12px",
+          "weight": "500",
+          "color": "rgb(122, 85, 48)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__details li p",
+          "text": "Địa chỉ",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "13px",
+          "weight": "400",
+          "color": "rgb(93, 96, 67)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".site-footer__copyright",
+          "text": "© 2024 Homelody Coffee & Brunch",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "13px",
+          "weight": "400",
+          "color": "rgb(213, 208, 197)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "selector": ".hero__title",
+      "actualFonts": [
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "PlayfairDisplay-Italic",
+          "isCustomFont": true,
+          "glyphCount": 15
+        },
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "Playfair-Display",
+          "isCustomFont": true,
+          "glyphCount": 12
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "selector": ".hero__lead",
+      "actualFonts": [
+        {
+          "familyName": "Be Vietnam Pro Medium",
+          "postScriptName": "BeVietnamPro-Medium",
+          "isCustomFont": true,
+          "glyphCount": 77
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "selector": ".destination__heading>p",
+      "actualFonts": [
+        {
+          "familyName": "Dancing Script SemiBold",
+          "postScriptName": "DancingScript-SemiBold",
+          "isCustomFont": true,
+          "glyphCount": 23
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "selector": ".menu-group__title",
+      "actualFonts": [
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "Playfair-Display-SemiBold",
+          "isCustomFont": true,
+          "glyphCount": 11
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "name": "hero",
+      "height": 1000,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(44, 47, 30)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một góc nhà,giữa vườn xanh.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "48px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "51.84px",
+          "letterSpacing": "-1.2px",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "HOMELODY · COFFEE & BRUNCH",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "11px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "17.6px",
+          "letterSpacing": "2px",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Một tách cà phê thơm, một khu vườn xanh mát và chút bình yên giữa lòng Hội An.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "25.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "rgba(44, 47, 30, 0.3) 0px 1px 3px"
+        },
+        {
+          "text": "Hoặc đặt giao tận nơi: GrabFood · ShopeeFood",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "23.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "rgba(44, 47, 30, 0.3) 0px 1px 3px"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "stats",
+      "height": 251,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [],
+      "paragraphs": [
+        {
+          "text": "Đánh giá trên Google",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "20.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Điểm đánh giá Google",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "20.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Món trong thực đơn",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "20.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Năm bắt đầu hành trình",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "20.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "drinks",
+      "height": 907,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Chậm một nhịp. Nhấp một ngụm.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "36px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "41.76px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Matcha Latte",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "26px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "32.5px",
+          "letterSpacing": "-0.26px",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Đồ uống được yêu thích",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "01/02",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "13px",
+          "letterSpacing": "1.04px",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Matcha thanh nhẹ, quyện cùng sữa tươi béo dịu.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "26.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Hương vịThanh nhẹ · Béo dịu · Hậu trà",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "bakery",
+      "height": 810,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Bánh nhà làm,cho buổi ghé chơi.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "40.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Một tách cà phê. Một mẻ bánh nhà.",
+          "fontFamily": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "33px",
+          "letterSpacing": "normal",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "BÁNH NHÀ LÀM",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Thêm một miếng bánh bên tách cà phê. Những chiếc bánh được làm tại Homelody, dành cho một buổi ngồi ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "story",
+      "height": 1031,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Cứ tự nhiên như ở nhà.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "36px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "41.76px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Câu chuyện",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Homelody là một ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An. Men theo lối",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17.5px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.875px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cứ chọn một chỗ bạn thích: trong nhà, ngoài hiên, bên hồ cá koi hay cạnh cây đàn piano giữa vườn. Tầ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17.5px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.875px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Buổi sáng, nắng xuyên qua tán lá. Khi trời tối, ánh đèn vàng làm ấm cả hiên nhà. Bạn có thể mang the",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17.5px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.875px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "space",
+      "height": 1273,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(232, 226, 214)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một góc nhỏ, ngồi lại lâu hơn.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "40.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "KHÔNG GIAN",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Chọn một chỗ bên hiên, giữa vườn xanh hay trong nhà ấm cúng. Ở Homelody, bạn có thể thong thả uống c",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "25.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "menu",
+      "height": 2219,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(248, 245, 239)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Hôm nay, bạn uống gì?",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "40.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cà phê ViệtVietnamese Coffee",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "18.72px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.888px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "TràTea",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "18.72px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.888px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "THỰC ĐƠN",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "experiences",
+      "height": 1544,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(57, 60, 54)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một nơi để bạn thấy thoải mái.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "40.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Đón bạn từ sáng đến tối",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Vườn xanh và hồ cá",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Một góc bên piano",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Góc làm việc yên tĩnh",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Ở HOMELODY",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ghé uống cà phê, ngồi bên khu vườn hoặc tìm một góc yên tĩnh để làm việc.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.9px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Mở cửa mỗi ngày, 6:30–22:00. Cho ly cà phê đầu ngày hay cuộc hẹn khi chiều xuống.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ngồi giữa cây xanh, ngắm đàn cá koi và tận hưởng một khoảng nghỉ thong thả.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "reviews",
+      "height": 985,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(63, 56, 38)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một lần ghé, một lời thương.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "42.5px",
+          "letterSpacing": "-0.68px",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "KHÁCH KỂ VỀ HOMELODY",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.2px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Về những ly cà phê, góc vườn xanh và những lần muốn ngồi lại lâu hơn.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Nội dung mẫu minh họa, chưa phải đánh giá thực tế của khách hàng.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "19.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ordered delicious coconut coffee and iced americano each morning while in Hoi An. Delivered on Grab.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "29.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "visit",
+      "height": 1247,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(44, 47, 30)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Ghé thăm Homelody",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "36px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "43.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Hẹn bạn ở Homelody",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "28px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "35px",
+          "letterSpacing": "normal",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Một góc hẹn giữa Hội An",
+          "fontFamily": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "fontSize": "23px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "32.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Homelody Coffee & Brunch",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cứ tự nhiên như ở nhà",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.96px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ghé uống cà phê, gặp gỡ bạn bè hoặc dành một buổi thảnh thơi bên khu vườn. Bạn có thể xem chỉ đường ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "name": "footer",
+      "height": 1313,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(57, 60, 54)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Điều hướng",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Liên hệ",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Điều bạn sẽ yêu",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Make yourself at home",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "fontStyle": "italic",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cảm ơn bạn đã để Homelody trở thành một góc quen.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "25.9px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "© 2024 Homelody Coffee & Brunch",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.1px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "special": [
+        {
+          "selector": ".site-header__cta",
+          "text": "Đặt bàn",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgb(210, 173, 129)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".hero__menu-cta",
+          "text": "Xem thực đơn",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(63, 56, 38)",
+          "bg": "rgb(210, 173, 129)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".bakery__page",
+          "text": "Một tách cà phê. Một mẻ bánh nhà.\n      \n        \n          BÁNH NHÀ LÀM\n       ",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "400",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "radial-gradient(at 75% 45%, rgb(248, 245, 239), rgb(232, 226, 214))"
+        },
+        {
+          "selector": ".drinks .stage",
+          "text": "",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "400",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgb(242, 237, 228)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__heading>p",
+          "text": "Một góc hẹn giữa Hội An",
+          "font": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "size": "23px",
+          "weight": "400",
+          "color": "rgb(210, 173, 129)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__card",
+          "text": "Cứ tự nhiên như ở nhà\n            Hẹn bạn ở Homelody\n            Ghé uống cà phê",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "400",
+          "color": "rgb(63, 56, 38)",
+          "bg": "rgb(248, 245, 239)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__eyebrow",
+          "text": "Cứ tự nhiên như ở nhà",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "12px",
+          "weight": "500",
+          "color": "rgb(122, 85, 48)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__details li p",
+          "text": "Địa chỉ",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "13px",
+          "weight": "400",
+          "color": "rgb(93, 96, 67)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".site-footer__copyright",
+          "text": "© 2024 Homelody Coffee & Brunch",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "13px",
+          "weight": "400",
+          "color": "rgb(213, 208, 197)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "selector": ".hero__title",
+      "actualFonts": [
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "PlayfairDisplay-Italic",
+          "isCustomFont": true,
+          "glyphCount": 15
+        },
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "Playfair-Display",
+          "isCustomFont": true,
+          "glyphCount": 12
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "selector": ".hero__lead",
+      "actualFonts": [
+        {
+          "familyName": "Be Vietnam Pro Medium",
+          "postScriptName": "BeVietnamPro-Medium",
+          "isCustomFont": true,
+          "glyphCount": 77
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "selector": ".destination__heading>p",
+      "actualFonts": [
+        {
+          "familyName": "Dancing Script SemiBold",
+          "postScriptName": "DancingScript-SemiBold",
+          "isCustomFont": true,
+          "glyphCount": 23
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "selector": ".menu-group__title",
+      "actualFonts": [
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "Playfair-Display-SemiBold",
+          "isCustomFont": true,
+          "glyphCount": 11
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "name": "hero",
+      "height": 1000,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(44, 47, 30)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một góc nhà,giữa vườn xanh.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "40px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "43.2px",
+          "letterSpacing": "-1px",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "HOMELODY · COFFEE & BRUNCH",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "11px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "17.6px",
+          "letterSpacing": "2px",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Một tách cà phê thơm, một khu vườn xanh mát và chút bình yên giữa lòng Hội An.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "25.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "rgba(44, 47, 30, 0.3) 0px 1px 3px"
+        },
+        {
+          "text": "Hoặc đặt giao tận nơi: GrabFood · ShopeeFood",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "23.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "rgba(44, 47, 30, 0.3) 0px 1px 3px"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "stats",
+      "height": 293,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [],
+      "paragraphs": [
+        {
+          "text": "Đánh giá trên Google",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "20.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Điểm đánh giá Google",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "20.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Món trong thực đơn",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "20.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Năm bắt đầu hành trình",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "20.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "drinks",
+      "height": 928,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Chậm một nhịp. Nhấp một ngụm.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "36px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "41.76px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Matcha Latte",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "26px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "32.5px",
+          "letterSpacing": "-0.26px",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Đồ uống được yêu thích",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "01/02",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "13px",
+          "letterSpacing": "1.04px",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Matcha thanh nhẹ, quyện cùng sữa tươi béo dịu.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "26.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Hương vịThanh nhẹ · Béo dịu · Hậu trà",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "24px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "bakery",
+      "height": 816,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Bánh nhà làm,cho buổi ghé chơi.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "40.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Một tách cà phê. Một mẻ bánh nhà.",
+          "fontFamily": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "33px",
+          "letterSpacing": "normal",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "BÁNH NHÀ LÀM",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Thêm một miếng bánh bên tách cà phê. Những chiếc bánh được làm tại Homelody, dành cho một buổi ngồi ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "story",
+      "height": 1147,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Cứ tự nhiên như ở nhà.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "36px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "41.76px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Câu chuyện",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Homelody là một ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An. Men theo lối",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17.5px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.875px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cứ chọn một chỗ bạn thích: trong nhà, ngoài hiên, bên hồ cá koi hay cạnh cây đàn piano giữa vườn. Tầ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17.5px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.875px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Buổi sáng, nắng xuyên qua tán lá. Khi trời tối, ánh đèn vàng làm ấm cả hiên nhà. Bạn có thể mang the",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17.5px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.875px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "space",
+      "height": 1293,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(232, 226, 214)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một góc nhỏ, ngồi lại lâu hơn.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "32px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "38.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "KHÔNG GIAN",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Chọn một chỗ bên hiên, giữa vườn xanh hay trong nhà ấm cúng. Ở Homelody, bạn có thể thong thả uống c",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "25.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "menu",
+      "height": 2275,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(57, 60, 54)",
+        "backgroundColor": "rgb(248, 245, 239)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Hôm nay, bạn uống gì?",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "40.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cà phê ViệtVietnamese Coffee",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "18.72px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.888px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "TràTea",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "18.72px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.888px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "THỰC ĐƠN",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "experiences",
+      "height": 1603,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(57, 60, 54)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một nơi để bạn thấy thoải mái.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "40.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Đón bạn từ sáng đến tối",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Vườn xanh và hồ cá",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Một góc bên piano",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Góc làm việc yên tĩnh",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Ở HOMELODY",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.68px",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ghé uống cà phê, ngồi bên khu vườn hoặc tìm một góc yên tĩnh để làm việc.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "17px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.9px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Mở cửa mỗi ngày, 6:30–22:00. Cho ly cà phê đầu ngày hay cuộc hẹn khi chiều xuống.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ngồi giữa cây xanh, ngắm đàn cá koi và tận hưởng một khoảng nghỉ thong thả.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "reviews",
+      "height": 1045,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(63, 56, 38)",
+        "backgroundColor": "rgb(242, 237, 228)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Một lần ghé, một lời thương.",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "34px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "42.5px",
+          "letterSpacing": "-0.68px",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "KHÁCH KỂ VỀ HOMELODY",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "lineHeight": "18px",
+          "letterSpacing": "1.2px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Về những ly cà phê, góc vườn xanh và những lần muốn ngồi lại lâu hơn.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Nội dung mẫu minh họa, chưa phải đánh giá thực tế của khách hàng.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "19.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ordered delicious coconut coffee and iced americano each morning while in Hoi An. Delivered on Grab.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "29.6px",
+          "letterSpacing": "normal",
+          "color": "rgb(57, 60, 54)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "visit",
+      "height": 1404,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(44, 47, 30)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Ghé thăm Homelody",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "36px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "43.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(242, 237, 228)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Hẹn bạn ở Homelody",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "28px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "35px",
+          "letterSpacing": "normal",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Một góc hẹn giữa Hội An",
+          "fontFamily": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "fontSize": "23px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "32.2px",
+          "letterSpacing": "normal",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Homelody Coffee & Brunch",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.4px",
+          "letterSpacing": "normal",
+          "color": "rgb(63, 56, 38)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cứ tự nhiên như ở nhà",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "12px",
+          "fontWeight": "500",
+          "fontStyle": "normal",
+          "lineHeight": "19.2px",
+          "letterSpacing": "0.96px",
+          "color": "rgb(122, 85, 48)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Ghé uống cà phê, gặp gỡ bạn bè hoặc dành một buổi thảnh thơi bên khu vườn. Bạn có thể xem chỉ đường ",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "28px",
+          "letterSpacing": "normal",
+          "color": "rgb(93, 96, 67)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "name": "footer",
+      "height": 1337,
+      "surface": {
+        "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "lineHeight": "26.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(242, 237, 228)",
+        "backgroundColor": "rgb(57, 60, 54)",
+        "backgroundImage": "none",
+        "textShadow": "none"
+      },
+      "headings": [
+        {
+          "text": "Điều hướng",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Liên hệ",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Điều bạn sẽ yêu",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "22px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "30.8px",
+          "letterSpacing": "normal",
+          "color": "rgb(248, 245, 239)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "paragraphs": [
+        {
+          "text": "Make yourself at home",
+          "fontFamily": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "fontStyle": "italic",
+          "lineHeight": "27px",
+          "letterSpacing": "normal",
+          "color": "rgb(210, 173, 129)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "Cảm ơn bạn đã để Homelody trở thành một góc quen.",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "25.9px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        },
+        {
+          "text": "© 2024 Homelody Coffee & Brunch",
+          "fontFamily": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "fontSize": "13px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "lineHeight": "22.1px",
+          "letterSpacing": "normal",
+          "color": "rgb(213, 208, 197)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "textShadow": "none"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "special": [
+        {
+          "selector": ".site-header__cta",
+          "text": "Đặt bàn",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgb(210, 173, 129)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".hero__menu-cta",
+          "text": "Xem thực đơn",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(63, 56, 38)",
+          "bg": "rgb(210, 173, 129)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".bakery__page",
+          "text": "Một tách cà phê. Một mẻ bánh nhà.\n      \n        \n          BÁNH NHÀ LÀM\n       ",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "400",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "radial-gradient(at 75% 45%, rgb(248, 245, 239), rgb(232, 226, 214))"
+        },
+        {
+          "selector": ".drinks .stage",
+          "text": "",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "400",
+          "color": "rgb(57, 60, 54)",
+          "bg": "rgb(242, 237, 228)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__heading>p",
+          "text": "Một góc hẹn giữa Hội An",
+          "font": "\"Dancing Script\", \"Playfair Display\", cursive",
+          "size": "23px",
+          "weight": "400",
+          "color": "rgb(210, 173, 129)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__card",
+          "text": "Cứ tự nhiên như ở nhà\n            Hẹn bạn ở Homelody\n            Ghé uống cà phê",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "16px",
+          "weight": "400",
+          "color": "rgb(63, 56, 38)",
+          "bg": "rgb(248, 245, 239)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__eyebrow",
+          "text": "Cứ tự nhiên như ở nhà",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "12px",
+          "weight": "500",
+          "color": "rgb(122, 85, 48)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".destination__details li p",
+          "text": "Địa chỉ",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "13px",
+          "weight": "400",
+          "color": "rgb(93, 96, 67)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        },
+        {
+          "selector": ".site-footer__copyright",
+          "text": "© 2024 Homelody Coffee & Brunch",
+          "font": "\"Be Vietnam Pro\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "size": "13px",
+          "weight": "400",
+          "color": "rgb(213, 208, 197)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "gradient": "none"
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "selector": ".hero__title",
+      "actualFonts": [
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "PlayfairDisplay-Italic",
+          "isCustomFont": true,
+          "glyphCount": 15
+        },
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "Playfair-Display",
+          "isCustomFont": true,
+          "glyphCount": 12
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "selector": ".hero__lead",
+      "actualFonts": [
+        {
+          "familyName": "Be Vietnam Pro Medium",
+          "postScriptName": "BeVietnamPro-Medium",
+          "isCustomFont": true,
+          "glyphCount": 76
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "selector": ".destination__heading>p",
+      "actualFonts": [
+        {
+          "familyName": "Dancing Script SemiBold",
+          "postScriptName": "DancingScript-SemiBold",
+          "isCustomFont": true,
+          "glyphCount": 23
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "selector": ".menu-group__title",
+      "actualFonts": [
+        {
+          "familyName": "Playfair Display",
+          "postScriptName": "Playfair-Display-SemiBold",
+          "isCustomFont": true,
+          "glyphCount": 11
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

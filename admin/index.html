@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F2EDE4">
+  <title>Homelody · Quản lý thực đơn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css?v=20261016a">
+</head>
+<body>
+  <!-- LOGIN -->
+  <main class="login" id="login" hidden>
+    <form class="login__card" id="login-form" novalidate>
+      <p class="brand"><span class="brand__name">Homelody</span><span class="brand__sub">Quản lý thực đơn</span></p>
+      <p class="demo-hint" data-demo-only hidden>Chế độ xem thử: nhập email bất kỳ, mật khẩu bất kỳ.</p>
+      <label class="field">
+        <span class="field__label">Email</span>
+        <input type="email" name="email" autocomplete="username" required>
+      </label>
+      <label class="field">
+        <span class="field__label">Mật khẩu</span>
+        <input type="password" name="password" autocomplete="current-password" required>
+      </label>
+      <p class="form-error" id="login-error" role="alert" hidden></p>
+      <button class="btn btn--primary btn--block" type="submit">Đăng nhập</button>
+      <a class="login__back" href="../">← Về trang web</a>
+    </form>
+  </main>
+
+  <!-- APP -->
+  <div class="app" id="app" hidden>
+    <header class="topbar">
+      <p class="brand brand--small"><span class="brand__name">Homelody</span><span class="brand__sub">Quản lý</span></p>
+      <div class="topbar__right">
+        <a class="link" href="../" target="_blank" rel="noopener">Xem web ↗</a>
+        <span class="topbar__user" id="user-email"></span>
+        <button class="btn btn--ghost btn--sm" type="button" id="logout">Đăng xuất</button>
+      </div>
+    </header>
+
+    <p class="banner" data-demo-only hidden>
+      <strong>Chế độ xem thử.</strong> Chưa kết nối Supabase nên mọi thay đổi chỉ lưu trên trình duyệt này.
+      Mở trang web trên cùng trình duyệt để xem kết quả. Xem <em>HUONG-DAN-MENU-DONG.md</em> để kết nối thật.
+    </p>
+
+    <nav class="tabs" role="tablist" aria-label="Mục quản lý">
+      <button class="tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-menu" id="tab-menu">Thực đơn</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-shop" id="tab-shop" tabindex="-1">Thông tin quán</button>
+    </nav>
+
+    <!-- MENU -->
+    <section class="panel" id="panel-menu" role="tabpanel" aria-labelledby="tab-menu">
+      <div class="toolbar">
+        <input class="search" type="search" id="search" placeholder="Tìm món…" aria-label="Tìm món">
+        <button class="btn btn--primary" type="button" id="add-drink">+ Thêm món</button>
+      </div>
+      <p class="hint" id="featured-hint"></p>
+      <div id="drink-list" class="drink-list" aria-live="polite"></div>
+    </section>
+
+    <!-- SHOP -->
+    <section class="panel" id="panel-shop" role="tabpanel" aria-labelledby="tab-shop" hidden>
+      <form class="card form" id="shop-form">
+        <label class="field">
+          <span class="field__label">Địa chỉ</span>
+          <input name="address" placeholder="Số nhà, đường, phường, thành phố">
+        </label>
+        <label class="field">
+          <span class="field__label">Giờ mở cửa</span>
+          <input name="hours" placeholder="7:00 – 22:00 mỗi ngày">
+        </label>
+        <label class="field">
+          <span class="field__label">Số điện thoại</span>
+          <input name="phone" inputmode="tel" placeholder="0905 xxx xxx">
+        </label>
+        <label class="field">
+          <span class="field__label">Link chỉ đường <small>(không bắt buộc)</small></span>
+          <input name="directions_url" inputmode="url" placeholder="Dán link chia sẻ Google Maps của quán">
+          <span class="field__help">Để trống thì web tự tìm theo địa chỉ. Nên dán link Google Maps của quán để chỉ đường chính xác.</span>
+        </label>
+        <label class="field">
+          <span class="field__label">Link nút “Liên hệ quán” <small>(không bắt buộc)</small></span>
+          <input name="contact_url" inputmode="url" placeholder="https://zalo.me/0905xxxxxx">
+          <span class="field__help">Để trống thì nút sẽ gọi điện tới số ở trên.</span>
+        </label>
+        <div class="field-row">
+          <label class="field"><span class="field__label">Facebook</span><input name="facebook_url" inputmode="url" placeholder="https://facebook.com/…"></label>
+          <label class="field"><span class="field__label">Instagram</span><input name="instagram_url" inputmode="url" placeholder="https://instagram.com/…"></label>
+          <label class="field"><span class="field__label">TikTok</span><input name="tiktok_url" inputmode="url" placeholder="https://tiktok.com/@…"></label>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn--primary" type="submit">Lưu thông tin</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- DRINK EDITOR -->
+  <dialog class="editor" id="editor" aria-labelledby="editor-title">
+    <form class="editor__form" id="drink-form" novalidate>
+      <header class="editor__head">
+        <h2 id="editor-title">Thêm món</h2>
+        <button class="icon-btn" type="button" data-close aria-label="Đóng">✕</button>
+      </header>
+      <div class="editor__body">
+        <div class="image-pick">
+          <div class="image-pick__preview" id="img-preview"><span>Chưa có ảnh</span></div>
+          <div class="image-pick__side">
+            <label class="btn btn--outline btn--sm image-pick__btn">
+              Chọn ảnh…
+              <input type="file" id="img-input" accept="image/png,image/webp,image/jpeg" hidden>
+            </label>
+            <button class="btn btn--ghost btn--sm" type="button" id="img-remove" hidden>Bỏ ảnh</button>
+            <p class="field__help">Đẹp nhất: ảnh ly <b>đã tách nền</b> (PNG/WebP trong suốt), chụp thẳng. Ảnh sẽ được tự cắt sát đáy ly và nén nhẹ.</p>
+            <p class="warn" id="img-warn" hidden></p>
+          </div>
+        </div>
+
+        <label class="field">
+          <span class="field__label">Tên món *</span>
+          <input name="name" required maxlength="80" placeholder="Bạc xỉu">
+        </label>
+        <div class="field-row field-row--2">
+          <label class="field">
+            <span class="field__label">Nhóm</span>
+            <select name="category"></select>
+            <span class="field__help">Danh sách nhóm sửa ở assets/js/config.js → menuCategories.</span>
+          </label>
+          <label class="field">
+            <span class="field__label">Giá *</span>
+            <input name="price" inputmode="numeric" required placeholder="45000 hoặc 45k">
+            <span class="field__help" id="price-preview"></span>
+          </label>
+        </div>
+        <label class="field">
+          <span class="field__label">Mô tả ngắn</span>
+          <textarea name="description" rows="2" maxlength="160" placeholder="Sữa béo dịu, điểm chút cà phê đậm thơm."></textarea>
+        </label>
+        <label class="field">
+          <span class="field__label">Ghi chú hương vị</span>
+          <input name="note" maxlength="60" placeholder="Ngọt dịu · Thơm cà phê">
+        </label>
+        <label class="field">
+          <span class="field__label">Thành phần <small>(cách nhau bằng dấu phẩy)</small></span>
+          <input name="ingredients" placeholder="Cà phê phin, Sữa đặc, Sữa tươi, Đá viên">
+        </label>
+        <label class="field">
+          <span class="field__label">Mô tả ảnh <small>(cho người khiếm thị & Google)</small></span>
+          <input name="image_alt" maxlength="120" placeholder="Ly bạc xỉu đá">
+        </label>
+        <div class="switches">
+          <label class="switch"><input type="checkbox" name="is_active" checked><span class="switch__ui"></span><span>Đang bán <small>(tắt = ẩn khỏi web)</small></span></label>
+          <label class="switch"><input type="checkbox" name="is_featured"><span class="switch__ui"></span><span>Món nổi bật <small>(hiện trên bàn xoay đầu trang)</small></span></label>
+        </div>
+        <p class="form-error" id="drink-error" role="alert" hidden></p>
+      </div>
+      <footer class="editor__foot">
+        <button class="btn btn--danger-ghost btn--sm" type="button" id="delete-drink" hidden>Xóa món</button>
+        <span class="spacer"></span>
+        <button class="btn btn--ghost" type="button" data-close>Hủy</button>
+        <button class="btn btn--primary" type="submit" id="save-drink">Lưu món</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../assets/js/config.js?v=20261020landing"></script>
+  <script src="../assets/js/menu-data.js?v=20261016a"></script>
+  <script type="module" src="admin.js?v=20261016a"></script>
+</body>
+</html>

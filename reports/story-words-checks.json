@@ -1,0 +1,535 @@
+{
+  "base": "http://localhost:3000/",
+  "results": [
+    {
+      "label": "all original word tokens enhanced 1440",
+      "passed": true,
+      "detail": 119
+    },
+    {
+      "label": "paragraph content and whitespace exactly preserved 1440",
+      "passed": true
+    },
+    {
+      "label": "word spans preserve plain-text height and wrapping 1440",
+      "passed": true,
+      "detail": [
+        {
+          "height": 100,
+          "plainHeight": 100,
+          "lines": 3,
+          "plainLines": 3
+        },
+        {
+          "height": 100,
+          "plainHeight": 100,
+          "lines": 3,
+          "plainLines": 3
+        },
+        {
+          "height": 100,
+          "plainHeight": 100,
+          "lines": 3,
+          "plainLines": 3
+        }
+      ]
+    },
+    {
+      "label": "partial scroll mixes sharp text with a gentle blur 1440",
+      "passed": true,
+      "detail": {
+        "min": 0.45,
+        "max": 1,
+        "blur": 0.9
+      }
+    },
+    {
+      "label": "paragraph parents have no second entrance fade 1440",
+      "passed": true
+    },
+    {
+      "label": "word semantics remain inline and accessible 1440",
+      "passed": true
+    },
+    {
+      "label": "further scroll increases clarity 1440",
+      "passed": true,
+      "detail": {
+        "before": 0.7511642857142867,
+        "after": 0.8881004201680677
+      }
+    },
+    {
+      "label": "all text sharp before incoming cover including mobile CTA 1440",
+      "passed": true,
+      "detail": {
+        "bar": 0,
+        "mean": 1
+      }
+    },
+    {
+      "label": "sticky cover remains stable with clear words 1440",
+      "passed": true
+    },
+    {
+      "label": "reverse scroll naturally restores earlier text state 1440",
+      "passed": true,
+      "detail": {
+        "partial": 0.7511642857142867,
+        "reversed": 0.7511642857142867,
+        "clear": 1
+      }
+    },
+    {
+      "label": "no horizontal page overflow 1440",
+      "passed": true
+    },
+    {
+      "label": "text remains selectable across word spans 1440",
+      "passed": true
+    },
+    {
+      "label": "browser search finds phrase across word spans 1440",
+      "passed": true
+    },
+    {
+      "label": "all original word tokens enhanced 390",
+      "passed": true,
+      "detail": 119
+    },
+    {
+      "label": "paragraph content and whitespace exactly preserved 390",
+      "passed": true
+    },
+    {
+      "label": "word spans preserve plain-text height and wrapping 390",
+      "passed": true,
+      "detail": [
+        {
+          "height": 173,
+          "plainHeight": 173,
+          "lines": 6,
+          "plainLines": 6
+        },
+        {
+          "height": 173,
+          "plainHeight": 173,
+          "lines": 6,
+          "plainLines": 6
+        },
+        {
+          "height": 116,
+          "plainHeight": 116,
+          "lines": 4,
+          "plainLines": 4
+        }
+      ]
+    },
+    {
+      "label": "partial scroll mixes sharp text with a gentle blur 390",
+      "passed": true,
+      "detail": {
+        "min": 0.45,
+        "max": 1,
+        "blur": 0.9
+      }
+    },
+    {
+      "label": "paragraph parents have no second entrance fade 390",
+      "passed": true
+    },
+    {
+      "label": "word semantics remain inline and accessible 390",
+      "passed": true
+    },
+    {
+      "label": "further scroll increases clarity 390",
+      "passed": true,
+      "detail": {
+        "before": 0.6092088235294133,
+        "after": 0.6869344537815139
+      }
+    },
+    {
+      "label": "all text sharp before incoming cover including mobile CTA 390",
+      "passed": true,
+      "detail": {
+        "bar": 77,
+        "mean": 1
+      }
+    },
+    {
+      "label": "sticky cover remains stable with clear words 390",
+      "passed": true
+    },
+    {
+      "label": "reverse scroll naturally restores earlier text state 390",
+      "passed": true,
+      "detail": {
+        "partial": 0.6092088235294133,
+        "reversed": 0.6092088235294133,
+        "clear": 1
+      }
+    },
+    {
+      "label": "no horizontal page overflow 390",
+      "passed": true
+    },
+    {
+      "label": "text remains selectable across word spans 390",
+      "passed": true
+    },
+    {
+      "label": "browser search finds phrase across word spans 390",
+      "passed": true
+    },
+    {
+      "label": "dynamic reduced motion clears opacity and blur",
+      "passed": true
+    },
+    {
+      "label": "motion can resume from current scroll position",
+      "passed": true
+    },
+    {
+      "label": "forced colors keeps every word sharp",
+      "passed": true
+    },
+    {
+      "label": "initial reduced motion uses fully readable paragraphs",
+      "passed": true
+    },
+    {
+      "label": "no JavaScript preserves original sharp text",
+      "passed": true
+    },
+    {
+      "label": "no JavaScript preserves exact original content",
+      "passed": true
+    },
+    {
+      "label": "no browser JavaScript exceptions",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "measurements": [
+    {
+      "width": 1440,
+      "partial": {
+        "count": 119,
+        "min": 0.45,
+        "max": 1,
+        "mean": 0.7511642857142867,
+        "blur": 0.9,
+        "clear": false,
+        "paragraphs": [
+          {
+            "text": "Homelody là một ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An. Men theo lối đá, qua những tán dừa và chậu sen, bạn sẽ gặp cánh cửa gỗ cùng những bộ bàn ghế màu nâu sẫm.",
+            "height": 100,
+            "parentOpacity": "1",
+            "parentReveal": false,
+            "values": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0.99505,
+              0.9164,
+              0.83775,
+              0.7591,
+              0.681,
+              0.60235,
+              0.5237,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45
+            ]
+          },
+          {
+            "text": "Cứ chọn một chỗ bạn thích: trong nhà, ngoài hiên, bên hồ cá koi hay cạnh cây đàn piano giữa vườn. Tầng hai có không gian điều hòa mát mẻ, dành cho những buổi học tập hay làm việc cần sự thoải mái.",
+            "height": 100,
+            "parentOpacity": "1",
+            "parentReveal": false,
+            "values": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0.9747,
+              0.89605,
+              0.8174,
+              0.73875,
+              0.6601,
+              0.582,
+              0.50335,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45
+            ]
+          },
+          {
+            "text": "Buổi sáng, nắng xuyên qua tán lá. Khi trời tối, ánh đèn vàng làm ấm cả hiên nhà. Bạn có thể mang theo laptop, một cuốn sách, hoặc ghé cùng cả gia đình.",
+            "height": 100,
+            "parentOpacity": "1",
+            "parentReveal": false,
+            "values": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0.96425,
+              0.8856,
+              0.8075,
+              0.72885,
+              0.6502,
+              0.57155,
+              0.4929,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45
+            ]
+          }
+        ],
+        "pageWidth": 1425,
+        "width": 1440
+      }
+    },
+    {
+      "width": 390,
+      "partial": {
+        "count": 119,
+        "min": 0.45,
+        "max": 1,
+        "mean": 0.6092088235294133,
+        "blur": 0.9,
+        "clear": false,
+        "paragraphs": [
+          {
+            "text": "Homelody là một ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An. Men theo lối đá, qua những tán dừa và chậu sen, bạn sẽ gặp cánh cửa gỗ cùng những bộ bàn ghế màu nâu sẫm.",
+            "height": 173,
+            "parentOpacity": "1",
+            "parentReveal": false,
+            "values": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0.94995,
+              0.8713,
+              0.79265,
+              0.714,
+              0.6359,
+              0.55725,
+              0.4786,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45
+            ]
+          },
+          {
+            "text": "Cứ chọn một chỗ bạn thích: trong nhà, ngoài hiên, bên hồ cá koi hay cạnh cây đàn piano giữa vườn. Tầng hai có không gian điều hòa mát mẻ, dành cho những buổi học tập hay làm việc cần sự thoải mái.",
+            "height": 173,
+            "parentOpacity": "1",
+            "parentReveal": false,
+            "values": [
+              1,
+              1,
+              1,
+              1,
+              0.92795,
+              0.8493,
+              0.77065,
+              0.69255,
+              0.6139,
+              0.53525,
+              0.4566,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45
+            ]
+          },
+          {
+            "text": "Buổi sáng, nắng xuyên qua tán lá. Khi trời tối, ánh đèn vàng làm ấm cả hiên nhà. Bạn có thể mang theo laptop, một cuốn sách, hoặc ghé cùng cả gia đình.",
+            "height": 116,
+            "parentOpacity": "1",
+            "parentReveal": false,
+            "values": [
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45,
+              0.45
+            ]
+          }
+        ],
+        "pageWidth": 375,
+        "width": 390
+      }
+    }
+  ],
+  "errors": []
+}

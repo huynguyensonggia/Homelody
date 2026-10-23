@@ -1,0 +1,123 @@
+{
+  "base": "http://localhost:3000/",
+  "results": [
+    {
+      "label": "load starts one reveal 1440",
+      "passed": true
+    },
+    {
+      "label": "buttons remain hit-testable during reveal 1440",
+      "passed": true
+    },
+    {
+      "label": "wash is isolated from text and pointer input 1440",
+      "passed": true
+    },
+    {
+      "label": "wash removed after reveal 1440",
+      "passed": true
+    },
+    {
+      "label": "existing title entrance completes normally 1440",
+      "passed": true
+    },
+    {
+      "label": "photo remains visible and never zooms 1440",
+      "passed": true,
+      "detail": {
+        "opacity": "1",
+        "transform": "none",
+        "animation": "none",
+        "mask": "none",
+        "crop": "50% 50%",
+        "fit": "cover",
+        "width": 1425,
+        "height": 1000
+      }
+    },
+    {
+      "label": "image crop and existing mask unchanged 1440",
+      "passed": true
+    },
+    {
+      "label": "no horizontal page overflow 1440",
+      "passed": true
+    },
+    {
+      "label": "load starts one reveal 390",
+      "passed": true
+    },
+    {
+      "label": "buttons remain hit-testable during reveal 390",
+      "passed": true
+    },
+    {
+      "label": "wash is isolated from text and pointer input 390",
+      "passed": true
+    },
+    {
+      "label": "wash removed after reveal 390",
+      "passed": true
+    },
+    {
+      "label": "existing title entrance completes normally 390",
+      "passed": true
+    },
+    {
+      "label": "photo remains visible and never zooms 390",
+      "passed": true,
+      "detail": {
+        "opacity": "1",
+        "transform": "none",
+        "animation": "none",
+        "mask": "linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0) 120px)",
+        "crop": "83% 50%",
+        "fit": "cover",
+        "width": 375,
+        "height": 838.5
+      }
+    },
+    {
+      "label": "image crop and existing mask unchanged 390",
+      "passed": true
+    },
+    {
+      "label": "mobile keeps gradient mask and intended cup crop",
+      "passed": true
+    },
+    {
+      "label": "no horizontal page overflow 390",
+      "passed": true
+    },
+    {
+      "label": "reduced motion immediately uses static photo",
+      "passed": true
+    },
+    {
+      "label": "failed image removes wash safely",
+      "passed": true
+    },
+    {
+      "label": "slow image timeout removes wash",
+      "passed": true
+    },
+    {
+      "label": "late image load does not restart reveal",
+      "passed": true
+    },
+    {
+      "label": "CSS fallback clears wash when enhancement fails",
+      "passed": true
+    },
+    {
+      "label": "fully disabled JavaScript shows original static photo",
+      "passed": true
+    },
+    {
+      "label": "no browser JavaScript exceptions",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}
