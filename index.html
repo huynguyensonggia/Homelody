@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#2C2F1E">
   <link rel="icon" href="data:,">  <!-- chưa có file logo/favicon chính thức -->
   <link rel="preload" fetchpriority="high" as="image" href="assets/images/hero-coffee-banner.webp" imagesrcset="assets/images/hero-coffee-banner-960.webp 960w, assets/images/hero-coffee-banner.webp 1672w" imagesizes="100vw">
-  <link rel="stylesheet" href="assets/css/site.min.css?v=20261023compacttabs">
+  <link rel="stylesheet" href="assets/css/site.min.css?v=20261023menucarousel">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -19,7 +19,7 @@
     <div class="site-header__inner container">
       <a class="brand brand--with-logo" href="#top" aria-label="Homelody Coffee &amp; Brunch — về đầu trang"><img class="brand__logo" src="assets/images/homelody-logo-transparent.png" width="48" height="48" alt="" decoding="async"><span class="brand__wordmark"><span class="brand__name">Homelody</span><span class="brand__descriptor">COFFEE &amp; BRUNCH</span></span></a>
       <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính" data-nav data-location="header">
-        <a href="#do-uong" lang="en">Yêu thích</a>
+        <a href="#do-uong">Món nổi bật</a>
         <a href="#cau-chuyen">Câu chuyện</a>
         <a href="#khong-gian">Không gian</a>
         <a href="#thuc-don">Thực đơn</a>
@@ -89,7 +89,7 @@
     <section data-location="menu" class="drinks container" id="do-uong" aria-labelledby="drinks-title">
       <div class="drinks__copy">
         <p class="eyebrow">Đồ uống được yêu thích</p>
-        <h2 class="h2 drinks__title" id="drinks-title">Chậm một nhịp.<br> <span class="title-italic title-accent">Nhấp một ngụm.</span></h2>
+        <h2 class="h2 drinks__title" id="drinks-title">Chậm một nhịp.<br>Nhấp một ngụm.</h2>
 
         <div class="drink-info" data-drink-info>
           <p class="drink-info__count" aria-hidden="true"><span class="counter__current" data-field="index">01</span><span class="counter__sep">/</span><span class="counter__total" data-field="total">04</span></p>
@@ -133,7 +133,7 @@
       <p class="bakery__chapter"><span>Một tách cà phê. Một mẻ bánh nhà.</span></p>
       <div class="bakery__inner container">
         <div class="bakery__copy">
-          <p class="eyebrow">BÁNH HOMELODY TỰ LÀM</p>
+          <p class="eyebrow">Bánh Homelody tự làm</p>
           <h2 class="h2" id="bakery-title">Phô mai dẻo</h2>
           <p class="bakery__description">Bánh Phô mai dẻo do chính Homelody làm, để bạn nhâm nhi cùng một tách cà phê và tận hưởng buổi ghé chơi thật thong thả.</p>
           <a class="bakery__link" href="#ghe-quan">Ghé Homelody thưởng thức</a>
@@ -155,7 +155,7 @@
     <section class="story" id="cau-chuyen" aria-labelledby="story-title">
       <div class="story__inner container">
         <p class="eyebrow">Câu chuyện</p>
-        <h2 class="h2 story__title" id="story-title">Cứ tự nhiên <span class="title-italic">như ở nhà.</span></h2>
+        <h2 class="h2 story__title" id="story-title">Cứ tự nhiên như ở nhà.</h2>
 
         <div class="story__stack story__carousel" data-story-stack>
           <figure class="story__card story__card--near" data-pos="-1">
@@ -175,10 +175,15 @@
           </figure>
         </div>
 
-        <div class="story__text" data-story-text>
+        <div class="story__text story__text--desktop" data-story-text>
           <p class="story__body">Homelody là một ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An. Men theo lối đá, qua những tán dừa và chậu sen, bạn sẽ gặp cánh cửa gỗ cùng những bộ bàn ghế màu nâu sẫm.</p>
           <p class="story__body">Cứ chọn một chỗ bạn thích: trong nhà, ngoài hiên, bên hồ cá koi hay cạnh cây đàn piano giữa vườn. Tầng hai có không gian điều hòa mát mẻ, dành cho những buổi học tập hay làm việc cần sự thoải mái.</p>
           <p class="story__body">Buổi sáng, nắng xuyên qua tán lá. Khi trời tối, ánh đèn vàng làm ấm cả hiên nhà. Bạn có thể mang theo laptop, một cuốn sách, hoặc ghé cùng cả gia đình.</p>
+        </div>
+        <div class="story__text story__text--mobile" data-story-text>
+          <p class="story__body">Homelody là ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An.</p>
+          <p class="story__body">Chọn chỗ bên hiên, cạnh hồ cá koi hay cây đàn piano. Tầng hai có điều hòa cho những buổi học tập và làm việc.</p>
+          <p class="story__body">Mang theo laptop, một cuốn sách, hoặc ghé cùng gia đình. Cứ tự nhiên như ở nhà.</p>
         </div>
         <p class="story__sign" lang="en" data-story-sign>Make yourself at home.</p>
       </div>
@@ -188,7 +193,7 @@
     <section class="space section-band" id="khong-gian" aria-labelledby="space-title">
       <div class="container">
         <div class="section-head">
-          <div><p class="eyebrow">KHÔNG GIAN</p><h2 class="h2 space__title" id="space-title">Một góc nhỏ,<br class="space__title-break"> ngồi lại lâu hơn.</h2></div>
+          <div><p class="eyebrow">Không gian</p><h2 class="h2 space__title" id="space-title">Một góc nhỏ,<br class="space__title-break"> ngồi lại lâu hơn.</h2></div>
           <p class="section-head__aside">Chọn một chỗ bên hiên, giữa vườn xanh hay trong nhà ấm cúng. Ở Homelody, bạn có thể thong thả uống cà phê, trò chuyện cùng bạn bè hoặc dành chút thời gian cho riêng mình.</p>
         </div>
         <div class="space-cards">
@@ -215,7 +220,7 @@
       <div class="container">
       <div class="section-head">
         <div>
-          <p class="eyebrow">THỰC ĐƠN</p>
+          <p class="eyebrow">Thực đơn</p>
           <h2 class="h2" id="menu-title" tabindex="-1">Hôm nay, bạn uống gì?</h2>
         </div>
       </div>
@@ -230,7 +235,7 @@
     <section class="experiences" aria-labelledby="experiences-title">
       <div class="container">
         <div class="experiences__heading">
-          <p class="eyebrow">Ở HOMELODY</p>
+          <p class="eyebrow">Ở Homelody</p>
           <h2 class="h2" id="experiences-title">Một nơi để bạn thấy thoải mái.</h2>
           <p class="experiences__intro">Ghé uống cà phê, ngồi bên khu vườn hoặc tìm một góc yên tĩnh để làm việc.</p>
         </div>
@@ -262,7 +267,7 @@
     <section class="reviews" id="danh-gia" data-reviews aria-labelledby="reviews-title">
       <div class="container">
         <div class="reviews__heading">
-          <p class="eyebrow">KHÁCH KỂ VỀ HOMELODY</p>
+          <p class="eyebrow">Khách kể về Homelody</p>
           <h2 class="h2" id="reviews-title">Một lần ghé, một lời thương.</h2>
           <p class="reviews__intro">Về những ly cà phê, góc vườn xanh và những lần muốn ngồi lại lâu hơn.</p>
           <p class="reviews__sample-note" data-reviews-note hidden>Nội dung mẫu minh họa, chưa phải đánh giá thực tế của khách hàng.</p>
@@ -331,7 +336,7 @@
         <h3>Điều hướng</h3>
         <nav class="site-footer__navigation" aria-label="Điều hướng chân trang">
           <a href="#top">Trang chủ</a>
-          <a href="#do-uong" lang="en">Yêu thích</a>
+          <a href="#do-uong">Món nổi bật</a>
           <a href="#cau-chuyen">Câu chuyện</a>
           <a href="#khong-gian">Không gian</a>
           <a href="#thuc-don">Thực đơn</a>
@@ -347,7 +352,7 @@
           <li><span data-icon="instagram" aria-hidden="true"></span><a data-link="INSTAGRAM_URL">@homelody.coffee</a></li>
         </ul>
       </div>
-      <div class="site-footer__column">
+      <div class="site-footer__column site-footer__column--highlights">
         <h3>Điều bạn sẽ yêu</h3>
         <ul class="site-footer__list">
           <li><span data-icon="trees" aria-hidden="true"></span>Khu vườn xanh &amp; hồ cá koi</li>
@@ -396,7 +401,7 @@
        ?v=… giúp trình duyệt tải bản mới sau mỗi lần sửa file: đổi số này khi cập nhật CSS/JS. -->
   <script src="assets/js/config.js?v=20261021fourstats"></script>
   <script src="assets/js/menu-data.js?v=20261020landing"></script>
-  <script src="assets/js/main.js?v=20261023phomaideo" defer></script>
+  <script src="assets/js/main.js?v=20261023menucarousel" defer></script>
   <script src="assets/js/landing.js?v=20261023reviewfooter" defer></script>
 </body>
 </html>

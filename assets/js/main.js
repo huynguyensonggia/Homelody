@@ -798,6 +798,50 @@
   var menuTab = 0, menuTabs = null, menuToken = 0, menuAnims = [];
   var finishMenuReveal = null;
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var menuCarouselCleanup = [];
+
+  function bindMenuCarousels(root) {
+    $$('[data-menu-carousel]', root).forEach(function (carousel) {
+      var list = $('.menu-list', carousel), nav = $('.menu-carousel__nav', carousel);
+      var prev = $('[data-menu-prev]', carousel), next = $('[data-menu-next]', carousel);
+      var status = $('.menu-carousel__status', carousel), frame = 0;
+      function geometry() {
+        var step = list.firstElementChild.offsetWidth + parseFloat(getComputedStyle(list).columnGap || 0);
+        return { step: step, count: Math.max(1, Math.floor((list.clientWidth + parseFloat(getComputedStyle(list).columnGap || 0) + 1) / step)) };
+      }
+      function update() {
+        frame = 0;
+        var max = list.scrollWidth - list.clientWidth, g = geometry();
+        nav.hidden = max <= 1;
+        prev.disabled = list.scrollLeft <= 1;
+        next.disabled = list.scrollLeft >= max - 1;
+        var first = Math.round(list.scrollLeft / g.step) + 1;
+        var last = Math.min(list.children.length, first + g.count - 1);
+        var text = first + (last > first ? '–' + last : '') + ' / ' + list.children.length;
+        if (status.textContent !== text) status.textContent = text;
+      }
+      function request() { if (!frame) frame = requestAnimationFrame(update); }
+      function advance(direction) {
+        var g = geometry();
+        list.scrollBy({ left: direction * g.step * g.count, behavior: still() ? 'instant' : 'smooth' });
+      }
+      prev.addEventListener('click', function () { advance(-1); });
+      next.addEventListener('click', function () { advance(1); });
+      list.addEventListener('scroll', request, { passive: true });
+      var observer = 'ResizeObserver' in window ? new ResizeObserver(request) : null;
+      if (observer) observer.observe(list);
+      else window.addEventListener('resize', request);
+      menuCarouselCleanup.push(function () {
+        if (observer) observer.disconnect(); else window.removeEventListener('resize', request);
+        if (frame) cancelAnimationFrame(frame);
+      });
+      update();
+    });
+  }
+  function clearMenuCarousels() {
+    menuCarouselCleanup.forEach(function (cleanup) { cleanup(); });
+    menuCarouselCleanup = [];
+  }
 
   function menuItems(list) {
     return list.map(function (d) {
@@ -844,9 +888,18 @@
     return '<' + tag + ' class="menu-group__title"><span class="menu-group__vi">' + esc(g.name) + '</span>' +
       (g.en ? '<span class="menu-group__en" lang="en">' + esc(g.en) + '</span>' : '') + '</' + tag + '>';
   }
-  function groupList(g) {
-    return g.items.length
+  function groupList(g, carousel) {
+    if (!carousel) return g.items.length
       ? '<ul class="menu-list" role="list">' + menuItems(g.items) + '</ul>'
+      : '<p class="note menu-group__empty">Món trong nhóm này đang được cập nhật.</p>';
+    return g.items.length
+      ? '<div class="menu-carousel" data-menu-carousel>' +
+        '<ul class="menu-list" role="list" tabindex="0" aria-label="' + esc('Các món ' + g.name + '. Cuộn ngang để xem thêm') + '">' + menuItems(g.items) + '</ul>' +
+        '<div class="menu-carousel__nav" role="group" aria-label="' + esc('Xem thêm món ' + g.name) + '" hidden>' +
+        '<button class="menu-carousel__button" type="button" data-menu-prev aria-label="' + esc('Món trước trong ' + g.name) + '">‹</button>' +
+        '<span class="menu-carousel__status" aria-live="polite" aria-atomic="true"></span>' +
+        '<button class="menu-carousel__button" type="button" data-menu-next aria-label="' + esc('Món tiếp theo trong ' + g.name) + '">›</button>' +
+        '</div></div>'
       : '<p class="note menu-group__empty">Món trong nhóm này đang được cập nhật.</p>';
   }
   function showMenuTab(k, focus, animate) {
@@ -864,14 +917,16 @@
     panelEl.setAttribute('aria-labelledby', 'menu-tab-' + k);
     moveTabInk(k, animate);
     function render() {
+      clearMenuCarousels();
       var tab = menuTabs[k];
       // "Tất cả": từng nhóm có món, mỗi nhóm có tiêu đề Việt + Anh; một nhóm: tiêu đề + danh sách (hoặc ghi chú nếu chưa có món)
       panelEl.innerHTML = tab.all
         ? menuTabs.slice(1).filter(function (g) { return g.items.length; }).map(function (g) {
-            return '<section class="menu-group">' + groupHeading(g, 'h3') + groupList(g) + '</section>';
+            return '<section class="menu-group">' + groupHeading(g, 'h3') + groupList(g, true) + '</section>';
           }).join('')
         : '<section class="menu-group">' + groupHeading(tab, 'h3') + groupList(tab) + '</section>';
       bindMenuItems(panelEl);
+      bindMenuCarousels(panelEl);
     }
     // Each category owns its natural height; retaining the tallest tab leaves empty rows below short lists.
     panelEl.style.removeProperty('min-height');
@@ -889,6 +944,7 @@
     };
   }
   function renderMenu() {
+    clearMenuCarousels();
     var root = $('[data-menu-list]');
     if (!root) return;
     if (!DRINKS.length) { root.innerHTML = '<p class="note">Thực đơn đang được cập nhật.</p>'; return; }
@@ -903,6 +959,7 @@
       menuTabs = null;
       root.innerHTML = '<ul class="menu-list" role="list">' + menuItems(DRINKS) + '</ul>';
       bindMenuItems(root);
+      bindMenuCarousels(root);
       return;
     }
     menuTabs = [{ name: 'Tất cả', all: true, items: DRINKS }].concat(groups);
@@ -953,7 +1010,7 @@
     io.observe(heading);
     $$('.menu-group__title', body).forEach(function (el) { prepare(el, 180); io.observe(el); });
     $$('.menu-list', body).forEach(function (list) {
-      var columns = getComputedStyle(list).gridTemplateColumns.split(' ').length;
+      var columns = Math.max(1, Math.round(list.clientWidth / list.firstElementChild.offsetWidth));
       $$('.menu-item', list).forEach(function (el, k) {
         prepare(el, 240 + Math.min(k % columns, 2) * 80); io.observe(el);
       });
