@@ -19,7 +19,7 @@ Tạo lại bản upload khi mã nguồn thay đổi:
 
 ```powershell
 node scripts/build-site.mjs
-Compress-Archive -Path .\dist\* -DestinationPath .\homelody-netlify.zip -Force
+python scripts/package-site.py
 ```
 
 Chỉ upload `dist` hoặc ZIP đã build, không upload toàn bộ repository. ZIP có `index.html` ở gốc.
@@ -29,7 +29,14 @@ Chỉ upload `dist` hoặc ZIP đã build, không upload toàn bộ repository. 
 - Chỉ có trang chủ, trang 404, cấu hình headers, `admin/`, `assets/`, `public/` và giấy phép SheetJS.
 - Không phục vụ `.git/`, `reports/`, `outputs/`, `scripts/`, `supabase/` hoặc bản sao lưu.
 - `assets/js/config.js` chứa publishable key dùng cho trình duyệt. Không dùng secret key hoặc service-role key ở frontend.
-- Netlify Free có hạn mức theo credits; xem Usage trong tài khoản. Không cần mua tên miền để dùng `netlify.app`. Supabase có hạn mức riêng.
+- Tài khoản hiện dùng Free Legacy; các tài khoản Free mới có thể dùng hạn mức credits. Xem Usage trong tài khoản để kiểm tra đúng hạn mức. Không cần mua tên miền để dùng `netlify.app`. Supabase có hạn mức riêng.
+
+## Bản xem trước đã xuất bản
+
+- Website: https://homelody-hoian-preview.netlify.app/
+- Dashboard: https://app.netlify.com/projects/homelody-hoian-preview
+- Project ID: `eac0361a-8fd9-48e8-a559-0ed74a6d096c`.
+- Deploy bằng Netlify Drop; chưa kết nối tự cập nhật từ GitHub. Khi thay đổi mã, build và upload lại vào chính project này.
 
 ## Kiểm tra tại máy
 
