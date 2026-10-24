@@ -22,3 +22,5 @@ Desktop.ini
 # Generated hosting bundle
 /dist/
 /homelody-cloudflare-pages.zip
+/homelody-netlify.zip
+/.netlify/

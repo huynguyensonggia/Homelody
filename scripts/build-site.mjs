@@ -18,7 +18,6 @@ function copy(relative) {
     return;
   }
   if (!allowed.has(path.extname(relative).toLowerCase()) && relative !== '_headers') return;
-  if (stat.size > 25 * 1024 * 1024) throw new Error(`Asset exceeds Cloudflare Pages 25 MiB limit: ${relative}`);
   fs.mkdirSync(path.dirname(path.join(destination, relative)), { recursive: true });
   fs.copyFileSync(source, path.join(destination, relative));
   count++;
@@ -27,5 +26,4 @@ function copy(relative) {
 for (const entry of ['index.html', '404.html', '_headers', 'admin', 'assets', 'public']) copy(entry);
 // Retain the bundled third-party license in the deployed distribution.
 fs.copyFileSync(path.join(root, 'admin/vendor/SheetJS-LICENSE.txt'), path.join(destination, 'admin/vendor/SheetJS-LICENSE.txt'));
-if (count + 1 > 20000) throw new Error('Cloudflare Pages Free file limit exceeded');
-console.log(`Built dist/: ${count + 1} files, ${(bytes / 1024 / 1024).toFixed(1)} MiB. Upload the contents of dist/ to Cloudflare Pages.`);
+console.log(`Built dist/: ${count + 1} files, ${(bytes / 1024 / 1024).toFixed(1)} MiB. Ready to deploy to Netlify.`);

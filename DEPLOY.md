@@ -1,56 +1,47 @@
-# Deploy Homelody miễn phí trên Cloudflare Pages
+﻿# Deploy Homelody trên Netlify Free
 
-Website HTML/CSS/JavaScript, không cần server Node.js chạy liên tục. Dữ liệu vẫn đọc từ Supabase hiện có; deploy frontend không sao chép hoặc đổi dữ liệu.
+Website HTML/CSS/JavaScript dùng địa chỉ `https://<project-name>.netlify.app` để gửi chủ quán xem. Sau này có thể gắn tên miền riêng. Dữ liệu tiếp tục dùng Supabase hiện có.
 
-## Cách khuyến nghị: kết nối GitHub
+## Deploy từ GitHub
 
-1. Đăng nhập https://dash.cloudflare.com/ → **Workers & Pages** → **Create application** → **Pages** → kết nối GitHub (tên nút có thể thay đổi).
-2. Cho phép truy cập repository `huynguyensonggia/Homelody`, chọn repository đó.
-3. Cấu hình:
+1. Đăng nhập https://app.netlify.com/ và chọn gói **Free**.
+2. Chọn **Add new project → Import an existing project → GitHub**.
+3. Cho phép truy cập repository `huynguyensonggia/Homelody`, chọn repository và nhánh `main`.
+4. Netlify tự đọc `netlify.toml`: build command `node scripts/build-site.mjs`, publish directory `dist`, Node.js `22`. Base directory để trống, không cần biến môi trường.
+5. Chọn **Deploy**. Lấy link `netlify.app` gửi chủ quán. Push `main` sau đó sẽ tự cập nhật website.
+6. Kiểm tra trang chủ, ảnh, menu và `/admin/` bằng tài khoản quản trị hiện có. Không chạy lại SQL khi deploy frontend.
 
-   | Mục | Giá trị |
-   | --- | --- |
-   | Project name | `homelody` hoặc tên còn trống |
-   | Production branch | `main` |
-   | Framework preset | `None` |
-   | Root directory | Để trống (gốc repository) |
-   | Build command | `node scripts/build-site.mjs` |
-   | Build output directory | `dist` |
-   | Environment variables | Không cần |
+## Upload nhanh bản đã build
 
-4. Chọn **Save and Deploy**. Cloudflare cấp địa chỉ `https://<project-name>.pages.dev` và HTTPS. Mỗi lần push `main` sau đó sẽ tự deploy.
-5. Mở trang chủ và `/admin/`, thử đăng nhập bằng tài khoản quản trị hiện có, kiểm tra menu và ảnh. Không cần chạy lại SQL để deploy frontend.
+Mở https://app.netlify.com/drop khi đã đăng nhập, kéo thư mục `dist` hoặc `homelody-netlify.zip` vào để deploy. Cách này không tự cập nhật từ GitHub.
 
-## Cách upload thủ công
+Tạo lại bản upload khi mã nguồn thay đổi:
 
 ```powershell
 node scripts/build-site.mjs
-Compress-Archive -Path .\dist\* -DestinationPath .\homelody-cloudflare-pages.zip -Force
+Compress-Archive -Path .\dist\* -DestinationPath .\homelody-netlify.zip -Force
 ```
 
-Tạo Pages bằng **Direct Upload / Upload assets**, kéo file ZIP hoặc thư mục `dist` vào, rồi deploy. ZIP có `index.html` ở gốc. Direct Upload không tự cập nhật từ GitHub; muốn tự deploy thì chọn Git integration ngay từ đầu. Đây là hai cách tạo project khác nhau.
+Chỉ upload `dist` hoặc ZIP đã build, không upload toàn bộ repository. ZIP có `index.html` ở gốc.
 
 ## Nội dung bản deploy
 
-- Chỉ có `index.html`, `404.html`, `_headers`, `admin/`, `assets/` và `public/` cùng giấy phép thư viện SheetJS.
-- Không phục vụ `.git/`, `reports/`, `outputs/`, `scripts/`, `supabase/`, bản sao lưu hay tài liệu nội bộ.
-- `assets/js/config.js` dùng publishable key được phép nằm trong trình duyệt. Không thay bằng secret key/service-role key.
-- Gói build kiểm tra giới hạn 25 MiB/tệp và 20.000 tệp của Pages Free.
-- Hosting frontend miễn phí trong giới hạn Free; Supabase và tên miền riêng có gói/chi phí riêng. Địa chỉ `pages.dev` không cần mua tên miền.
+- Chỉ có trang chủ, trang 404, cấu hình headers, `admin/`, `assets/`, `public/` và giấy phép SheetJS.
+- Không phục vụ `.git/`, `reports/`, `outputs/`, `scripts/`, `supabase/` hoặc bản sao lưu.
+- `assets/js/config.js` chứa publishable key dùng cho trình duyệt. Không dùng secret key hoặc service-role key ở frontend.
+- Netlify Free có hạn mức theo credits; xem Usage trong tài khoản. Không cần mua tên miền để dùng `netlify.app`. Supabase có hạn mức riêng.
 
-## Kiểm tra trước khi deploy
+## Kiểm tra tại máy
 
 ```powershell
 node scripts/build-site.mjs
-node scripts/check-supabase-connection.mjs
 python -m http.server 8000 --directory dist
 ```
 
-Mở http://localhost:8000/ và http://localhost:8000/admin/. Dừng server bằng Ctrl+C. Script kiểm tra Supabase chỉ đọc dữ liệu và kiểm tra ảnh, không sửa database.
+Mở http://localhost:8000/ và http://localhost:8000/admin/. Dừng server bằng Ctrl+C.
 
 ## Tài liệu chính thức
 
-- https://developers.cloudflare.com/pages/framework-guides/deploy-anything/
-- https://developers.cloudflare.com/pages/configuration/git-integration/
-- https://developers.cloudflare.com/pages/platform/limits/
-- https://developers.cloudflare.com/pages/get-started/direct-upload/
+- https://docs.netlify.com/build/configure-builds/file-based-configuration/
+- https://docs.netlify.com/deploy/create-deploys/
+- https://www.netlify.com/pricing/
