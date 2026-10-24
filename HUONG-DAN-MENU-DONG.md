@@ -89,3 +89,13 @@ Cách nhanh nhất là **Netlify Drop**: vào https://app.netlify.com/drop và k
 - Chrome (Playwright) ở 390, 768, 1024, 1440px: đổi món, bấm liên tục nhiều món, mở/đóng chi tiết từ đầu trang và từ thực đơn, phím Esc, chế độ giảm chuyển động. Không có lỗi JavaScript.
 - Trang quản lý chạy với thư viện Supabase thật (v2.116.0) trên một máy chủ Supabase **giả lập**: đăng nhập, sai mật khẩu, thêm/sửa/xoá món, tải và thay ảnh (ảnh cũ tự xoá), ẩn/hiện, sắp xếp, lưu thông tin quán, web đọc dữ liệu thật.
 - **Chưa** chạy trên một dự án Supabase thật, chưa thử Safari/iPhone thật. Lần đầu kết nối, hãy thử một vòng: thêm món → xem web → xoá món.
+# Nhập đồ uống bằng Excel hoặc Google Sheets
+
+1. Mở `/admin/`, vào **Thực đơn**, bấm **Tải file Excel mẫu**.
+2. Điền tab **Do uong** từ dòng 2. Bắt buộc có **Tên món**, **Nhóm**, **Giá (VNĐ)**. Tab **Huong dan** giải thích từng cột.
+3. Bấm **Nhập từ sheet**, chọn file `.xlsx` hoặc `.csv` UTF-8 rồi xem trước kết quả kiểm tra.
+4. Bấm **Nhập … món hợp lệ**. Các dòng lỗi và món trùng tên + nhóm được bỏ qua. Chỉ thêm món mới; không ghi đè hoặc xóa món cũ.
+
+Có thể mở file mẫu trong Google Sheets, điền dữ liệu rồi tải về dạng Microsoft Excel (.xlsx). Tối đa 500 dòng dữ liệu và 5MB mỗi lần. Không dùng công thức trong dữ liệu nhập.
+
+Cột **Link ảnh** nhận URL hoặc đường dẫn ảnh có sẵn trên website. Ảnh chèn trong ô Excel không được nhập; để trống link rồi dùng **Sửa món** để tải ảnh từ máy. Khi đang ở chế độ xem thử, dữ liệu chỉ lưu trên trình duyệt đang dùng.

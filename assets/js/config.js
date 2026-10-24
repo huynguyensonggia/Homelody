@@ -11,8 +11,8 @@
  * Hai giá trị này được phép công khai. TUYỆT ĐỐI không dán "secret" / "service_role" key vào đây.
  */
 window.HOMELODY_CONFIG = {
-  supabaseUrl: '',
-  supabaseKey: '',
+  supabaseUrl: 'https://qtoiphhaxmqkuggsiidy.supabase.co',
+  supabaseKey: 'sb_publishable_nRz6yKlHQhGYNx3SrNdL8g_mMJzFLWL',
 
   // Tên bucket lưu ảnh món (tạo sẵn bởi supabase/setup.sql)
   imageBucket: 'menu-images',
@@ -119,12 +119,14 @@ window.HOMELODY_CONFIG = {
   productDisplayOverrides: {},
   menuCategories: [
     { name: 'Cà phê Việt', en: 'Vietnamese Coffee', aliases: ['Cà phê', 'Coffee', 'Cà Phê Việt (Vietnamese Coffee)'] },
+    { name: 'Bánh ngọt & tráng miệng', en: 'Pastries & Desserts', aliases: ['Bánh', 'Bánh ngọt', 'Bánh Mì Ngọt (Pastries)', 'Bánh Ngọt & Tráng Miệng (Cakes & Desserts)', 'Bánh Ngọt & Tráng Miệng (Pastries & Desserts)'] },
+    { name: 'Dừa', en: 'Coco & More', aliases: ['Coco & More', 'Dừa (Coco & More)'] },
     { name: 'Cà phê Ý', en: 'Italian Coffee', aliases: ['Cà phê máy', 'Espresso', 'Cà Phê Ý (Italian Coffee)'] },
-    { name: 'Bánh', en: 'Pastry', aliases: ['Bánh ngọt', 'Bánh Mì Ngọt (Pastries)', 'Bánh Ngọt & Tráng Miệng (Cakes & Desserts)'] },
-    { name: 'Brunch', en: 'Brunch' },
     { name: 'Trà', en: 'Tea', aliases: ['Trà & Matcha', 'Tea', 'Trà (Tea)'] },
     { name: 'Nước ép', en: 'Fruit Juice', aliases: ['Nước Ép (Fruit Juice)'] },
-    { name: 'Đá xay', en: 'Ice-blended' },
-    { name: 'Dừa', en: 'Coconut', aliases: ['Coco & More', 'Dừa (Coco & More)'] }
+    { name: 'Đá xay', en: 'Ice Blended', aliases: ['Đá Xay (Ice Blended)'] },
+    { name: 'Thêm', en: 'Extras', aliases: ['Extras', 'Thêm (Extras)'] },
+    { name: 'Sinh tố', en: 'Smoothie' },
+    { name: 'Brunch', en: 'Brunch' }
   ]
 };

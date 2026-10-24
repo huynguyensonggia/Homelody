@@ -105,6 +105,7 @@
     return {
       address: str(r.address), hours: str(r.hours), phone: str(r.phone),
       directionsUrl: str(r.directions_url), contactUrl: str(r.contact_url),
+      storyImages: r.story_images, spaceImages: r.space_images,
       social: { Instagram: str(r.instagram_url), Facebook: str(r.facebook_url), TikTok: str(r.tiktok_url) }
     };
   }
@@ -142,6 +143,25 @@
       return demoData();
     });
   }
+
+  function renderGalleryImages(selector, saved, defaults) {
+    $$(selector).forEach(function (img, i) {
+      var row = Array.isArray(saved) && saved[i] && saved[i].image_url ? saved[i] : defaults[i];
+      if (!row || !/^(https?:\/\/|data:image\/(png|jpeg|webp);base64,|public\/)/i.test(row.image_url)) return;
+      img.onload = function () { img.hidden = false; };
+      img.hidden = false;
+      img.src = row.image_url;
+      img.alt = typeof row.image_alt === 'string' ? row.image_alt : '';
+    });
+  }
+  function renderSiteImages(shop) {
+    shop = shop || {};
+    renderGalleryImages('[data-story-stack] .story__card img', shop.storyImages, window.HOMELODY_STORY_IMAGES || []);
+    renderGalleryImages('#khong-gian .space-card > img', shop.spaceImages, window.HOMELODY_SPACE_IMAGES || []);
+  }
+  if (!isConfigured()) window.addEventListener('storage', function (event) {
+    if (event.key === 'homelody:admin-demo') renderSiteImages(demoData().shop);
+  });
 
   /* ================================================================== 2. HEADER */
   (function setupHeader() {
@@ -1149,6 +1169,7 @@
     renderMenu();
     setupMenuReveal();
     renderShop(data.shop);
+    renderSiteImages(data.shop);
 
     if (!FEATURED.length) {
       field.name.textContent = 'Thực đơn đang cập nhật';

@@ -3,6 +3,7 @@
  * Chưa có                  → "chế độ xem thử": lưu vào localStorage của trình duyệt này,
  *                            trang web chính (cùng trình duyệt) sẽ đọc lại để xem trước.
  */
+import { buildImportPreview, readDrinkSheet } from './drink-import.mjs?v=20261023import';
 const CFG = window.HOMELODY_CONFIG || {};
 const FALLBACK = window.HOMELODY_FALLBACK || { drinks: [], shop: {} };
 const DEMO_KEY = 'homelody:admin-demo';
@@ -56,13 +57,25 @@ async function supabaseApi() {
       must(await sb.from('drinks').delete().eq('id', row.id));
       await this.removeImage(row.image_url);
     },
+    async countDrinks() {
+      const result = await sb.from('drinks').select('id', { count: 'exact', head: true });
+      must(result); return result.count;
+    },
+    async deleteAllDrinks() {
+      if (!(await this.isAdmin())) throw new Error('Tài khoản này chưa có quyền xóa sản phẩm.');
+      const result = await sb.from('drinks').delete({ count: 'exact' }).not('id', 'is', null);
+      must(result); return result.count;
+    },
+    async importDrinks(rows) {
+      return must(await sb.from('drinks').insert(rows).select());
+    },
     async setOrder(rows) {
       // only the rows whose position changed
       for (const r of rows) must(await sb.from('drinks').update({ sort_order: r.sort_order }).eq('id', r.id));
     },
-    async uploadImage(blob, baseName) {
+    async uploadImage(blob, baseName, folder = 'drinks') {
       const ext = blob.type === 'image/webp' ? 'webp' : 'png';
-      const path = `drinks/${Date.now()}-${slug(baseName) || 'mon'}.${ext}`;
+      const path = `${folder}/${crypto.randomUUID()}-${slug(baseName) || 'anh'}.${ext}`;
       must(await sb.storage.from(BUCKET).upload(path, blob, { contentType: blob.type, cacheControl: '31536000', upsert: false }));
       return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
     },
@@ -112,7 +125,7 @@ function demoApi() {
     async signIn(email) { sessionStorage.setItem(SESSION, email || 'demo'); return { email: email || 'demo' }; },
     async isAdmin() { return true; },
     async signOut() { sessionStorage.removeItem(SESSION); },
-    async listDrinks() { return structuredClone(state.drinks).sort((a, b) => a.sort_order - b.sort_order); },
+    async listDrinks() { state = read(); return structuredClone(state.drinks).sort((a, b) => a.sort_order - b.sort_order); },
     async saveDrink(row) {
       const copy = structuredClone(row);
       if (!copy.id) { copy.id = 'demo-' + Date.now(); state.drinks.push(copy); }
@@ -120,6 +133,17 @@ function demoApi() {
       write(state); return copy;
     },
     async deleteDrink(row) { state.drinks = state.drinks.filter((d) => d.id !== row.id); write(state); },
+    async countDrinks() { return read().drinks.length; },
+    async deleteAllDrinks() {
+      const current = read(), count = current.drinks.length;
+      const next = { ...current, drinks: [] };
+      write(next); state = next; return count;
+    },
+    async importDrinks(rows) {
+      const added = rows.map((row) => ({ ...structuredClone(row), id: 'demo-' + crypto.randomUUID() }));
+      const next = { ...state, drinks: [...state.drinks, ...added] };
+      write(next); state = next; return structuredClone(added);
+    },
     async setOrder(rows) {
       const map = new Map(rows.map((r) => [r.id, r.sort_order]));
       state.drinks.forEach((d) => { if (map.has(d.id)) d.sort_order = map.get(d.id); });
@@ -130,7 +154,10 @@ function demoApi() {
     },
     async removeImage() {},
     async getShop() { return structuredClone(state.shop); },
-    async saveShop(values) { state.shop = { ...state.shop, ...values }; write(state); return state.shop; }
+    async saveShop(values) {
+      const next = { ...state, shop: { ...state.shop, ...values } };
+      write(next); state = next; return structuredClone(state.shop);
+    }
   };
 }
 
@@ -208,7 +235,12 @@ async function boot() {
   try { api = configured ? await supabaseApi() : demoApi(); }
   catch (e) { showLogin('Không tải được thư viện Supabase. Kiểm tra mạng rồi tải lại trang.'); return; }
   const s = await api.session().catch(() => null);
-  if (s) enterApp(s); else showLogin();
+  if (s) {
+    try {
+      if (!(await api.isAdmin())) { await api.signOut(); showLogin('Tài khoản này chưa có quyền quản trị.'); return; }
+      enterApp(s);
+    } catch (e) { showLogin('Không kiểm tra được quyền quản trị: ' + errText(e)); }
+  } else showLogin();
 }
 
 function showLogin(msg) {
@@ -235,7 +267,7 @@ $('#login-form').addEventListener('submit', async (e) => {
 async function enterApp(s) {
   $('#login').hidden = true; $('#app').hidden = false;
   $('#user-email').textContent = s.email;
-  await Promise.all([loadDrinks(), loadShop()]);
+  await Promise.all([loadDrinks(), loadShop(), storyManager.load(), spaceManager.load()]);
 }
 
 $('#logout').addEventListener('click', async () => { await api.signOut(); location.reload(); });
@@ -273,6 +305,7 @@ async function loadDrinks() {
   catch (e) { $('#drink-list').innerHTML = `<p class="empty">Không tải được danh sách món: ${esc(errText(e))}</p>`; }
 }
 function renderList() {
+  $('#delete-all-drinks').disabled = !drinks.length;
   const q = $('#search').value.trim().toLowerCase();
   const list = $('#drink-list');
   const shown = drinks.filter((d) => !q || (d.name + ' ' + canonicalCat(d.category)).toLowerCase().includes(q));
@@ -472,6 +505,291 @@ $('#shop-form').addEventListener('submit', async (e) => {
     try { await api.saveShop(values); await loadShop(); toast('Đã lưu thông tin quán'); }
     catch (ex) { toast(errText(ex), true); }
   });
+});
+
+/* Cùng cơ chế upload cho từng nhóm ảnh, mỗi nhóm lưu riêng. */
+function createImageManager({ prefix, defaults: STORY_DEFAULTS, column, folder, title, labels, hints, ratios }) {
+const list = $('#' + prefix + '-image-list'), error = $('#' + prefix + '-error');
+const save = $('#save-' + prefix), cancel = $('#' + prefix + '-cancel'), form = $('#' + prefix + '-form');
+let storySaved = [], storyDraft = [], storyPending = new Map(), storyPreviews = new Map();
+let storyLoading = true, storySaving = false, storyProcessing = false, storyDirty = false;
+
+function resetStoryDraft() {
+  storyPreviews.forEach((url) => URL.revokeObjectURL(url));
+  storyPreviews.clear(); storyPending.clear();
+  storyDraft = structuredClone(storySaved); storyDirty = false;
+  renderStoryEditor();
+}
+async function loadStoryImages() {
+  storyLoading = true;
+  try {
+    const shop = await api.getShop();
+    storySaved = STORY_DEFAULTS.map((fallback, i) => {
+      const saved = Array.isArray(shop[column]) && shop[column][i];
+      return saved && saved.image_url ? { image_url: saved.image_url, image_alt: saved.image_alt || '' } : { ...fallback };
+    });
+    storyLoading = false; resetStoryDraft();
+  } catch (ex) {
+    error.textContent = 'Không tải được ảnh: ' + errText(ex);
+    error.hidden = false;
+    list.setAttribute('aria-busy', 'false');
+  }
+}
+function storyButtons() {
+  const locked = storyLoading || storySaving || storyProcessing;
+  save.disabled = locked || !storyDirty;
+  cancel.disabled = locked || !storyDirty;
+  $$('input, [data-story-reset]', list).forEach((el) => { el.disabled = locked; });
+}
+function renderStoryEditor() {
+  list.setAttribute('aria-busy', 'false');
+  list.innerHTML = storyDraft.map((row, i) => `
+    <article class="story-image-card" data-story-index="${i}">
+      <div class="story-image-card__preview" style="aspect-ratio:${ratios[i]}"><img src="${esc(storyPreviews.get(i) || viewSrc(row.image_url))}" alt="${esc(row.image_alt)}"></div>
+      <div class="story-image-card__body">
+        <h2>${esc(labels[i])}</h2><p class="field__help">${esc(hints[i])}</p>
+        <label class="field"><span class="field__label">Chọn ảnh mới</span><input type="file" data-story-file accept="image/jpeg,image/png,image/webp" aria-label="Tải ảnh: ${esc(labels[i])}"></label>
+        <label class="field"><span class="field__label">Mô tả ảnh</span><input data-story-alt maxlength="160" value="${esc(row.image_alt)}"></label>
+        <button class="btn btn--ghost btn--sm" type="button" data-story-reset>Dùng ảnh ban đầu</button>
+        <p class="field__help" data-story-status>${storyPending.has(i) ? 'Ảnh mới · Chưa lưu' : ''}</p>
+      </div>
+    </article>`).join('');
+  storyButtons();
+}
+
+// Giữ nguyên toàn bộ ảnh; chỉ thu nhỏ và nén, không cắt theo ảnh ly đã tách nền.
+async function prepareStoryImage(file) {
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) throw new Error('Chọn ảnh JPG, PNG hoặc WebP.');
+  if (file.size > 15 * 1024 * 1024) throw new Error('Ảnh lớn quá (trên 15MB).');
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((resolve, reject) => {
+      const image = new Image(); image.onload = () => resolve(image);
+      image.onerror = () => reject(new Error('Không đọc được ảnh này.')); image.src = url;
+    });
+    const scale = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.max(1, Math.round(img.naturalWidth * scale));
+    canvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
+    const ctx = canvas.getContext('2d'); ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', .85));
+    if (!blob || blob.size > 3 * 1024 * 1024) throw new Error('Không nén được ảnh dưới 3MB. Vui lòng chọn ảnh nhỏ hơn.');
+    return blob;
+  } finally { URL.revokeObjectURL(url); }
+}
+list.addEventListener('change', async (event) => {
+  if (!event.target.matches('[data-story-file]') || storySaving || storyProcessing) return;
+  const file = event.target.files[0]; event.target.value = '';
+  if (!file) return;
+  const index = Number(event.target.closest('[data-story-index]').dataset.storyIndex);
+  const status = $('[data-story-status]', event.target.closest('article'));
+  storyProcessing = true; storyButtons(); status.textContent = 'Đang xử lý ảnh…';
+  error.hidden = true;
+  try {
+    const blob = await prepareStoryImage(file);
+    if (storyPreviews.has(index)) URL.revokeObjectURL(storyPreviews.get(index));
+    storyPending.set(index, blob); storyPreviews.set(index, URL.createObjectURL(blob));
+    storyDirty = true;
+  } catch (ex) { error.textContent = errText(ex); error.hidden = false; }
+  finally { storyProcessing = false; renderStoryEditor(); }
+});
+list.addEventListener('input', (event) => {
+  if (!event.target.matches('[data-story-alt]')) return;
+  const index = Number(event.target.closest('[data-story-index]').dataset.storyIndex);
+  storyDraft[index].image_alt = event.target.value; storyDirty = true; storyButtons();
+});
+list.addEventListener('click', (event) => {
+  if (!event.target.closest('[data-story-reset]') || storySaving || storyProcessing) return;
+  const index = Number(event.target.closest('[data-story-index]').dataset.storyIndex);
+  if (storyPreviews.has(index)) URL.revokeObjectURL(storyPreviews.get(index));
+  storyPreviews.delete(index); storyPending.delete(index);
+  storyDraft[index] = { ...STORY_DEFAULTS[index] }; storyDirty = true; renderStoryEditor();
+});
+cancel.addEventListener('click', () => { error.hidden = true; resetStoryDraft(); });
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  if (!storyDirty || storySaving || storyProcessing || storyLoading) return;
+  storySaving = true; storyButtons(); error.hidden = true;
+  const uploaded = [], next = structuredClone(storyDraft);
+  await busy(save, async () => {
+    try {
+      for (const [index, blob] of storyPending) {
+        const url = await api.uploadImage(blob, folder + '-' + (index + 1), folder);
+        uploaded.push(url); next[index].image_url = url;
+      }
+      await api.saveShop({ [column]: next });
+    } catch (ex) {
+      await Promise.allSettled(uploaded.map((url) => api.removeImage(url)));
+      error.textContent = /story_images|space_images|schema cache/i.test(errText(ex))
+        ? `Cần cập nhật cơ sở dữ liệu: chạy file supabase/${prefix}-images.sql trong Supabase SQL Editor, rồi lưu lại.`
+        : errText(ex);
+      error.hidden = false;
+      return;
+    }
+    const old = storySaved; storySaved = next; resetStoryDraft();
+    // Chỉ xóa ảnh thay thế sau khi các đường dẫn mới đã lưu thành công.
+    await Promise.allSettled(old.filter((row) => !next.some((r) => r.image_url === row.image_url)).map((row) => api.removeImage(row.image_url)));
+    toast(api.demo ? 'Đã lưu ảnh trên trình duyệt này' : 'Đã lưu ảnh ' + title);
+  });
+  storySaving = false; storyButtons();
+});
+window.addEventListener('beforeunload', (event) => {
+  if (storyDirty || storySaving || storyProcessing) { event.preventDefault(); event.returnValue = ''; }
+});
+
+return { load: loadStoryImages };
+}
+const storyManager = createImageManager({
+  prefix: 'story', defaults: window.HOMELODY_STORY_IMAGES || [], column: 'story_images', folder: 'story', title: 'Câu chuyện',
+  labels: ['Ảnh 1', 'Ảnh 2', 'Ảnh 3 · Chính giữa', 'Ảnh 4', 'Ảnh 5'],
+  hints: Array(5).fill('Ảnh dọc 3:4 · gợi ý 900 × 1200px'), ratios: Array(5).fill('3 / 4')
+});
+const spaceManager = createImageManager({
+  prefix: 'space', defaults: window.HOMELODY_SPACE_IMAGES || [], column: 'space_images', folder: 'space', title: 'Không gian',
+  labels: ['Trái trên · Một góc học bài trên tầng hai', 'Trái dưới · Một chỗ bên hiên', 'Bên phải · Homelody chào bạn'],
+  hints: ['Ảnh ngang 2:1 · 1200 × 600px', 'Ảnh ngang 2:1 · 1200 × 600px', 'Ảnh vuông 1:1 · 1200 × 1200px'],
+  ratios: ['2 / 1', '2 / 1', '1 / 1']
+});
+
+/* ---------- nhập danh sách đồ uống ---------- */
+const importDialog = $('#import-editor'), importFile = $('#import-file');
+const importError = $('#import-error'), importSummary = $('#import-summary');
+const importPreview = $('#import-preview'), importConfirm = $('#confirm-import');
+let importMatrix = null, importRows = [], importWorking = false, sheetLibrary;
+function loadSheetLibrary() {
+  if (!sheetLibrary) sheetLibrary = new Promise((resolve, reject) => {
+    const script = document.createElement('script'); script.src = 'vendor/xlsx-0.20.3.min.js';
+    script.onload = () => resolve(window.XLSX);
+    script.onerror = () => { script.remove(); sheetLibrary = null; reject(new Error('Không tải được thư viện đọc Excel. Hãy thử lại.')); };
+    document.head.appendChild(script);
+  });
+  return sheetLibrary;
+}
+function renderImportPreview() {
+  const count = (status) => importRows.filter((r) => r.status === status).length;
+  importSummary.textContent = `${count('ready')} món có thể nhập · ${count('duplicate')} món trùng sẽ bỏ qua · ${count('error')} dòng lỗi`;
+  importConfirm.disabled = !count('ready') || importWorking;
+  importConfirm.textContent = `Nhập ${count('ready')} món hợp lệ`;
+  importPreview.hidden = !importRows.length;
+  importPreview.innerHTML = `<table><thead><tr><th>Dòng</th><th>Tên món</th><th>Nhóm</th><th>Giá</th><th>Kết quả kiểm tra</th></tr></thead><tbody>${importRows.map((r) => `<tr data-status="${r.status}"><td>${r.line}</td><td>${esc(r.name)}</td><td>${esc(r.row.category || r.category)}</td><td>${r.row.price === null ? '—' : money(r.row.price)}</td><td>${r.status === 'error' ? esc(r.errors.join(' ')) : r.status === 'duplicate' ? 'Trùng tên và nhóm · Bỏ qua' : 'Thêm mới'}</td></tr>`).join('')}</tbody></table>`;
+}
+function lockImport(locked) {
+  importWorking = locked; importFile.disabled = locked;
+  $$('[data-import-close]', importDialog).forEach((b) => { b.disabled = locked; });
+  importConfirm.disabled = locked || !importRows.some((r) => r.status === 'ready');
+  if (!locked && importRows.length) importConfirm.textContent = `Nhập ${importRows.filter((r) => r.status === 'ready').length} món hợp lệ`;
+}
+$('#open-import').addEventListener('click', () => {
+  importMatrix = null; importRows = []; importFile.value = ''; importError.hidden = true;
+  importSummary.textContent = ''; importPreview.hidden = true; importPreview.innerHTML = ''; lockImport(false);
+  importConfirm.textContent = 'Nhập món hợp lệ'; importDialog.showModal();
+});
+$$('[data-import-close]', importDialog).forEach((b) => b.addEventListener('click', () => { if (!importWorking) importDialog.close(); }));
+importDialog.addEventListener('cancel', (event) => { if (importWorking) event.preventDefault(); });
+importFile.addEventListener('change', async () => {
+  const file = importFile.files[0]; importMatrix = null; importRows = [];
+  importError.hidden = true; importPreview.hidden = true; importSummary.textContent = ''; importConfirm.disabled = true;
+  if (!file) return;
+  lockImport(true); importSummary.textContent = 'Đang đọc và kiểm tra file…';
+  try {
+    if (!/\.(xlsx|csv)$/i.test(file.name)) throw new Error('Chọn file Excel .xlsx hoặc CSV UTF-8.');
+    if (file.size > 5 * 1024 * 1024) throw new Error('File vượt quá 5MB.');
+    const XLSX = await loadSheetLibrary();
+    importMatrix = readDrinkSheet(XLSX, await file.arrayBuffer());
+    importRows = buildImportPreview(importMatrix, drinks, CATS);
+    renderImportPreview();
+  } catch (ex) { importSummary.textContent = ''; importError.textContent = 'Không đọc được danh sách: ' + errText(ex); importError.hidden = false; }
+  finally { lockImport(false); }
+});
+$('#import-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  if (importWorking || !importMatrix || !importRows.some((r) => r.status === 'ready')) return;
+  lockImport(true); importError.hidden = true;
+  try {
+    // Đọc lại trước khi nhập để bỏ qua món đã được thêm ở lần lưu/tab khác.
+    drinks = await api.listDrinks();
+    importRows = buildImportPreview(importMatrix, drinks, CATS);
+    const rows = importRows.filter((r) => r.status === 'ready').map((r) => r.row);
+    if (!rows.length) { renderImportPreview(); renderList(); return; }
+    const order = drinks.reduce((max, r) => Math.max(max, r.sort_order || 0), 0);
+    rows.forEach((r, i) => { r.sort_order = order + (i + 1) * 10; });
+    importConfirm.textContent = 'Đang nhập…';
+    const added = await api.importDrinks(rows);
+    drinks.push(...added); renderList();
+    importRows = buildImportPreview(importMatrix, drinks, CATS); renderImportPreview();
+    importSummary.textContent = `Đã nhập ${added.length} món. Các dòng trùng hoặc có lỗi được bỏ qua. Bạn có thể sửa file và chọn lại để nhập phần còn lại.`;
+    toast(`Đã nhập ${added.length} món`);
+  } catch (ex) {
+    importError.textContent = 'Chưa xác nhận được kết quả nhập: ' + errText(ex) + ' Bạn có thể thử lại; admin sẽ kiểm tra lại món trùng trước khi nhập.';
+    importError.hidden = false;
+  } finally { lockImport(false); }
+});
+window.addEventListener('beforeunload', (event) => {
+  if (importWorking) { event.preventDefault(); event.returnValue = ''; }
+});
+
+$('#backup-data').addEventListener('click', async (event) => {
+  await busy(event.currentTarget, async () => {
+    try {
+      const [rows, shop] = await Promise.all([api.listDrinks(), api.getShop()]);
+      const blob = new Blob([JSON.stringify({ version: 1, exported_at: new Date().toISOString(), drinks: rows, shop }, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob), link = document.createElement('a');
+      link.href = url; link.download = 'homelody-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 10000);
+      toast('Đã tải bản sao lưu dữ liệu');
+    } catch (ex) { toast('Không sao lưu được: ' + errText(ex), true); }
+  });
+});
+
+/* ---------- xóa toàn bộ sản phẩm ---------- */
+const deleteAllDialog = $('#delete-all-dialog'), deleteAllForm = $('#delete-all-form');
+const deleteAllInput = $('#delete-all-confirmation'), deleteAllConfirm = $('#confirm-delete-all');
+const deleteAllError = $('#delete-all-error');
+let deleteAllWorking = false, deleteAllCount = 0;
+function updateDeleteAllButton() {
+  deleteAllConfirm.disabled = deleteAllWorking || !deleteAllCount || deleteAllInput.value.trim().toUpperCase() !== 'XOA';
+}
+$('#delete-all-drinks').addEventListener('click', async (event) => {
+  if (deleteAllWorking) return;
+  await busy(event.currentTarget, async () => {
+    try {
+      deleteAllCount = await api.countDrinks();
+      if (!deleteAllCount) { await loadDrinks(); toast('Không có sản phẩm nào để xóa.'); return; }
+      deleteAllForm.reset(); deleteAllError.hidden = true;
+      $('#delete-all-message').textContent = `Bạn sắp xóa toàn bộ ${deleteAllCount} sản phẩm, bao gồm cả món đang ẩn và món không khớp ô tìm kiếm. Thao tác này không thể hoàn tác trong admin.`;
+      updateDeleteAllButton(); deleteAllDialog.showModal();
+      $('[data-delete-all-close]', deleteAllDialog).focus();
+    } catch (ex) { toast('Không kiểm tra được danh sách sản phẩm: ' + errText(ex), true); }
+  });
+  $('#delete-all-drinks').disabled = !drinks.length;
+});
+deleteAllInput.addEventListener('input', updateDeleteAllButton);
+$$('[data-delete-all-close]', deleteAllDialog).forEach((btn) => btn.addEventListener('click', () => { if (!deleteAllWorking) deleteAllDialog.close(); }));
+deleteAllDialog.addEventListener('cancel', (event) => { if (deleteAllWorking) event.preventDefault(); });
+deleteAllForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  if (deleteAllWorking || !deleteAllCount || deleteAllInput.value.trim().toUpperCase() !== 'XOA') return;
+  deleteAllWorking = true; deleteAllError.hidden = true; deleteAllInput.disabled = true;
+  $$('[data-delete-all-close]', deleteAllDialog).forEach((btn) => { btn.disabled = true; });
+  await busy(deleteAllConfirm, async () => {
+    try {
+      const deleted = await api.deleteAllDrinks();
+      drinks = []; $('#search').value = ''; renderList();
+      try { localStorage.removeItem('homelody:menu:v1'); } catch { /* cache may be disabled */ }
+      deleteAllDialog.close();
+      toast(`Đã xóa ${deleted ?? deleteAllCount} sản phẩm`);
+    } catch (ex) {
+      deleteAllError.textContent = 'Không xác nhận được kết quả xóa: ' + errText(ex) + ' Hãy tải lại danh sách trước khi thử lại.';
+      deleteAllError.hidden = false;
+    }
+  });
+  deleteAllWorking = false; deleteAllInput.disabled = false;
+  $$('[data-delete-all-close]', deleteAllDialog).forEach((btn) => { btn.disabled = false; });
+  updateDeleteAllButton();
+});
+window.addEventListener('beforeunload', (event) => {
+  if (deleteAllWorking) { event.preventDefault(); event.returnValue = ''; }
 });
 
 boot();

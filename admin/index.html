@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css?v=20261016a">
+  <link rel="stylesheet" href="admin.css?v=20261023supabase">
 </head>
 <body>
   <!-- LOGIN -->
@@ -50,6 +50,7 @@
     <nav class="tabs" role="tablist" aria-label="Mục quản lý">
       <button class="tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-menu" id="tab-menu">Thực đơn</button>
       <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-shop" id="tab-shop" tabindex="-1">Thông tin quán</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-images" id="tab-images" tabindex="-1">Hình ảnh</button>
     </nav>
 
     <!-- MENU -->
@@ -58,8 +59,45 @@
         <input class="search" type="search" id="search" placeholder="Tìm món…" aria-label="Tìm món">
         <button class="btn btn--primary" type="button" id="add-drink">+ Thêm món</button>
       </div>
+      <div class="import-toolbar">
+        <button class="btn btn--outline btn--sm" type="button" id="open-import">Nhập từ sheet</button>
+        <button class="btn btn--ghost btn--sm" type="button" id="backup-data">Sao lưu dữ liệu</button>
+        <a class="link" href="../public/templates/homelody-import-do-uong.xlsx" download>Tải file Excel mẫu ↓</a>
+        <button class="btn btn--danger-ghost btn--sm" type="button" id="delete-all-drinks" disabled>Xóa tất cả sản phẩm</button>
+      </div>
       <p class="hint" id="featured-hint"></p>
       <div id="drink-list" class="drink-list" aria-live="polite"></div>
+    </section>
+
+    <!-- STORY IMAGES -->
+    <section class="panel" id="panel-images" role="tabpanel" aria-labelledby="tab-images" hidden>
+      <form id="story-form">
+        <div class="story-manager-head">
+          <div><h1>Ảnh Câu chuyện</h1><p class="hint">5 ảnh trong cụm “Cứ tự nhiên như ở nhà.” Chọn ảnh để xem trước, rồi bấm Lưu ảnh.</p></div>
+          <a class="link" href="../#cau-chuyen" target="_blank" rel="noopener">Xem trên web ↗</a>
+        </div>
+        <p class="hint">Ưu tiên ảnh dọc 3:4. Nhận JPG, PNG, WebP tối đa 15MB; ảnh được tự nén trước khi lưu.</p>
+        <div class="story-image-grid" id="story-image-list" aria-busy="true"></div>
+        <p class="form-error" id="story-error" role="alert" hidden></p>
+        <div class="form-actions">
+          <button class="btn btn--ghost" type="button" id="story-cancel" disabled>Hủy thay đổi</button>
+          <button class="btn btn--primary" type="submit" id="save-story" disabled>Lưu ảnh</button>
+        </div>
+      </form>
+      <form id="space-form" class="space-image-manager">
+        <div class="story-manager-head">
+          <div><h1>Ảnh Không gian</h1><p class="hint">3 ảnh trong phần “Một góc nhỏ, ngồi lại lâu hơn.”</p></div>
+          <a class="link" href="../#khong-gian" target="_blank" rel="noopener">Xem trên web ↗</a>
+        </div>
+        <p class="hint">Hai ảnh bên trái: 1200 × 600px (2:1). Ảnh lớn bên phải: 1200 × 1200px (1:1). Giữ chủ thể ở giữa và chừa khoảng trống dưới cho tiêu đề. Trên điện thoại ảnh sẽ được cắt vừa khung.</p>
+        <p class="hint">Nhận JPG, PNG, WebP tối đa 15MB; ảnh được tự nén trước khi lưu.</p>
+        <div class="story-image-grid" id="space-image-list" aria-busy="true"></div>
+        <p class="form-error" id="space-error" role="alert" hidden></p>
+        <div class="form-actions">
+          <button class="btn btn--ghost" type="button" id="space-cancel" disabled>Hủy thay đổi</button>
+          <button class="btn btn--primary" type="submit" id="save-space" disabled>Lưu ảnh Không gian</button>
+        </div>
+      </form>
     </section>
 
     <!-- SHOP -->
@@ -98,6 +136,34 @@
       </form>
     </section>
   </div>
+
+  <dialog class="editor import-editor" id="import-editor" aria-labelledby="import-title">
+    <form id="import-form" class="editor__form">
+      <header class="editor__head"><h2 id="import-title">Nhập đồ uống từ sheet</h2><button class="icon-btn" type="button" data-import-close aria-label="Đóng">✕</button></header>
+      <div class="editor__body">
+        <p>Điền tab <b>Do uong</b> trong <a class="link" href="../public/templates/homelody-import-do-uong.xlsx" download>file Excel mẫu</a>, rồi chọn file để xem trước.</p>
+        <p class="hint">Chỉ thêm món mới. Món có cùng tên và cùng nhóm được bỏ qua. Nhận XLSX hoặc CSV UTF-8, tối đa 5MB và 500 món. Có thể điền trên Google Sheets rồi tải xuống dạng Excel.</p>
+        <label class="field"><span class="field__label">Chọn file danh sách đồ uống</span><input id="import-file" type="file" accept=".xlsx,.csv"></label>
+        <p class="hint">Ảnh: nhập link trong cột Link ảnh, hoặc tải ảnh từ máy sau bằng nút Sửa món. Ảnh chèn trong ô Excel không được nhập.</p>
+        <p id="import-summary" role="status" aria-live="polite"></p>
+        <p id="import-error" class="form-error" role="alert" hidden></p>
+        <div id="import-preview" class="import-preview" tabindex="0" aria-label="Bảng xem trước món nhập" hidden></div>
+      </div>
+      <footer class="editor__foot"><span class="spacer"></span><button class="btn btn--ghost" type="button" data-import-close>Đóng</button><button class="btn btn--primary" type="submit" id="confirm-import" disabled>Nhập món hợp lệ</button></footer>
+    </form>
+  </dialog>
+
+  <dialog class="editor" id="delete-all-dialog" aria-labelledby="delete-all-title" aria-describedby="delete-all-message">
+    <form class="editor__form" id="delete-all-form">
+      <header class="editor__head"><h2 id="delete-all-title">Xóa tất cả sản phẩm?</h2></header>
+      <div class="editor__body">
+        <p id="delete-all-message"></p>
+        <label class="field"><span class="field__label">Nhập <b>XOA</b> để xác nhận</span><input id="delete-all-confirmation" autocomplete="off" spellcheck="false" placeholder="XOA"></label>
+        <p class="form-error" id="delete-all-error" role="alert" hidden></p>
+      </div>
+      <footer class="editor__foot"><span class="spacer"></span><button class="btn btn--ghost" type="button" data-delete-all-close>Hủy</button><button class="btn btn--danger" type="submit" id="confirm-delete-all" disabled>Xóa tất cả</button></footer>
+    </form>
+  </dialog>
 
   <!-- DRINK EDITOR -->
   <dialog class="editor" id="editor" aria-labelledby="editor-title">
@@ -169,8 +235,9 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="../assets/js/config.js?v=20261020landing"></script>
+  <script src="../assets/js/config.js?v=20261024categories"></script>
   <script src="../assets/js/menu-data.js?v=20261016a"></script>
-  <script type="module" src="admin.js?v=20261016a"></script>
+  <script src="../assets/js/story-data.js?v=20261023import"></script>
+  <script type="module" src="admin.js?v=20261024study"></script>
 </body>
 </html>

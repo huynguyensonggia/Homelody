@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const scope = { window: {} };
+vm.runInNewContext(fs.readFileSync('assets/js/config.js', 'utf8'), scope);
+const cfg = scope.window.HOMELODY_CONFIG;
+assert.ok(cfg.supabaseKey.startsWith('sb_publishable_'), 'Use a public browser key');
+const headers = { apikey: cfg.supabaseKey, 'Content-Type': 'application/json' };
+const get = async (path, options = {}) => {
+  const response = await fetch(cfg.supabaseUrl + path, { headers, ...options });
+  assert.ok(response.ok, `HTTP ${response.status} ${path}`);
+  return response.json();
+};
+const drinks = await get('/rest/v1/drinks?select=*&is_active=eq.true&order=sort_order.asc');
+assert.ok(Array.isArray(drinks));
+const shops = await get('/rest/v1/shop_settings?select=*&id=eq.1');
+assert.equal(shops.length, 1);
+assert.equal(await get('/rest/v1/rpc/is_admin', { method: 'POST', body: '{}' }), false);
+console.log(`PASS public data API: ${drinks.length} active products, one shop record; anonymous users are not admins`);
+const allImages = [...drinks.map((r) => r.image_url), ...(shops[0].story_images || []).map((r) => r.image_url), ...(shops[0].space_images || []).map((r) => r.image_url)];
+const urls = [...new Set(allImages.filter((url) => url?.startsWith(cfg.supabaseUrl)))];
+const failures = [];
+await Promise.all(urls.map(async (url) => { const r = await fetch(url, { method: 'HEAD' }); if (!r.ok) failures.push({ url, status: r.status }); }));
+assert.deepEqual(failures, [], 'All migrated storage images must load');
+console.log(`PASS ${urls.length} migrated images load from Supabase Storage`);

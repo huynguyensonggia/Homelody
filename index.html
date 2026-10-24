@@ -145,12 +145,7 @@
       </div>
     </section>
 
-    <!-- 3. CÂU CHUYỆN — cụm ảnh xếp chồng bung ra theo tiến độ cuộn + đoạn chữ rõ dần (main.js → setupStory).
-         Không có JS / giảm chuyển động: ảnh ở trạng thái bung hoàn thiện, chữ rõ hoàn toàn.
-         Ảnh: vườn = ảnh thật mặt tiền quán (cắt lối đi); đồ uống, bánh = ảnh sản phẩm trong "Tai lieu gg map".
-         Hiện dùng 3 ảnh. Khi có ảnh thật cho hiên và quầy (ảnh dọc 3:4), thêm 2 thẻ ngoài cùng — cụm tự chuyển sang 5 ảnh:
-         <figure class="story__card story__card--outer" data-pos="-2"><img src="assets/images/story-hien.webp" width="600" height="800" alt="…" loading="lazy" decoding="async"></figure>
-         <figure class="story__card story__card--outer" data-pos="2"><img src="assets/images/story-quay.webp" width="600" height="800" alt="…" loading="lazy" decoding="async"></figure> -->
+    <!-- 3. CÂU CHUYỆN — 5 ảnh quản lý tại /admin → Hình ảnh. -->
     <div class="story-space" data-story-space>
     <section class="story" id="cau-chuyen" aria-labelledby="story-title">
       <div class="story__inner container">
@@ -159,26 +154,26 @@
 
         <div class="story__stack story__carousel" data-story-stack>
           <figure class="story__card story__card--near" data-pos="-1">
-            <div class="content"><img src="public/cau-chuyen/story-do-uong.webp" width="600" height="800" alt="Ly matcha kem trong cốc giấy in logo Homelody đặt trên bàn gỗ" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="public/cau-chuyen/story-nhan-vien.png" width="600" height="800" alt="Nhân viên Homelody" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="story__card story__card--near" data-pos="1">
-            <div class="content"><img src="public/cau-chuyen/story-banh.webp" width="600" height="800" alt="Bánh sừng bò trên đĩa kim loại, đặt trên bàn gỗ" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="public/cau-chuyen/story-ho-ca.png" width="600" height="800" alt="Hồ cá trong khu vườn Homelody" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="story__card story__card--center" data-pos="0">
-            <div class="content"><img src="public/cau-chuyen/story-vuon.webp" width="600" height="800" alt="Lối đi lát đá dẫn vào cửa Homelody, chậu gốm và dương xỉ hai bên" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="public/cau-chuyen/story-vuon.png" width="600" height="800" alt="Khu vườn xanh tại Homelody" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="story__card">
-            <div class="content"><img src="public/cau-chuyen/story-garden-seating.png" width="1024" height="1536" alt="Khách ngồi thư giãn dưới tán cây và ô che trong khu vườn Homelody" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="public/cau-chuyen/story-garden-seating.png" width="600" height="800" alt="Khách ngồi thư giãn trong khu vườn Homelody" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="story__card">
-            <div class="content"><img src="public/cau-chuyen/story-garden-coffee.png" width="1122" height="1402" alt="Ly cà phê bên ghế gỗ giữa sân vườn rải sỏi và cây xanh" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="public/cau-chuyen/story-khach-hang.png" width="600" height="800" alt="Khách ghé Homelody" loading="lazy" decoding="async"></div>
           </figure>
         </div>
 
         <div class="story__text story__text--desktop" data-story-text>
-          <p class="story__body">Homelody là một ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An. Men theo lối đá, qua những tán dừa và chậu sen, bạn sẽ gặp cánh cửa gỗ cùng những bộ bàn ghế màu nâu sẫm.</p>
-          <p class="story__body">Cứ chọn một chỗ bạn thích: trong nhà, ngoài hiên, bên hồ cá koi hay cạnh cây đàn piano giữa vườn. Tầng hai có không gian điều hòa mát mẻ, dành cho những buổi học tập hay làm việc cần sự thoải mái.</p>
-          <p class="story__body">Buổi sáng, nắng xuyên qua tán lá. Khi trời tối, ánh đèn vàng làm ấm cả hiên nhà. Bạn có thể mang theo laptop, một cuốn sách, hoặc ghé cùng cả gia đình.</p>
+          <p class="story__body">Homelody là ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An.</p>
+          <p class="story__body">Chọn chỗ bên hiên, cạnh hồ cá koi hay cây đàn piano. Tầng hai có điều hòa cho những buổi học tập và làm việc.</p>
+          <p class="story__body">Mang theo laptop, một cuốn sách, hoặc ghé cùng gia đình. Cứ tự nhiên như ở nhà.</p>
         </div>
         <div class="story__text story__text--mobile" data-story-text>
           <p class="story__body">Homelody là ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An.</p>
@@ -199,7 +194,7 @@
         <div class="space-cards">
           <figure class="space-card space-card--path" tabindex="0">
             <img src="public/khong-gian/story-vuon.webp" width="600" height="800" alt="Lối đá dẫn vào cửa Homelody, chậu gốm và dương xỉ hai bên" loading="lazy" decoding="async">
-            <figcaption><span class="space-card__title">Theo lối vườn xanh</span><span class="space-card__text">Một chút xanh mát ngay từ những bước chân đầu tiên.</span></figcaption>
+            <figcaption><span class="space-card__title">Một góc học bài trên tầng hai</span><span class="space-card__text">Không gian yên tĩnh, mát mẻ để bạn tập trung học bài.</span></figcaption>
           </figure>
           <figure class="space-card space-card--coffee" tabindex="0">
             <img src="public/khong-gian/hero-coffee-banner-960.webp" width="960" height="540" alt="Tách cà phê trên bàn gỗ dưới hiên, giữa nắng và cây xanh" loading="lazy" decoding="async">
@@ -399,9 +394,10 @@
 
   <!-- Dữ liệu: config.js (kết nối Supabase) → menu-data.js (dự phòng) → main.js (giao diện + chuyển động).
        ?v=… giúp trình duyệt tải bản mới sau mỗi lần sửa file: đổi số này khi cập nhật CSS/JS. -->
-  <script src="assets/js/config.js?v=20261021fourstats"></script>
+  <script src="assets/js/config.js?v=20261024categories"></script>
   <script src="assets/js/menu-data.js?v=20261020landing"></script>
-  <script src="assets/js/main.js?v=20261023menucarousel" defer></script>
+  <script src="assets/js/story-data.js?v=20261023galleries"></script>
+  <script src="assets/js/main.js?v=20261023galleries" defer></script>
   <script src="assets/js/landing.js?v=20261023reviewfooter" defer></script>
 </body>
 </html>
