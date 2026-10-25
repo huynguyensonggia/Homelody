@@ -37,6 +37,9 @@ Chỉ upload `dist` hoặc ZIP đã build, không upload toàn bộ repository. 
 - Dashboard: https://app.netlify.com/projects/homelody-hoian-preview
 - Project ID: `eac0361a-8fd9-48e8-a559-0ed74a6d096c`.
 - Deploy bằng Netlify Drop; chưa kết nối tự cập nhật từ GitHub. Khi thay đổi mã, build và upload lại vào chính project này.
+- Bản tối ưu đã publish lúc 12:30 ngày 24/10/2026 (GMT+7), deploy ID `6adc425abe8fe8f7523efa78`.
+- Bản cập nhật UI/UX đã publish lúc 23:42 ngày 24/10/2026 (GMT+7), deploy ID `6adce00e1bb8fcf37f92e8e6`. Đã kiểm tra trực tiếp production: chọn danh mục mobile, vuốt ngang, tổng51 món, link GrabFood/ShopeeFood, thông tin ghé quán, nội dung rút gọn và bản đồ tải theo yêu cầu.
+- PageSpeed Insights sau deploy: [báo cáo mobile/desktop](https://pagespeed.web.dev/analysis/https-homelody-hoian-preview-netlify-app/bg9yoy6918?form_factor=mobile). Mobile Performance 92, LCP 2,7s, CLS 0,003; desktop Performance 96, LCP 0,6s, CLS 0,009. Đây là số đo lab của một lượt chạy, chưa có dữ liệu người dùng thực tế.
 
 ## Kiểm tra tại máy
 
@@ -46,6 +49,16 @@ python -m http.server 8000 --directory dist
 ```
 
 Mở http://localhost:8000/ và http://localhost:8000/admin/. Dừng server bằng Ctrl+C.
+
+## Ảnh tối ưu và kiểm tra hiệu năng
+
+Landing page dùng WebP trong `assets/images/optimized/`, với ánh xạ từ URL gốc ở `assets/js/image-variants.js`. Card menu dùng bản 400px, ảnh sản phẩm dùng tối đa 800px, Câu chuyện dùng 480px, Không gian có `srcset` 480/960px. Logo nhỏ dùng `assets/images/homelody-logo.webp`. Ảnh gốc vẫn giữ để dùng trong quản trị và làm nguồn xuất lại.
+
+Build Netlify chỉ cần `node scripts/build-site.mjs`, không cần tải ảnh hoặc cài Pillow. Các file tối ưu đã có trong mã nguồn.
+
+Khi thay ảnh nguồn ở máy, chạy `python scripts/build-image-variants.py` (cần Pillow) để tạo lại WebP. Script giữ các ánh xạ ảnh đã tải từ Supabase. Để tạo bản nhỏ cho ảnh mới trên quản trị, dùng `--snapshot <file.json>` với dữ liệu công khai dạng `{ "drinks": [...], "shop": [...] }` từ bảng `drinks` và `shop_settings`, rồi build và deploy lại. URL ảnh mới chưa có trong ánh xạ vẫn dùng ảnh gốc, không làm hỏng trang. Script không sửa database.
+
+Đo bằng `scripts/check-performance.cjs`; báo cáo và ảnh kiểm tra nằm trong `reports/performance/`. Số đo cục bộ dùng dữ liệu công khai cố định để so sánh, không thay thế PageSpeed Insights trên URL đã deploy.
 
 ## Tài liệu chính thức
 

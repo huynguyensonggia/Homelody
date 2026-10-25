@@ -2,6 +2,21 @@
 (function () {
   'use strict';
   var cfg = window.HOMELODY_CONFIG || {}, links = cfg.links || {};
+  (function setupVisitMap() {
+    var frame = document.getElementById('destination-map');
+    var toggle = document.querySelector('[data-map-toggle]');
+    var help = document.querySelector('[data-map-help]');
+    if (!frame || !toggle || !help) return;
+    toggle.hidden = false;
+    toggle.addEventListener('click', function () {
+      var open = toggle.getAttribute('aria-expanded') !== 'true';
+      if (open && !frame.hasAttribute('src')) frame.src = frame.dataset.mapSrc;
+      frame.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? 'Ẩn bản đồ' : 'Xem bản đồ';
+      help.hidden = !open;
+    });
+  })();
   (function setupHeroInk() {
     var media = document.querySelector('.hero__media');
     if (!media) return;
@@ -171,20 +186,33 @@
     var counters = [], frame = 0, started = false;
     section.querySelectorAll('[data-stat-value]').forEach(function (el) {
       var key = el.dataset.statValue, value = data[key];
+      // Menu total is rendered from the same catalogue as the category selector in main.js.
+      if (key === 'menuCount') return;
       if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 ||
           (key === 'rating' && value > 5) || (key === 'foundedYear' && value < 1)) return;
       var decimals = key === 'rating' ? 1 : 0;
       var format = new Intl.NumberFormat('vi-VN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals, useGrouping: key !== 'foundedYear' });
       // A calendar year should remain meaningful while the other metrics count up.
       var animated = key !== 'foundedYear';
-      if (animated) counters.push({ el: el, value: value, format: format });
-      el.textContent = format.format(animated && !reduced.matches ? 0 : value);
+      // The final text reserves its exact width and remains readable to assistive technology.
+      // Only the overlaid, decorative number changes during the count-up.
+      el.textContent = format.format(value);
+      if (animated && !reduced.matches) {
+        var display = document.createElement('span');
+        display.className = 'stats__value'; display.setAttribute('aria-hidden', 'true');
+        display.textContent = format.format(0);
+        el.classList.add('is-counting'); el.appendChild(display);
+        counters.push({ el: display, reserve: el, key: key, value: value, format: format });
+      }
       var suffix = section.querySelector('[data-stat-suffix="' + key + '"]');
       if (suffix) suffix.hidden = false;
     });
     function finish() {
       cancelAnimationFrame(frame);
-      counters.forEach(function (counter) { counter.el.textContent = counter.format.format(counter.value); });
+      counters.forEach(function (counter) {
+        counter.reserve.classList.remove('is-counting');
+        counter.el.remove();
+      });
     }
     function start() {
       if (started || !counters.length) return;
@@ -197,7 +225,7 @@
         var eased = 1 - Math.pow(1 - progress, 3);
         counters.forEach(function (counter) {
           var value = counter.value * eased;
-          counter.el.textContent = counter.format.format(counter.el.dataset.statValue === 'rating' ? value : Math.floor(value));
+          counter.el.textContent = counter.format.format(counter.key === 'rating' ? value : Math.floor(value));
         });
         if (progress < 1) frame = requestAnimationFrame(tick); else finish();
       }

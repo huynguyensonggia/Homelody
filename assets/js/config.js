@@ -24,7 +24,6 @@ window.HOMELODY_CONFIG = {
   statistics: {
     reviewCount: 265,
     rating: 4.7,
-    menuCount: 60,
     foundedYear: 2024
   },
 
@@ -106,8 +105,8 @@ window.HOMELODY_CONFIG = {
   // Nguồn duy nhất cho các liên kết công khai. URL thiếu được giữ trống.
   links: {
     ZALO_URL: 'https://zalo.me/0935983263',
-    GRABFOOD_URL: '', // TODO: URL trang quán trên GrabFood.
-    SHOPEEFOOD_URL: '', // TODO: URL trang quán trên ShopeeFood.
+    GRABFOOD_URL: 'https://app.grab.com/s/truTkjsa',
+    SHOPEEFOOD_URL: 'https://shopeefood.vn/u/AqvsPop',
     MAPS_URL: 'https://www.google.com/maps/place/Homelody+Coffee+%26+Brunch+Hoi+An/@15.8815697,108.3379925,17z/data=!3m1!4b1!4m6!3m5!1s0x31420d9a44676551:0x8cc83eb21a505ba7!8m2!3d15.8815697!4d108.3379925!16s%2Fg%2F11wj47gg6n?hl=vi',
     PHONE: 'tel:0773558945',
     FACEBOOK_URL: 'https://www.facebook.com/Homelody.coffee',

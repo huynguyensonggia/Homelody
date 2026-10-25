@@ -24,3 +24,7 @@ Desktop.ini
 /homelody-cloudflare-pages.zip
 /homelody-netlify.zip
 /.netlify/
+
+# Local performance baselines and downloaded originals
+/reports/performance/before-site/
+/reports/performance/source-images/

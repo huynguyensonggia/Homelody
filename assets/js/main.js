@@ -28,7 +28,19 @@
     });
   }
   function str(v) { return typeof v === 'string' ? v.trim() : ''; }
-  function imgSrc(d) { return d.image || ''; }
+  var imageVariants = window.HOMELODY_IMAGE_VARIANTS || {};
+  function imageVariant(url, width) {
+    var variants = imageVariants[url];
+    return variants && (variants.find(function (v) { return v.width >= width; }) || variants[variants.length - 1]);
+  }
+  function imgSrc(d, width) {
+    var url = d.image || '', variant = imageVariant(url, width || 800);
+    return variant ? variant.src : url;
+  }
+  function imageAttrs(d, width) {
+    var variant = imageVariant(d.image, width);
+    return 'src="' + esc(imgSrc(d, width)) + '" width="' + (variant ? variant.width : 400) + '" height="' + (variant ? variant.height : 780) + '"';
+  }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function cancelAll(list) { list.forEach(function (a) { try { a.cancel(); } catch (e) { /* already gone */ } }); list.length = 0; }
   function done(anim) { return anim.finished.catch(function () {}); }
@@ -150,8 +162,23 @@
       if (!row || !/^(https?:\/\/|data:image\/(png|jpeg|webp);base64,|public\/)/i.test(row.image_url)) return;
       img.onload = function () { img.hidden = false; };
       img.hidden = false;
-      img.src = row.image_url;
+      var variant = imageVariant(row.image_url, selector.indexOf('khong-gian') >= 0 ? 960 : 480);
+      img.removeAttribute('srcset'); img.removeAttribute('sizes');
+      if (variant) {
+        img.width = variant.width; img.height = variant.height;
+        if (selector.indexOf('khong-gian') >= 0) {
+          img.srcset = imageVariants[row.image_url].map(function (v) { return v.src + ' ' + v.width + 'w'; }).join(', ');
+          img.sizes = '(max-width: 599px) calc(100vw - 40px), (max-width: 959px) calc((100vw - 64px) / 2), 650px';
+        }
+      }
+      var source = variant ? variant.src : row.image_url;
+      if (img.src !== new URL(source, document.baseURI).href) img.src = source;
       img.alt = typeof row.image_alt === 'string' ? row.image_alt : '';
+      // Correct the legacy description only for this uploaded photo; keep later admin edits.
+      if (row.image_url === 'https://qtoiphhaxmqkuggsiidy.supabase.co/storage/v1/object/public/menu-images/import-1aa0c97136c1294553fc.webp' &&
+          img.alt === 'Lối đá dẫn vào cửa Homelody, chậu gốm và dương xỉ hai bên') {
+        img.alt = 'Khách ngồi dùng laptop tại bàn gỗ cạnh cửa sổ và kệ sách ở Homelody';
+      }
     });
   }
   function renderSiteImages(shop) {
@@ -404,6 +431,9 @@
     var img = new Image();
     img.className = 'glass__img';
     img.alt = d.alt;
+    var variant = imageVariant(d.image, 800);
+    img.width = variant ? variant.width : 400;
+    img.height = variant ? variant.height : 780;
     img.decoding = 'async'; img.draggable = false;
     var src = imgSrc(d);
     if (/^https?:\/\//i.test(src) && src.indexOf(location.origin) !== 0) img.crossOrigin = 'anonymous';   // để đọc được vùng nhìn thấy (Supabase cho phép CORS)
@@ -572,7 +602,7 @@
   function renderSelector() {
     optionsRoot.innerHTML = FEATURED.map(function (d, i) {
       return '<button class="option" type="button" role="radio" aria-checked="false" tabindex="-1" data-drink="' + i + '">' +
-        '<span class="option__thumb"><img src="' + esc(imgSrc(d)) + '" alt="" width="400" height="780" decoding="async"></span>' +
+        '<span class="option__thumb"><img ' + imageAttrs(d, 400) + ' alt="" loading="lazy" decoding="async"></span>' +
         '<span class="option__text"><span class="option__name" title="' + esc(d.name) + '">' + esc(d.name) + '</span>' +
         '<span class="option__price">' + formatPrice(d.price) + '</span></span></button>';
     }).join('');
@@ -680,7 +710,12 @@
 
   function fillDialog(d) {
     var fi = FEATURED.indexOf(d);
-    if (d.image) { dfield.image.src = imgSrc(d); dfield.image.hidden = false; }
+    if (d.image) {
+      var variant = imageVariant(d.image, 800);
+      dfield.image.width = variant ? variant.width : 400;
+      dfield.image.height = variant ? variant.height : 780;
+      dfield.image.src = imgSrc(d); dfield.image.hidden = false;
+    }
     else { dfield.image.removeAttribute('src'); dfield.image.hidden = true; }
     dfield.image.alt = d.alt;
     dfield.label.textContent = fi > -1 ? pad(fi + 1) + ' / ' + pad(FEATURED.length) + ' · Món được yêu thích' : categoryLabel(d.category);
@@ -871,7 +906,7 @@
         ' aria-label="' + esc(d.name + ', ' + formatPrice(d.price) + '. Xem chi tiết') + '">' +
         '<span class="menu-card__category"><span>' + esc(d.category) + '</span>' + cup + '</span>' +
         '<span class="menu-card__image">' +
-        (d.image ? '<img src="' + esc(d.image) + '" alt="" width="400" height="780" loading="lazy" decoding="async">' : '<span class="menu-card__symbol" aria-hidden="true">' + cup + '</span>') +
+        (d.image ? '<img ' + imageAttrs(d, 400) + ' alt="" loading="lazy" decoding="async">' : '<span class="menu-card__symbol" aria-hidden="true">' + cup + '</span>') +
         '<span class="menu-item__price">' + formatPrice(d.price) + '</span>' +
         '<span class="menu-card__more" aria-hidden="true">Xem thêm</span></span>' +
         '<span class="menu-item__body"><span class="menu-item__name">' + esc(d.name) + '</span>' +
@@ -928,6 +963,8 @@
     var panelEl = $('#menu-panel', root);
     var tk = ++menuToken;
     menuTab = k;
+    var categorySelect = $('#menu-category', root);
+    if (categorySelect) categorySelect.value = String(k);
     $$('.menu-tab[role="tab"]', root).forEach(function (t, j) {
       var on = j === k;
       t.setAttribute('aria-selected', on ? 'true' : 'false');
@@ -944,7 +981,7 @@
         ? menuTabs.slice(1).filter(function (g) { return g.items.length; }).map(function (g) {
             return '<section class="menu-group">' + groupHeading(g, 'h3') + groupList(g, true) + '</section>';
           }).join('')
-        : '<section class="menu-group">' + groupHeading(tab, 'h3') + groupList(tab) + '</section>';
+        : '<section class="menu-group menu-group--filtered">' + groupHeading(tab, 'h3') + groupList(tab, true) + '</section>';
       bindMenuItems(panelEl);
       bindMenuCarousels(panelEl);
     }
@@ -965,6 +1002,8 @@
   }
   function renderMenu() {
     clearMenuCarousels();
+    var menuCount = $('[data-stat-value="menuCount"]');
+    if (menuCount) menuCount.textContent = new Intl.NumberFormat('vi-VN').format(DRINKS.length);
     var root = $('[data-menu-list]');
     if (!root) return;
     if (!DRINKS.length) { root.innerHTML = '<p class="note">Thực đơn đang được cập nhật.</p>'; return; }
@@ -985,6 +1024,10 @@
     menuTabs = [{ name: 'Tất cả', all: true, items: DRINKS }].concat(groups);
     menuTab = Math.min(menuTab, menuTabs.length - 1);
     root.innerHTML =
+      '<div class="menu-category"><label for="menu-category">Chọn danh mục</label>' +
+      '<select id="menu-category" aria-controls="menu-panel">' + menuTabs.map(function (t, k) {
+        return '<option value="' + k + '">' + esc(t.name) + ' (' + t.items.length + ')</option>';
+      }).join('') + '</select></div>' +
       '<div class="menu-tabs" role="tablist" aria-label="Nhóm món">' + menuTabs.map(function (t, k) {
         return '<button class="menu-tab" type="button" role="tab" id="menu-tab-' + k + '" aria-controls="menu-panel" aria-selected="false" tabindex="-1" data-tab="' + k + '"' +
           (t.en ? ' title="' + esc(t.en) + '"' : '') + '>' + esc(t.name) + '</button>';
@@ -993,6 +1036,9 @@
       '</div>' +
       '<div id="menu-panel" role="tabpanel"></div>';
     var tabs = $$('.menu-tab[role="tab"]', root);
+    $('#menu-category', root).addEventListener('change', function (e) {
+      showMenuTab(Number(e.target.value), false, true);
+    });
     tabs.forEach(function (t, k) { t.addEventListener('click', function () { showMenuTab(k, false, true); }); });
     $('.menu-tabs', root).addEventListener('keydown', function (e) {
       var n = tabs.length, k = { ArrowRight: menuTab + 1, ArrowLeft: menuTab - 1, Home: 0, End: n - 1 }[e.key];
@@ -1187,6 +1233,9 @@
     var first = FEATURED[0];
     setStageTone(first);
     var g = currentGlass(), img = $('img', g);
+    var firstVariant = imageVariant(first.image, 800);
+    img.width = firstVariant ? firstVariant.width : 400;
+    img.height = firstVariant ? firstVariant.height : 780;
     if (img.getAttribute('src') !== imgSrc(first)) img.src = imgSrc(first);
     img.alt = first.alt;
     setTextNow(first);

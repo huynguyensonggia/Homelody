@@ -6,9 +6,29 @@
   <title>Homelody Coffee &amp; Brunch — Một góc nhà, giữa vườn xanh</title>
   <meta name="description" content="Homelody Coffee &amp; Brunch, Hội An — ngôi nhà tường vôi giữa khu vườn xanh. Ghé Homelody, chọn một ly bạn thích và ngồi lại dưới hiên nhà.">
   <meta name="theme-color" content="#2C2F1E">
-  <link rel="icon" href="data:,">  <!-- chưa có file logo/favicon chính thức -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="Homelody Coffee &amp; Brunch">
+  <meta property="og:title" content="Homelody Coffee &amp; Brunch — Một góc nhà, giữa vườn xanh">
+  <meta property="og:description" content="Homelody Coffee &amp; Brunch, Hội An — ngôi nhà tường vôi giữa khu vườn xanh. Ghé Homelody, chọn một ly bạn thích và ngồi lại dưới hiên nhà.">
+  <meta property="og:image" content="https://homelody-hoian-preview.netlify.app/assets/images/homelody-social.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt" content="Tách cà phê trên bàn gỗ dưới hiên Homelody, giữa nắng và cây xanh">
+  <meta property="og:url" content="https://homelody-hoian-preview.netlify.app/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Homelody Coffee &amp; Brunch — Một góc nhà, giữa vườn xanh">
+  <meta name="twitter:description" content="Homelody Coffee &amp; Brunch, Hội An — ngôi nhà tường vôi giữa khu vườn xanh. Ghé Homelody, chọn một ly bạn thích và ngồi lại dưới hiên nhà.">
+  <meta name="twitter:image" content="https://homelody-hoian-preview.netlify.app/assets/images/homelody-social.jpg">
+  <meta name="twitter:image:alt" content="Tách cà phê trên bàn gỗ dưới hiên Homelody, giữa nắng và cây xanh">
+  <link rel="icon" href="assets/images/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/png" href="assets/images/favicon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" sizes="180x180">
   <link rel="preload" fetchpriority="high" as="image" href="assets/images/hero-coffee-banner.webp" imagesrcset="assets/images/hero-coffee-banner-960.webp 960w, assets/images/hero-coffee-banner.webp 1672w" imagesizes="100vw">
-  <link rel="stylesheet" href="assets/css/site.min.css?v=20261023menucarousel">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm81Rb0.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm86Rb0bcw.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.min.css?v=20261025mobilespace">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -17,7 +37,7 @@
   <!-- Header: trong suốt trên ảnh hero, chuyển nền kem khi cuộn (main.js → setupHeader) -->
   <header class="site-header is-over-hero" data-header>
     <div class="site-header__inner container">
-      <a class="brand brand--with-logo" href="#top" aria-label="Homelody Coffee &amp; Brunch — về đầu trang"><img class="brand__logo" src="assets/images/homelody-logo-transparent.png" width="48" height="48" alt="" decoding="async"><span class="brand__wordmark"><span class="brand__name">Homelody</span><span class="brand__descriptor">COFFEE &amp; BRUNCH</span></span></a>
+      <a class="brand brand--with-logo" href="#top" aria-label="Homelody Coffee &amp; Brunch — về đầu trang"><img class="brand__logo" src="assets/images/homelody-logo.webp" width="48" height="48" alt="" decoding="async"><span class="brand__wordmark"><span class="brand__name">Homelody</span><span class="brand__descriptor">COFFEE &amp; BRUNCH</span></span></a>
       <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính" data-nav data-location="header">
         <a href="#do-uong">Món nổi bật</a>
         <a href="#cau-chuyen">Câu chuyện</a>
@@ -59,6 +79,13 @@
           <div class="hero__actions">
             <a class="btn hero__menu-cta" href="#thuc-don">Xem thực đơn</a>
           </div>
+          <div class="hero__visit">
+            <p>100 Lý Thường Kiệt, Hội An</p>
+            <div class="hero__visit-details">
+              <p>Hằng ngày · 6:30–22:00</p>
+              <a data-link="MAPS_URL" aria-label="Chỉ đường đến Homelody"><span data-icon="pin" aria-hidden="true"></span>Chỉ đường</a>
+            </div>
+          </div>
           <p class="hero__delivery">Hoặc đặt giao tận nơi: <a class="" data-link="GRABFOOD_URL">GrabFood</a> · <a class="" data-link="SHOPEEFOOD_URL">ShopeeFood</a></p>
         </div>
       </div>
@@ -76,7 +103,7 @@
         </div>
         <div class="stats__item">
           <dt>Món trong thực đơn</dt>
-          <dd><span data-stat-value="menuCount">60</span></dd>
+          <dd><span data-stat-value="menuCount">—</span></dd>
         </div>
         <div class="stats__item">
           <dt>Năm bắt đầu hành trình</dt>
@@ -114,7 +141,7 @@
         <!-- Khung trưng bày trên nền kem: sản phẩm căn giữa theo vùng ảnh nhìn thấy, kích thước riêng từng món (main.js → layoutGlass). -->
         <div class="stage" data-stage>
           <button class="stage__glass" type="button" data-drink-stage data-open-drink aria-haspopup="dialog" aria-label="Xem chi tiết món đang chọn">
-            <span class="glass is-current"><span class="glass__shadow" aria-hidden="true"></span><img class="glass__img" src="assets/images/drink-matcha-latte.webp" alt="Ly Matcha Latte đá" decoding="async"></span>
+            <span class="glass is-current"><span class="glass__shadow" aria-hidden="true"></span><img class="glass__img" src="assets/images/optimized/e9c0eee833b774aa-800.webp" alt="Ly Matcha Latte đá" decoding="async" width="400" height="780" loading="lazy"></span>
           </button>
         </div>
         <div class="selector-row" data-drink-selector>
@@ -139,7 +166,7 @@
           <a class="bakery__link" href="#ghe-quan">Ghé Homelody thưởng thức</a>
         </div>
         <figure class="bakery__media">
-          <img src="public/banh-nha-lam/banh-homelody.png" width="1254" height="1254" alt="Bánh Phô mai dẻo do Homelody tự làm" loading="lazy" decoding="async" draggable="false">
+          <img src="assets/images/optimized/99fd930eead89a0c-800.webp" width="800" height="800" alt="Bánh Phô mai dẻo do Homelody tự làm" loading="lazy" decoding="async" draggable="false">
         </figure>
       </div>
       </div>
@@ -154,31 +181,29 @@
 
         <div class="story__stack story__carousel" data-story-stack>
           <figure class="story__card story__card--near" data-pos="-1">
-            <div class="content"><img src="public/cau-chuyen/story-nhan-vien.png" width="600" height="800" alt="Nhân viên Homelody" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="assets/images/optimized/e87f6563a1f914c4-480.webp" width="480" height="640" alt="Nhân viên Homelody" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="story__card story__card--near" data-pos="1">
-            <div class="content"><img src="public/cau-chuyen/story-ho-ca.png" width="600" height="800" alt="Hồ cá trong khu vườn Homelody" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="assets/images/optimized/c271f75bf52ad1f6-480.webp" width="480" height="640" alt="Hồ cá trong khu vườn Homelody" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="story__card story__card--center" data-pos="0">
-            <div class="content"><img src="public/cau-chuyen/story-vuon.png" width="600" height="800" alt="Khu vườn xanh tại Homelody" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="assets/images/optimized/7d1cb0e916ef8255-480.webp" width="480" height="640" alt="Khu vườn xanh tại Homelody" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="story__card">
-            <div class="content"><img src="public/cau-chuyen/story-garden-seating.png" width="600" height="800" alt="Khách ngồi thư giãn trong khu vườn Homelody" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="assets/images/optimized/2cf121b88c1d5470-480.webp" width="480" height="640" alt="Khách ngồi thư giãn trong khu vườn Homelody" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="story__card">
-            <div class="content"><img src="public/cau-chuyen/story-khach-hang.png" width="600" height="800" alt="Khách ghé Homelody" loading="lazy" decoding="async"></div>
+            <div class="content"><img src="assets/images/optimized/4bc42ea93112a694-480.webp" width="480" height="640" alt="Khách ghé Homelody" loading="lazy" decoding="async"></div>
           </figure>
         </div>
 
         <div class="story__text story__text--desktop" data-story-text>
           <p class="story__body">Homelody là ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An.</p>
           <p class="story__body">Chọn chỗ bên hiên, cạnh hồ cá koi hay cây đàn piano. Tầng hai có điều hòa cho những buổi học tập và làm việc.</p>
-          <p class="story__body">Mang theo laptop, một cuốn sách, hoặc ghé cùng gia đình. Cứ tự nhiên như ở nhà.</p>
         </div>
         <div class="story__text story__text--mobile" data-story-text>
           <p class="story__body">Homelody là ngôi nhà tường vôi giữa khu vườn nhỏ trên đường Lý Thường Kiệt, Hội An.</p>
           <p class="story__body">Chọn chỗ bên hiên, cạnh hồ cá koi hay cây đàn piano. Tầng hai có điều hòa cho những buổi học tập và làm việc.</p>
-          <p class="story__body">Mang theo laptop, một cuốn sách, hoặc ghé cùng gia đình. Cứ tự nhiên như ở nhà.</p>
         </div>
         <p class="story__sign" lang="en" data-story-sign>Make yourself at home.</p>
       </div>
@@ -189,19 +214,19 @@
       <div class="container">
         <div class="section-head">
           <div><p class="eyebrow">Không gian</p><h2 class="h2 space__title" id="space-title">Một góc nhỏ,<br class="space__title-break"> ngồi lại lâu hơn.</h2></div>
-          <p class="section-head__aside">Chọn một chỗ bên hiên, giữa vườn xanh hay trong nhà ấm cúng. Ở Homelody, bạn có thể thong thả uống cà phê, trò chuyện cùng bạn bè hoặc dành chút thời gian cho riêng mình.</p>
+          <p class="section-head__aside">Chọn một chỗ bên hiên, giữa vườn xanh hay trong nhà ấm cúng.</p>
         </div>
         <div class="space-cards">
           <figure class="space-card space-card--path" tabindex="0">
-            <img src="public/khong-gian/story-vuon.webp" width="600" height="800" alt="Lối đá dẫn vào cửa Homelody, chậu gốm và dương xỉ hai bên" loading="lazy" decoding="async">
+            <img src="assets/images/optimized/b8e797ee8efc0608-960.webp" width="600" height="800" alt="Lối đá dẫn vào cửa Homelody, chậu gốm và dương xỉ hai bên" loading="lazy" decoding="async">
             <figcaption><span class="space-card__title">Một góc học bài trên tầng hai</span><span class="space-card__text">Không gian yên tĩnh, mát mẻ để bạn tập trung học bài.</span></figcaption>
           </figure>
           <figure class="space-card space-card--coffee" tabindex="0">
-            <img src="public/khong-gian/hero-coffee-banner-960.webp" width="960" height="540" alt="Tách cà phê trên bàn gỗ dưới hiên, giữa nắng và cây xanh" loading="lazy" decoding="async">
+            <img src="assets/images/optimized/72538b76b2fa0e9e-960.webp" width="960" height="540" alt="Tách cà phê trên bàn gỗ dưới hiên, giữa nắng và cây xanh" loading="lazy" decoding="async">
             <figcaption><span class="space-card__title">Một chỗ bên hiên</span><span class="space-card__text">Nhâm nhi cà phê, chuyện trò dưới nắng nhẹ.</span></figcaption>
           </figure>
           <figure class="space-card space-card--entrance" tabindex="0">
-            <img src="public/khong-gian/homelody-entrance.webp" width="1100" height="1650" alt="Lối vào Homelody giữa cây xanh và hiên nhà tường vôi" loading="lazy" decoding="async">
+            <img src="assets/images/optimized/a8153e0447dce7aa-960.webp" width="960" height="1440" alt="Lối vào Homelody giữa cây xanh và hiên nhà tường vôi" loading="lazy" decoding="async">
             <figcaption><span class="space-card__title">Homelody chào bạn</span><span class="space-card__text">Ghé vào, chọn một chỗ ngồi thật thoải mái.</span></figcaption>
           </figure>
         </div>
@@ -221,7 +246,7 @@
       </div>
       <div class="menu__body" data-menu-list>
         <ul class="menu-list" role="list">
-          <li class="menu-item"><a class="menu-item__btn menu-card" href="#do-uong" aria-label="Matcha Latte, 55.000đ"><span class="menu-card__category">Trà</span><span class="menu-card__image"><img src="assets/images/drink-matcha-latte.webp" alt="" width="400" height="780" loading="lazy"><span class="menu-item__price">55.000đ</span><span class="menu-card__more" aria-hidden="true">Xem thêm</span></span><span class="menu-item__body"><span class="menu-item__name">Matcha Latte</span><span class="menu-item__desc">Matcha thanh nhẹ, quyện cùng sữa tươi béo dịu.</span></span></a></li>
+          <li class="menu-item"><a class="menu-item__btn menu-card" href="#do-uong" aria-label="Matcha Latte, 55.000đ"><span class="menu-card__category">Trà</span><span class="menu-card__image"><img src="assets/images/optimized/e9c0eee833b774aa-800.webp" alt="" width="400" height="780" loading="lazy"><span class="menu-item__price">55.000đ</span><span class="menu-card__more" aria-hidden="true">Xem thêm</span></span><span class="menu-item__body"><span class="menu-item__name">Matcha Latte</span><span class="menu-item__desc">Matcha thanh nhẹ, quyện cùng sữa tươi béo dịu.</span></span></a></li>
         </ul>
       </div>
       </div>
@@ -232,7 +257,6 @@
         <div class="experiences__heading">
           <p class="eyebrow">Ở Homelody</p>
           <h2 class="h2" id="experiences-title">Một nơi để bạn thấy thoải mái.</h2>
-          <p class="experiences__intro">Ghé uống cà phê, ngồi bên khu vườn hoặc tìm một góc yên tĩnh để làm việc.</p>
         </div>
         <ul class="experiences__grid" role="list">
           <li>
@@ -283,13 +307,16 @@
         </div>
         <div class="destination__layout">
           <div class="destination__map">
-            <iframe title="Bản đồ vị trí Homelody Coffee &amp; Brunch tại Hội An" src="https://maps.google.com/maps?q=15.8815697,108.3379925&amp;z=17&amp;output=embed" width="720" height="540" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <img class="destination__preview" src="assets/images/optimized/a8153e0447dce7aa-960.webp" width="960" height="1440" alt="Mặt tiền Homelody giữa cây xanh, với biển tên quán phía trên cửa vào" loading="lazy" decoding="async">
+            <iframe id="destination-map" title="Bản đồ vị trí Homelody Coffee &amp; Brunch tại Hội An" data-map-src="https://maps.google.com/maps?q=15.8815697,108.3379925&amp;z=17&amp;output=embed" width="720" height="540" referrerpolicy="no-referrer-when-downgrade" hidden></iframe>
             <div class="destination__map-card">
               <div class="destination__place">
-                <span class="destination__logo"><img src="assets/images/homelody-logo-transparent.png" width="44" height="44" alt="" loading="lazy" decoding="async"></span>
+                <span class="destination__logo"><img src="assets/images/homelody-logo.webp" width="44" height="44" alt="" loading="lazy" decoding="async"></span>
                 <div><p>Homelody Coffee &amp; Brunch</p><span>Một góc nhà, giữa vườn xanh.</span></div>
               </div>
-              <a class="destination__directions" data-link="MAPS_URL"><span data-icon="pin" aria-hidden="true"></span>Chỉ đường đến Homelody<span aria-hidden="true">↗</span></a>
+              <a class="destination__directions" data-link="MAPS_URL"><span data-icon="pin" aria-hidden="true"></span>Mở Google Maps<span aria-hidden="true">↗</span></a>
+              <button class="destination__map-toggle" type="button" data-map-toggle aria-expanded="false" aria-controls="destination-map" hidden>Xem bản đồ</button>
+              <p class="destination__map-help" data-map-help role="status" hidden>Nếu bản đồ không hiển thị, bạn có thể mở Google Maps bằng nút bên trên.</p>
             </div>
           </div>
           <div class="destination__card">
@@ -319,7 +346,7 @@
   <footer class="site-footer site-footer--expanded" data-location="footer">
     <div class="site-footer__inner container">
       <div class="site-footer__brand">
-        <a class="brand brand--with-logo" href="#top" aria-label="Homelody Coffee &amp; Brunch — về đầu trang"><img class="brand__logo" src="assets/images/homelody-logo-transparent.png" width="56" height="56" alt="" loading="lazy" decoding="async"><span class="brand__wordmark"><span class="brand__name">Homelody</span><span class="brand__descriptor">COFFEE &amp; BRUNCH · HỘI AN</span></span></a>
+        <a class="brand brand--with-logo" href="#top" aria-label="Homelody Coffee &amp; Brunch — về đầu trang"><img class="brand__logo" src="assets/images/homelody-logo.webp" width="56" height="56" alt="" loading="lazy" decoding="async"><span class="brand__wordmark"><span class="brand__name">Homelody</span><span class="brand__descriptor">COFFEE &amp; BRUNCH · HỘI AN</span></span></a>
         <p class="site-footer__tagline" lang="en">Make yourself at home</p>
         <div class="site-footer__message">
           <p>Cảm ơn bạn đã để Homelody trở thành một góc quen.</p>
@@ -370,7 +397,7 @@
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
       <div class="drink-dialog__media">
-        <img data-dialog-field="image" src="assets/images/drink-matcha-latte.webp" alt="" width="400" height="780">
+        <img data-dialog-field="image" src="assets/images/optimized/e9c0eee833b774aa-800.webp" alt="" width="400" height="780">
       </div>
       <div class="drink-dialog__body">
         <p class="eyebrow" data-dialog-field="label">01 / 04 · Món được yêu thích</p>
@@ -383,7 +410,8 @@
           <span>Giá tham khảo</span>
           <strong data-dialog-field="price">55.000đ</strong>
         </div>
-        <div class="drink-dialog__actions" data-location="menu"><a class="btn btn--primary" data-link="GRABFOOD_URL"><span data-icon="grab" aria-hidden="true"></span>Đặt món qua GrabFood</a><a class="btn btn--outline" data-link="SHOPEEFOOD_URL"><span data-icon="shopee" aria-hidden="true"></span>ShopeeFood</a></div>
+        <h3 class="drink-dialog__subtitle drink-dialog__order-title">Đặt món tại</h3>
+        <div class="drink-dialog__actions" data-location="menu"><a class="btn btn--primary" data-link="GRABFOOD_URL"><span data-icon="grab" aria-hidden="true"></span>GrabFood</a><a class="btn btn--outline" data-link="SHOPEEFOOD_URL"><span data-icon="shopee" aria-hidden="true"></span>ShopeeFood</a></div>
       </div>
     </div>
   </dialog>
@@ -394,10 +422,11 @@
 
   <!-- Dữ liệu: config.js (kết nối Supabase) → menu-data.js (dự phòng) → main.js (giao diện + chuyển động).
        ?v=… giúp trình duyệt tải bản mới sau mỗi lần sửa file: đổi số này khi cập nhật CSS/JS. -->
-  <script src="assets/js/config.js?v=20261024categories"></script>
+  <script src="assets/js/config.js?v=20261024menucount"></script>
   <script src="assets/js/menu-data.js?v=20261020landing"></script>
+  <script src="assets/js/image-variants.js?v=20261024performance"></script>
   <script src="assets/js/story-data.js?v=20261023galleries"></script>
-  <script src="assets/js/main.js?v=20261023galleries" defer></script>
-  <script src="assets/js/landing.js?v=20261023reviewfooter" defer></script>
+  <script src="assets/js/main.js?v=20261024menucount" defer></script>
+  <script src="assets/js/landing.js?v=20261024menucount" defer></script>
 </body>
 </html>
