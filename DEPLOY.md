@@ -36,7 +36,8 @@ Chỉ upload `dist` hoặc ZIP đã build, không upload toàn bộ repository. 
 - Website: https://homelody-hoian-preview.netlify.app/
 - Dashboard: https://app.netlify.com/projects/homelody-hoian-preview
 - Project ID: `eac0361a-8fd9-48e8-a559-0ed74a6d096c`.
-- Deploy bằng Netlify Drop; chưa kết nối tự cập nhật từ GitHub. Khi thay đổi mã, build và upload lại vào chính project này.
+- Đã liên kết GitHub `huynguyensonggia/Homelody`, nhánh production `main`, ngày 26/10/2026. Mỗi lần push lên `main`, Netlify tự build bằng `node scripts/build-site.mjs` và publish thư mục `dist`; không cần upload thủ công.
+- Lần build đầu tiên từ GitHub đã publish lúc 19:01 ngày 26/10/2026 (GMT+7), commit `b39062f`, deploy ID `6adf4128aa6a5b923e45fe61`.
 - Bản tối ưu đã publish lúc 12:30 ngày 24/10/2026 (GMT+7), deploy ID `6adc425abe8fe8f7523efa78`.
 - Bản cập nhật UI/UX đã publish lúc 23:42 ngày 24/10/2026 (GMT+7), deploy ID `6adce00e1bb8fcf37f92e8e6`. Đã kiểm tra trực tiếp production: chọn danh mục mobile, vuốt ngang, tổng51 món, link GrabFood/ShopeeFood, thông tin ghé quán, nội dung rút gọn và bản đồ tải theo yêu cầu.
 - PageSpeed Insights sau deploy: [báo cáo mobile/desktop](https://pagespeed.web.dev/analysis/https-homelody-hoian-preview-netlify-app/bg9yoy6918?form_factor=mobile). Mobile Performance 92, LCP 2,7s, CLS 0,003; desktop Performance 96, LCP 0,6s, CLS 0,009. Đây là số đo lab của một lượt chạy, chưa có dữ liệu người dùng thực tế.
