@@ -2,6 +2,81 @@
 (function () {
   'use strict';
   var cfg = window.HOMELODY_CONFIG || {}, links = cfg.links || {};
+  (function setupDrinkBakeryPaging() {
+    var drinks = document.getElementById('do-uong'), bakery = document.getElementById('banh-nha-lam');
+    var header = document.querySelector('[data-header]');
+    if (!drinks || !bakery) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var frame = 0, locked = false, wheelQuiet = 0, wheelSum = 0, wheelTime = 0, touch = null;
+    function origin(section) {
+      return Math.max(0, section.getBoundingClientRect().top + window.scrollY - (header ? header.offsetHeight : 0));
+    }
+    function destination(direction) {
+      if (document.querySelector('dialog[open]') || (header && header.classList.contains('is-open'))) return null;
+      var y = window.scrollY, start = origin(drinks), next = origin(bakery);
+      if (direction > 0 && y >= start - 8 && y < next - 8) return bakery;
+      if (direction < 0 && y >= next - 8 && y < origin(bakery) + bakery.offsetHeight - 8) return drinks;
+      return null;
+    }
+    function inPair(target) { return target instanceof Element && !!target.closest('#do-uong, #banh-nha-lam'); }
+    function nestedScroll(target, direction) {
+      if (target.closest('input, textarea, select, [contenteditable="true"], dialog')) return true;
+      for (var node = target; node && node !== drinks && node !== bakery; node = node.parentElement) {
+        if (/(auto|scroll)/.test(getComputedStyle(node).overflowY) && node.scrollHeight > node.clientHeight + 1 &&
+          ((direction > 0 && node.scrollTop + node.clientHeight < node.scrollHeight - 1) || (direction < 0 && node.scrollTop > 1))) return true;
+      }
+      return false;
+    }
+    function go(section) {
+      var from = window.scrollY, started = performance.now();
+      locked = true;
+      function step(now) {
+        var progress = reduce.matches ? 1 : Math.min(1, (now - started) / 480);
+        window.scrollTo({ top: from + (origin(section) - from) * (1 - Math.pow(1 - progress, 3)), behavior: 'instant' });
+        if (progress < 1) frame = requestAnimationFrame(step);
+        else { frame = 0; locked = false; }
+      }
+      frame = requestAnimationFrame(step);
+    }
+    // Only the two featured sections intercept vertical gestures; the rest of the page stays native.
+    window.addEventListener('wheel', function (event) {
+      if (!inPair(event.target) || event.ctrlKey || event.metaKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
+      var now = performance.now(), direction = Math.sign(event.deltaY);
+      if (nestedScroll(event.target, direction)) return;
+      if (locked || now < wheelQuiet) {
+        event.preventDefault(); wheelQuiet = now + 180; return;
+      }
+      var next = destination(direction);
+      if (!next) { wheelSum = 0; return; }
+      if (now - wheelTime > 180 || Math.sign(wheelSum) !== direction) wheelSum = 0;
+      wheelTime = now;
+      wheelSum += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1);
+      event.preventDefault();
+      if (Math.abs(wheelSum) >= 12) { wheelSum = 0; wheelQuiet = now + 660; go(next); }
+    }, { passive: false });
+    [drinks, bakery].forEach(function (section) {
+      section.addEventListener('touchstart', function (event) {
+        touch = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY, target: event.target, moved: false } : null;
+      }, { passive: true });
+      section.addEventListener('touchmove', function (event) {
+        if (!touch || touch.native || event.touches.length !== 1) return;
+        if (touch.moved) { if (event.cancelable) event.preventDefault(); return; }
+        var dx = touch.x - event.touches[0].clientX, dy = touch.y - event.touches[0].clientY;
+        if (!dx && !dy) return;
+        if (Math.abs(dx) > Math.abs(dy)) { touch.native = true; return; }
+        var next = destination(Math.sign(dy));
+        if (!next || nestedScroll(touch.target, Math.sign(dy)) || !event.cancelable) { touch.native = true; return; }
+        event.preventDefault();
+        if (Math.abs(dy) < 24) return;
+        touch.moved = true;
+        if (!locked) go(next);
+      }, { passive: false });
+      section.addEventListener('touchend', function () { touch = null; }, { passive: true });
+      section.addEventListener('touchcancel', function () { touch = null; }, { passive: true });
+    });
+    window.addEventListener('resize', function () { cancelAnimationFrame(frame); frame = 0; locked = false; touch = null; });
+    window.addEventListener('keydown', function () { cancelAnimationFrame(frame); frame = 0; locked = false; });
+  })();
   (function setupVisitMap() {
     var frame = document.getElementById('destination-map');
     var toggle = document.querySelector('[data-map-toggle]');
@@ -110,6 +185,42 @@
       observer.observe(story);
       if (header) observer.observe(header);
       if (mobileOrder) observer.observe(mobileOrder);
+    }
+    if (document.fonts) document.fonts.ready.then(measure);
+    measure();
+  })();
+  (function setupExperiencesCover() {
+    var chapters = document.querySelector('[data-experiences-reviews]');
+    if (!chapters || !window.CSS || !CSS.supports('position', 'sticky')) return;
+    var experiences = chapters.querySelector('.experiences'), reviews = chapters.querySelector('.reviews');
+    var header = document.querySelector('[data-header]'), mobileOrder = document.querySelector('[data-mobile-order]');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var frame = 0, measureFrame = 0, height = window.innerHeight, headerHeight = 0, enabled = false;
+    function update() {
+      frame = 0;
+      if (!enabled) return;
+      var progress = Math.max(0, Math.min(1, (height - reviews.getBoundingClientRect().top) / Math.max(1, height - headerHeight)));
+      chapters.style.setProperty('--experiences-cover-shade', (progress * .12).toFixed(4));
+      chapters.style.setProperty('--experiences-cover-scale', (1 - progress * .02).toFixed(4));
+      chapters.style.setProperty('--reviews-cover-radius', ((1 - progress) * 36).toFixed(2) + 'px');
+    }
+    function request() { if (!frame) frame = requestAnimationFrame(update); }
+    function measure() {
+      measureFrame = 0; enabled = !reduce.matches;
+      height = window.innerHeight;
+      headerHeight = header ? header.getBoundingClientRect().height : 0;
+      var bottom = mobileOrder && !mobileOrder.hidden ? mobileOrder.getBoundingClientRect().height : 0;
+      chapters.style.setProperty('--experiences-pin-top', Math.min(headerHeight, height - bottom - experiences.offsetHeight) + 'px');
+      chapters.classList.toggle('is-cover-enabled', enabled);
+      request();
+    }
+    function requestMeasure() { if (!measureFrame) measureFrame = requestAnimationFrame(measure); }
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', requestMeasure);
+    reduce.addEventListener('change', measure);
+    if ('ResizeObserver' in window) {
+      var observer = new ResizeObserver(requestMeasure);
+      [experiences, header, mobileOrder].forEach(function (node) { if (node) observer.observe(node); });
     }
     if (document.fonts) document.fonts.ready.then(measure);
     measure();
@@ -542,7 +653,9 @@
   }
   function request() { if (!raf) raf = requestAnimationFrame(updateSticky); }
   if (toggle) toggle.addEventListener('click', function () { var open = toggle.getAttribute('aria-expanded') !== 'true'; toggle.setAttribute('aria-expanded', String(open)); menu.hidden = !open; });
-  document.addEventListener('click', function (e) { if (sticky && !sticky.contains(e.target)) closeDelivery(); });
+  document.addEventListener('click', function (e) {
+    if (sticky && (!sticky.contains(e.target) || e.target.closest('a[href]'))) closeDelivery();
+  });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu && !menu.hidden) { closeDelivery(); toggle.focus(); } });
   window.addEventListener('scroll', request, { passive: true }); window.addEventListener('resize', request);
   if (dialog) new MutationObserver(request).observe(dialog, { attributes: true, attributeFilter: ['open'] });

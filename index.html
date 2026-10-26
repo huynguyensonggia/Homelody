@@ -28,7 +28,7 @@
   <link rel="preload" fetchpriority="high" as="image" href="assets/images/hero-coffee-banner.webp" imagesrcset="assets/images/hero-coffee-banner-960.webp 960w, assets/images/hero-coffee-banner.webp 1672w" imagesizes="100vw">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm81Rb0.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm86Rb0bcw.woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/site.min.css?v=20261025mobilespace">
+  <link rel="stylesheet" href="assets/css/site.min.css?v=20261026herospacing">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -86,7 +86,7 @@
               <a data-link="MAPS_URL" aria-label="Chỉ đường đến Homelody"><span data-icon="pin" aria-hidden="true"></span>Chỉ đường</a>
             </div>
           </div>
-          <p class="hero__delivery">Hoặc đặt giao tận nơi: <a class="" data-link="GRABFOOD_URL">GrabFood</a> · <a class="" data-link="SHOPEEFOOD_URL">ShopeeFood</a></p>
+          <p class="hero__delivery"><span class="hero__delivery-label">Đặt giao tận nơi</span> <span class="hero__delivery-links"><a data-link="GRABFOOD_URL">GrabFood</a><span aria-hidden="true"> · </span><a data-link="SHOPEEFOOD_URL">ShopeeFood</a></span></p>
         </div>
       </div>
     </section>
@@ -252,6 +252,7 @@
       </div>
     </section>
 
+    <div class="experiences-reviews" data-experiences-reviews>
     <section class="experiences" aria-labelledby="experiences-title">
       <div class="container">
         <div class="experiences__heading">
@@ -297,6 +298,8 @@
         </div>
       </div>
     </section>
+
+    </div>
 
     <!-- 6. GHÉ QUÁN -->
     <section data-location="contact" class="visit visit--destination" id="ghe-quan" aria-labelledby="visit-title">
@@ -416,8 +419,16 @@
     </div>
   </dialog>
 
-  <aside class="mobile-order" data-mobile-order data-location="sticky_mobile" hidden aria-label="Đặt bàn và giao hàng">
-    <a class="btn btn--accent" data-link="ZALO_URL"><span data-icon="java" aria-hidden="true"></span>Đặt bàn qua Zalo</a><div class="mobile-delivery"><button class="btn btn--outline" type="button" data-delivery-toggle aria-expanded="false" aria-controls="mobile-delivery-menu"><span data-icon="delivery" aria-hidden="true"></span>Giao hàng</button><div id="mobile-delivery-menu" class="mobile-delivery__menu" hidden><a class="" data-link="GRABFOOD_URL"><span data-icon="grab" aria-hidden="true"></span>GrabFood</a><a class="" data-link="SHOPEEFOOD_URL"><span data-icon="shopee" aria-hidden="true"></span>ShopeeFood</a></div></div>
+  <aside class="mobile-order" data-mobile-order data-location="sticky_mobile" hidden aria-label="Thực đơn và đặt hàng">
+    <a class="btn btn--accent" href="#thuc-don"><span data-icon="java" aria-hidden="true"></span>Xem thực đơn</a>
+    <div class="mobile-delivery">
+      <button class="btn btn--outline" type="button" data-delivery-toggle aria-expanded="false" aria-controls="mobile-delivery-menu"><span data-icon="delivery" aria-hidden="true"></span>Đặt hàng</button>
+      <div id="mobile-delivery-menu" class="mobile-delivery__menu" hidden>
+        <a data-link="GRABFOOD_URL"><span data-icon="grab" aria-hidden="true"></span>GrabFood</a>
+        <a data-link="SHOPEEFOOD_URL"><span data-icon="shopee" aria-hidden="true"></span>ShopeeFood</a>
+        <a href="#ghe-quan"><span data-icon="pin" aria-hidden="true"></span>Ghé quán</a>
+      </div>
+    </div>
   </aside>
 
   <!-- Dữ liệu: config.js (kết nối Supabase) → menu-data.js (dự phòng) → main.js (giao diện + chuyển động).
@@ -427,6 +438,6 @@
   <script src="assets/js/image-variants.js?v=20261024performance"></script>
   <script src="assets/js/story-data.js?v=20261023galleries"></script>
   <script src="assets/js/main.js?v=20261024menucount" defer></script>
-  <script src="assets/js/landing.js?v=20261024menucount" defer></script>
+  <script src="assets/js/landing.js?v=20261026reviewcover" defer></script>
 </body>
 </html>
