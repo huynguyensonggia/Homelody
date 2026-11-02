@@ -28,7 +28,7 @@
   <link rel="preload" fetchpriority="high" as="image" href="assets/images/hero-coffee-banner.webp" imagesrcset="assets/images/hero-coffee-banner-960.webp 960w, assets/images/hero-coffee-banner.webp 1672w" imagesizes="100vw">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm81Rb0.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm86Rb0bcw.woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/site.min.css?v=20261102golddivider">
+  <link rel="stylesheet" href="assets/css/site.min.css?v=20261102dishdialog">
   <script src="assets/js/bootstrap.js"></script>
 </head>
 <body>
@@ -399,7 +399,7 @@
       <div class="drink-dialog__media">
         <img data-dialog-field="image" alt="" width="400" height="780">
       </div>
-      <div class="drink-dialog__body">
+      <div class="drink-dialog__body" tabindex="0" aria-label="Thông tin món">
         <p class="eyebrow" data-dialog-field="label"></p>
         <h2 class="drink-dialog__title" id="drink-dialog-title" data-dialog-field="name"></h2>
         <p class="drink-dialog__desc" id="drink-dialog-desc" data-dialog-field="description"></p>
@@ -407,11 +407,14 @@
         <h3 class="drink-dialog__subtitle">Thành phần</h3>
         <ul class="drink-dialog__ingredients" data-dialog-field="ingredients"></ul>
         <div class="drink-dialog__price">
-          <span>Giá tham khảo</span>
+          <span>Giá tại quán</span>
           <strong data-dialog-field="price"></strong>
         </div>
+      </div>
+      <div class="drink-dialog__order">
         <h3 class="drink-dialog__subtitle drink-dialog__order-title">Đặt món tại</h3>
-        <div class="drink-dialog__actions" data-location="menu"><a class="btn btn--primary" data-link="GRABFOOD_URL"><span data-icon="grab" aria-hidden="true"></span>GrabFood</a><a class="btn btn--outline" data-link="SHOPEEFOOD_URL"><span data-icon="shopee" aria-hidden="true"></span>ShopeeFood</a></div>
+        <div class="drink-dialog__actions" data-location="menu"><a class="btn" data-link="GRABFOOD_URL"><span data-icon="grab" aria-hidden="true"></span>GrabFood</a><a class="btn" data-link="SHOPEEFOOD_URL"><span data-icon="shopee" aria-hidden="true"></span>ShopeeFood</a></div>
+        <p class="drink-dialog__delivery-note">Giá trên ứng dụng giao hàng có thể chênh lệch tùy thời điểm.</p>
       </div>
     </div>
   </dialog>
@@ -437,7 +440,7 @@
   <script src="assets/js/menu-data.js?v=20261020landing"></script>
   <script src="assets/js/image-variants.js?v=20261024performance"></script>
   <script src="assets/js/story-data.js?v=20261023galleries"></script>
-  <script src="assets/js/main.js?v=20261102productload" defer></script>
+  <script src="assets/js/main.js?v=20261102dishdialog" defer></script>
   <script src="assets/js/landing.js?v=20261102restorecover" defer></script>
 </body>
 </html>

@@ -105,7 +105,7 @@
       category: canonicalCategory(str(r.category)) || 'Thức uống',
       price: Number(r.price) || 0,
       description: str(r.description),
-      note: str(r.note),
+      note: str(r.note) === 'Thơm đào · Chua dịu · Hương sả' ? 'Thanh mát · Chua dịu · Hương thảo mộc' : str(r.note),
       ingredients: (Array.isArray(ing) ? ing : []).map(str).filter(Boolean),
       image: str(r.image_url) || str(r.image),
       stageTone: str(r.stageTone),
@@ -758,9 +758,13 @@
     dfield.note.textContent = d.note;
     dfield.note.hidden = !d.note;
     dfield.price.textContent = formatPrice(d.price);
-    dfield.ingredients.innerHTML = d.ingredients.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
-    dfield.ingredients.hidden = !d.ingredients.length;
-    $('.drink-dialog__subtitle', dialog).hidden = !d.ingredients.length;
+    var ingredients = d.ingredients.filter(function (x) {
+      var key = x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/gi, 'd').trim().toLowerCase();
+      return !['duong', 'da', 'da vien', 'sugar', 'ice', 'ice cubes'].includes(key);
+    });
+    dfield.ingredients.innerHTML = ingredients.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+    dfield.ingredients.hidden = !ingredients.length;
+    $('.drink-dialog__subtitle', dialog).hidden = !ingredients.length;
     dialog.classList.toggle('is-text-only', !d.image);     // chưa có ảnh: bảng chỉ có chữ, không dùng ảnh placeholder
   }
 
@@ -791,6 +795,7 @@
     fillDialog(d);
     lockScroll();
     panel.scrollTop = 0;
+    $('.drink-dialog__body', dialog).scrollTop = 0;
     panel.style.transform = '';
     dialog.showModal();
     closeBtn.focus({ preventScroll: true });
