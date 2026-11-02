@@ -737,9 +737,20 @@
       var variant = imageVariant(d.image, 800);
       dfield.image.width = variant ? variant.width : 400;
       dfield.image.height = variant ? variant.height : 780;
-      dfield.image.src = imgSrc(d); dfield.image.hidden = false;
+      function revealDialogImage() {
+        if (dfield.image.complete && dfield.image.naturalWidth) {
+          dfield.image.hidden = false;
+          dfield.image.setAttribute('data-product-ready', '');
+        }
+      }
+      dfield.image.onload = revealDialogImage;
+      if (dfield.image.getAttribute('src') !== imgSrc(d)) {
+        dfield.image.removeAttribute('data-product-ready');
+        dfield.image.src = imgSrc(d);
+      }
+      revealDialogImage();
     }
-    else { dfield.image.removeAttribute('src'); dfield.image.hidden = true; }
+    else { dfield.image.removeAttribute('src'); dfield.image.removeAttribute('data-product-ready'); dfield.image.hidden = true; }
     dfield.image.alt = d.alt;
     dfield.label.textContent = fi > -1 ? pad(fi + 1) + ' / ' + pad(FEATURED.length) + ' · Món được yêu thích' : categoryLabel(d.category);
     dfield.name.textContent = d.name;
@@ -1304,6 +1315,7 @@
     img.width = firstVariant ? firstVariant.width : 400;
     img.height = firstVariant ? firstVariant.height : 780;
     if (img.getAttribute('src') !== imgSrc(first)) img.src = imgSrc(first);
+    img.addEventListener('load', function () { layoutGlass(g); }, { once: true });
     img.alt = first.alt;
     setTextNow(first);
     fillDialog(first);
@@ -1311,8 +1323,11 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockInfoHeight);
     setupReveal();
     ready(img, 2500).then(function () {
+      if (img.complete && img.naturalWidth && img.decode) return img.decode().catch(function () {});
+    }).then(function () {
       layoutGlass(g);
       movePill(true);
+      section.setAttribute('data-featured-ready', '');
       armIntro();
     });
   });
