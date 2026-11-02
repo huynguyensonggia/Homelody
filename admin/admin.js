@@ -9,13 +9,15 @@ const FALLBACK = window.HOMELODY_FALLBACK || { drinks: [], shop: {} };
 const DEMO_KEY = 'homelody:admin-demo';
 const SUPABASE_JS = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/+esm';
 const BUCKET = CFG.imageBucket || 'menu-images';
-const MAX_FEATURED = Number(CFG.maxFeatured) || 6;
+const FAVORITES = window.HOMELODY_FEATURED_MENU;
+const MAX_FEATURED = FAVORITES.limit(CFG.maxFeatured);
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const money = (n) => String(Math.round(n || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ';
 const configured = /^https:\/\/\S+$/.test((CFG.supabaseUrl || '').trim()) && (CFG.supabaseKey || '').trim().length > 20;
+const localPreview = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
 
 /* Images saved by the site use paths relative to the site root; the admin lives one folder down. */
 function viewSrc(url) {
@@ -26,13 +28,15 @@ function viewSrc(url) {
 /* ======================================================================== API: Supabase */
 async function supabaseApi() {
   const { createClient } = await import(SUPABASE_JS);
-  const sb = createClient(CFG.supabaseUrl.trim(), CFG.supabaseKey.trim());
+  const sb = createClient(CFG.supabaseUrl.trim(), CFG.supabaseKey.trim(), {
+    auth: { storage: sessionStorage, detectSessionInUrl: false }
+  });
   const must = ({ data, error }) => { if (error) throw error; return data; };
   return {
     demo: false,
     async session() {
-      const { data } = await sb.auth.getSession();
-      return data.session ? { email: data.session.user.email } : null;
+      const { data, error } = await sb.auth.getUser();
+      return !error && data.user ? { email: data.user.email } : null;
     },
     async signIn(email, password) {
       const { data, error } = await sb.auth.signInWithPassword({ email, password });
@@ -74,6 +78,9 @@ async function supabaseApi() {
       for (const r of rows) must(await sb.from('drinks').update({ sort_order: r.sort_order }).eq('id', r.id));
     },
     async uploadImage(blob, baseName, folder = 'drinks') {
+      if (!['image/webp', 'image/png', 'image/jpeg'].includes(blob.type) || blob.size > 3 * 1024 * 1024) {
+        throw new Error('Chỉ nhận ảnh WebP, PNG, JPG tối đa 3MB.');
+      }
       const ext = blob.type === 'image/webp' ? 'webp' : 'png';
       const path = `${folder}/${crypto.randomUUID()}-${slug(baseName) || 'anh'}.${ext}`;
       must(await sb.storage.from(BUCKET).upload(path, blob, { contentType: blob.type, cacheControl: '31536000', upsert: false }));
@@ -91,6 +98,16 @@ async function supabaseApi() {
     },
     async saveShop(values) {
       return must(await sb.from('shop_settings').update(values).eq('id', 1).select().single());
+    },
+    async saveCategories(categories, version) {
+      const result = must(await sb.from('shop_settings').update({ menu_categories: categories }).eq('id', 1).eq('updated_at', version).select().maybeSingle());
+      if (!result) throw new Error('Thông tin quán vừa thay đổi. Bấm “Tải lại” danh mục rồi thử lại.');
+      return result;
+    },
+    async saveFavorites(ids, version) {
+      const result = must(await sb.from('shop_settings').update({ featured_drink_ids: ids }).eq('id', 1).eq('updated_at', version).select().maybeSingle());
+      if (!result) throw new Error('Thông tin quán vừa thay đổi. Đóng rồi mở lại mục chọn món để tải dữ liệu mới.');
+      return result;
     }
   };
 }
@@ -153,10 +170,21 @@ function demoApi() {
       return await new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(blob); });
     },
     async removeImage() {},
-    async getShop() { return structuredClone(state.shop); },
+    async getShop() { state = read(); return structuredClone(state.shop); },
     async saveShop(values) {
-      const next = { ...state, shop: { ...state.shop, ...values } };
+      state = read();
+      const next = { ...state, shop: { ...state.shop, ...values, updated_at: new Date().toISOString() } };
       write(next); state = next; return structuredClone(state.shop);
+    },
+    async saveCategories(categories, version) {
+      state = read();
+      if ((state.shop.updated_at || null) !== version) throw new Error('Thông tin quán vừa thay đổi. Bấm “Tải lại” danh mục rồi thử lại.');
+      return this.saveShop({ menu_categories: categories });
+    },
+    async saveFavorites(ids, version) {
+      state = read();
+      if ((state.shop.updated_at || null) !== version) throw new Error('Thông tin quán vừa thay đổi. Đóng rồi mở lại mục chọn món để tải dữ liệu mới.');
+      return this.saveShop({ featured_drink_ids: ids });
     }
   };
 }
@@ -172,6 +200,7 @@ async function prepareImage(file) {
   try {
     const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('Không đọc được ảnh này.')); i.src = url; });
     const w = img.naturalWidth, h = img.naturalHeight;
+    if (!w || !h || w * h > 24000000 || Math.max(w, h) > 10000) throw new Error('Ảnh quá lớn. Chọn ảnh tối đa 24 megapixel và 10.000px mỗi cạnh.');
     const c = document.createElement('canvas'); c.width = w; c.height = h;
     const ctx = c.getContext('2d', { willReadFrequently: true });
     ctx.drawImage(img, 0, 0);
@@ -213,9 +242,9 @@ function errText(e) {
   if (/JWT expired|session/i.test(m)) return 'Phiên đăng nhập đã hết, hãy đăng nhập lại.';
   return m;
 }
-async function busy(btn, fn) {
-  const label = btn.textContent; btn.disabled = true; btn.textContent = 'Đang lưu…';
-  try { return await fn(); } finally { btn.disabled = false; btn.textContent = label; }
+async function busy(btn, fn, message = 'Đang lưu…') {
+  const label = btn.innerHTML; btn.disabled = true; btn.textContent = message; btn.setAttribute('aria-busy', 'true');
+  try { return await fn(); } finally { btn.disabled = false; btn.innerHTML = label; btn.removeAttribute('aria-busy'); }
 }
 function parsePrice(v) {
   const s = String(v || '').trim().toLowerCase().replace(/\s/g, '');
@@ -231,6 +260,11 @@ function parsePrice(v) {
 let api, drinks = [], editing = null, pendingImage = null, removeImageFlag = false;
 
 async function boot() {
+  if (!configured && !localPreview) {
+    showLogin('Chưa cấu hình kết nối quản trị. Chế độ demo chỉ dùng trên máy cục bộ.');
+    $('#login-form button[type=submit]').disabled = true;
+    return;
+  }
   $$('[data-demo-only]').forEach((el) => { el.hidden = configured; });
   try { api = configured ? await supabaseApi() : demoApi(); }
   catch (e) { showLogin('Không tải được thư viện Supabase. Kiểm tra mạng rồi tải lại trang.'); return; }
@@ -251,6 +285,7 @@ function showLogin(msg) {
 
 $('#login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
+  if (!api) return;
   const f = e.currentTarget, btn = $('button[type=submit]', f), err = $('#login-error');
   err.hidden = true;
   const email = f.email.value.trim(), password = f.password.value;
@@ -267,20 +302,29 @@ $('#login-form').addEventListener('submit', async (e) => {
 async function enterApp(s) {
   $('#login').hidden = true; $('#app').hidden = false;
   $('#user-email').textContent = s.email;
+  $('#connection-state').textContent = api.demo ? 'Bản xem thử' : 'Dữ liệu trực tiếp';
+  await loadManagedCategories();
   await Promise.all([loadDrinks(), loadShop(), storyManager.load(), spaceManager.load()]);
 }
 
 $('#logout').addEventListener('click', async () => { await api.signOut(); location.reload(); });
 
 /* tabs */
+const compactNavigation = matchMedia('(max-width: 767px)');
+function updateTabOrientation() { $('.tabs').setAttribute('aria-orientation', compactNavigation.matches ? 'horizontal' : 'vertical'); }
+compactNavigation.addEventListener('change', updateTabOrientation);
+updateTabOrientation();
 $$('.tab').forEach((tab) => tab.addEventListener('click', () => selectTab(tab)));
 $('.tabs').addEventListener('keydown', (e) => {
-  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
+  e.preventDefault();
   const tabs = $$('.tab'), i = tabs.indexOf(document.activeElement);
-  const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+  const next = e.key === 'Home' ? tabs[0] : e.key === 'End' ? tabs[tabs.length - 1] : tabs[(i + (['ArrowRight', 'ArrowDown'].includes(e.key) ? 1 : -1) + tabs.length) % tabs.length];
   selectTab(next); next.focus();
 });
 function selectTab(tab) {
+  $('#workspace-current').textContent = $('span', tab).textContent;
+  window.scrollTo({ top: 0, behavior: 'instant' });
   $$('.tab').forEach((t) => {
     const on = t === tab;
     t.classList.toggle('is-active', on); t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
@@ -288,33 +332,288 @@ function selectTab(tab) {
   });
 }
 
-/* ---------- nhóm món: lấy từ config.js → menuCategories; tên cũ (aliases) được quy về nhóm mới */
-const CATS = ((window.HOMELODY_CONFIG || {}).menuCategories || [])
-  .filter((c) => c && c.name)
-  .map((c) => ({ name: String(c.name).trim(), aliases: (c.aliases || []).map((x) => String(x).trim()) }));
-const catKey = (v) => String(v || '').trim().toLowerCase().replace(/\s+/g, ' ');
-function canonicalCat(v) {
-  const k = catKey(v);
-  const hit = CATS.find((c) => catKey(c.name) === k || c.aliases.some((x) => catKey(x) === k));
-  return hit ? hit.name : String(v || '').trim();
+/* ---------- managed categories; the original configuration remains the initial fallback */
+const CATEGORY_SETTINGS = window.HOMELODY_CATEGORIES;
+let CATS = CATEGORY_SETTINGS.resolve({});
+let categoryReady = false, categoryVersion = null, categoryWorking = false, editingCategory = null, deletingCategory = null;
+let favoritesSavedIds = null, favoritesVersion = null, favoritesReady = false, favoritesWorking = false, favoritesDraft = [], favoritesInitial = '';
+function adoptFavoritesShop(shop) {
+  favoritesSavedIds = Array.isArray(shop.featured_drink_ids) ? [...shop.featured_drink_ids] : null;
+  favoritesVersion = shop.updated_at || null;
+  favoritesReady = api.demo || Object.prototype.hasOwnProperty.call(shop, 'featured_drink_ids');
 }
+function currentFavorites() { return FAVORITES.resolve({ featured_drink_ids: favoritesSavedIds }, drinks, CATS, MAX_FEATURED); }
+function renderFavoritesPreview() {
+  const selected = currentFavorites();
+  $('#manage-favorites').disabled = !favoritesReady || favoritesWorking;
+  $('#favorites-summary').textContent = `${selected.length} / ${MAX_FEATURED} món đang xuất hiện · Theo đúng thứ tự bên dưới`;
+  $('#favorites-preview').innerHTML = selected.map((drink, index) => `<figure><span class="favorite-position">${String(index + 1).padStart(2, '0')}</span><img src="${esc(viewSrc(drink.image_url || drink.image))}" alt=""><figcaption>${esc(drink.name)}<small>${money(drink.price)}</small></figcaption></figure>`).join('') || '<p class="empty">Chưa có món đủ điều kiện hiển thị. Chọn món đang bán và có ảnh.</p>';
+  const configured = FAVORITES.configuredIds({ featured_drink_ids: favoritesSavedIds }, drinks, CATS, MAX_FEATURED);
+  const missing = configured.length - selected.length;
+  $('#favorites-note').textContent = missing > 0 ? `${missing} món đã chọn đang ẩn, thiếu ảnh hoặc đã bị xóa. Mở “Chọn & sắp xếp” để kiểm tra.` : `Tối đa ${MAX_FEATURED} món. Chỉ hiển thị món đang bán, có ảnh và thuộc danh mục đang bật.`;
+}
+const favoritesEditor = $('#favorites-editor'), favoritesDiscard = $('#favorites-discard');
+function favoriteReason(drink) {
+  if (!drink) return 'Món đã bị xóa';
+  if (!drink.is_active) return 'Món đang ẩn';
+  if (!CATEGORY_SETTINGS.visible(CATS, drink.category)) return 'Danh mục đang ẩn';
+  if (!(drink.image_url || drink.image)) return 'Chưa có ảnh';
+  return '';
+}
+function renderFavoritesDialog() {
+  const selected = favoritesDraft.map(id => drinks.find(drink => String(drink.id) === id));
+  const invalid = selected.filter(drink => !FAVORITES.eligible(drink, CATS)).length;
+  $('#favorites-count').textContent = `${favoritesDraft.length} / ${MAX_FEATURED}`;
+  $('#favorites-selected').innerHTML = selected.map((drink, index) => `<li class="favorite-selected${favoriteReason(drink) ? ' is-unavailable' : ''}">
+    <span class="favorite-position">${index + 1}</span>
+    ${drink?.image_url ? `<img src="${esc(viewSrc(drink.image_url))}" alt="">` : '<span class="favorite-no-image" aria-hidden="true">—</span>'}
+    <div><strong>${esc(drink?.name || 'Món không còn trong thực đơn')}</strong><small>${esc(favoriteReason(drink) || money(drink.price))}</small></div>
+    <div class="favorite-selected__actions"><button class="icon-btn" type="button" data-favorite-up="${index}" aria-label="Đưa món ${index + 1} lên" ${favoritesWorking || index === 0 ? 'disabled' : ''}>↑</button><button class="icon-btn" type="button" data-favorite-down="${index}" aria-label="Đưa món ${index + 1} xuống" ${favoritesWorking || index === selected.length - 1 ? 'disabled' : ''}>↓</button><button class="icon-btn" type="button" data-favorite-remove="${index}" aria-label="Bỏ ${esc(drink?.name || 'món đã xóa')} khỏi món yêu thích" ${favoritesWorking ? 'disabled' : ''}>×</button></div>
+  </li>`).join('') || '<li class="empty">Chọn món từ danh sách bên cạnh để bắt đầu.</li>';
+  const query = searchKey($('#favorites-search').value);
+  const options = drinks.filter(drink => !query || searchKey(drink.name + ' ' + canonicalCat(drink.category)).includes(query));
+  $('#favorites-options').innerHTML = options.map(drink => {
+    const checked = favoritesDraft.includes(String(drink.id)), reason = favoriteReason(drink);
+    return `<label class="favorite-option${reason ? ' is-unavailable' : ''}"><input type="checkbox" data-favorite-pick value="${esc(drink.id)}" ${checked ? 'checked' : ''} ${favoritesWorking || (!checked && (reason || favoritesDraft.length >= MAX_FEATURED)) ? 'disabled' : ''}><span><strong>${esc(drink.name)}</strong><small>${esc(reason || canonicalCat(drink.category) + ' · ' + money(drink.price))}</small></span></label>`;
+  }).join('') || '<p class="empty">Không có món khớp từ khóa. Thử tên hoặc danh mục khác.</p>';
+  $('#favorites-status').textContent = favoritesWorking ? 'Đang lưu lựa chọn…' : invalid ? `${invalid} món chưa đủ điều kiện. Bỏ món đó hoặc cập nhật ảnh/trạng thái trước khi lưu.` : favoritesDraft.length === MAX_FEATURED ? `Đã đủ ${MAX_FEATURED} món. Bỏ một món để chọn món khác.` : `Chọn từ 1 đến ${MAX_FEATURED} món. Thay đổi chỉ áp dụng khi bấm lưu.`;
+  $('#save-favorites').disabled = favoritesWorking || !favoritesDraft.length || !!invalid;
+}
+$('#manage-favorites').addEventListener('click', async event => {
+  if (favoritesWorking) return;
+  favoritesWorking = true;
+  await busy(event.currentTarget, async () => {
+    try {
+      const [shop, rows] = await Promise.all([api.getShop(), api.listDrinks()]);
+      adoptFavoritesShop(shop);
+      if (!favoritesReady) throw new Error('Bộ lưu món yêu thích chưa sẵn sàng. Vui lòng tải lại trang sau khi cập nhật hệ thống.');
+      drinks = rows; CATS = CATEGORY_SETTINGS.resolve(shop, drinks); categoryVersion = shop.updated_at || null;
+      favoritesDraft = FAVORITES.configuredIds(shop, drinks, CATS, MAX_FEATURED); favoritesInitial = JSON.stringify(favoritesDraft);
+      $('#favorites-search').value = ''; $('#favorites-error').hidden = true;
+      favoritesWorking = false; syncCategoryFilter(); renderList(); renderFavoritesDialog();
+      favoritesEditor.showModal();
+    } catch (error) { toast(errText(error), true); }
+    finally { favoritesWorking = false; }
+  }, 'Đang tải…');
+  renderFavoritesPreview();
+});
+$('#favorites-search').addEventListener('input', renderFavoritesDialog);
+$('#favorites-options').addEventListener('change', event => {
+  if (!event.target.matches('[data-favorite-pick]') || favoritesWorking) return;
+  const id = event.target.value;
+  if (event.target.checked) {
+    const drink = drinks.find(item => String(item.id) === id);
+    if (favoritesDraft.length < MAX_FEATURED && FAVORITES.eligible(drink, CATS) && !favoritesDraft.includes(id)) favoritesDraft.push(id);
+  } else favoritesDraft = favoritesDraft.filter(value => value !== id);
+  renderFavoritesDialog();
+  $(`[data-favorite-pick][value="${CSS.escape(id)}"]`)?.focus();
+});
+$('#favorites-selected').addEventListener('click', event => {
+  if (favoritesWorking) return;
+  const remove = event.target.closest('[data-favorite-remove]');
+  if (remove) {
+    const index = Number(remove.dataset.favoriteRemove); favoritesDraft.splice(index, 1); renderFavoritesDialog();
+    const target = $(`[data-favorite-remove="${Math.min(index, favoritesDraft.length - 1)}"]`) || $('#favorites-search'); target.focus(); return;
+  }
+  const button = event.target.closest('[data-favorite-up], [data-favorite-down]'); if (!button) return;
+  const index = Number(button.dataset.favoriteUp ?? button.dataset.favoriteDown), next = index + (button.hasAttribute('data-favorite-up') ? -1 : 1);
+  if (next >= 0 && next < favoritesDraft.length) [favoritesDraft[index], favoritesDraft[next]] = [favoritesDraft[next], favoritesDraft[index]];
+  renderFavoritesDialog();
+  const direction = button.hasAttribute('data-favorite-up') ? 'up' : 'down';
+  const focusButton = $(`[data-favorite-${direction}="${next}"]:not([disabled])`) || $(`[data-favorite-remove="${next}"]`);
+  focusButton?.focus();
+});
+function requestFavoritesClose() {
+  if (favoritesWorking) return;
+  if (JSON.stringify(favoritesDraft) !== favoritesInitial) favoritesDiscard.showModal(); else favoritesEditor.close();
+}
+$$('[data-favorites-close]').forEach(button => button.addEventListener('click', requestFavoritesClose));
+favoritesEditor.addEventListener('cancel', event => { event.preventDefault(); requestFavoritesClose(); });
+$('#favorites-continue').addEventListener('click', () => favoritesDiscard.close());
+$('#favorites-discard-confirm').addEventListener('click', () => { favoritesDiscard.close(); favoritesEditor.close(); });
+$('#favorites-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (favoritesWorking || !favoritesDraft.length || favoritesDraft.length > MAX_FEATURED) return;
+  $('#favorites-error').hidden = true;
+  await busy($('#save-favorites'), async () => {
+    favoritesWorking = true; renderFavoritesDialog();
+    try {
+      const [shop, rows] = await Promise.all([api.getShop(), api.listDrinks()]);
+      if ((shop.updated_at || null) !== favoritesVersion) throw new Error('Thông tin quán vừa thay đổi. Đóng rồi mở lại mục chọn món để tải dữ liệu mới.');
+      drinks = rows; CATS = CATEGORY_SETTINGS.resolve(shop, drinks);
+      if (favoritesDraft.some(id => !FAVORITES.eligible(rows.find(drink => String(drink.id) === id), CATS))) throw new Error('Một số món vừa bị ẩn, xóa hoặc thiếu ảnh. Kiểm tra lại các món được chọn.');
+      const saved = await api.saveFavorites([...favoritesDraft], favoritesVersion);
+      adoptFavoritesShop(saved); CATS = CATEGORY_SETTINGS.resolve(saved, drinks); categoryVersion = saved.updated_at || null;
+      try { localStorage.removeItem('homelody:menu:v1'); } catch (_) { /* optional cache */ }
+      favoritesEditor.close(); syncCategoryFilter(); renderList(); toast('Đã lưu món yêu thích và thứ tự hiển thị');
+    } catch (error) { $('#favorites-error').textContent = errText(error); $('#favorites-error').hidden = false; }
+    finally { favoritesWorking = false; }
+  });
+  renderFavoritesDialog(); renderList();
+});
+function canonicalCat(v) {
+  return CATEGORY_SETTINGS.canonical(CATS, v);
+}
+function publishedDrink(drink) { return drink.is_active && CATEGORY_SETTINGS.visible(CATS, drink.category); }
+
+async function loadManagedCategories() {
+  $('#category-list').setAttribute('aria-busy', 'true');
+  $('#category-error').hidden = true;
+  try {
+    const shop = await api.getShop();
+    adoptFavoritesShop(shop);
+    CATS = CATEGORY_SETTINGS.resolve(shop, drinks);
+    categoryVersion = shop.updated_at || null;
+    categoryReady = api.demo || Object.prototype.hasOwnProperty.call(shop, 'menu_categories');
+    if (!categoryReady) throw new Error('Bộ lưu danh mục chưa sẵn sàng. Vui lòng tải lại sau khi cập nhật hệ thống.');
+  } catch (error) {
+    categoryReady = false; $('#category-error').textContent = errText(error); $('#category-error').hidden = false;
+  } finally { renderCategories(); $('#category-list').setAttribute('aria-busy', 'false'); }
+}
+function categoryCount(category) { return drinks.filter(drink => canonicalCat(drink.category) === category.name).length; }
+function renderCategories() {
+  const disabled = !categoryReady || categoryWorking;
+  $('#add-category').disabled = disabled;
+  $('#refresh-categories').disabled = categoryWorking;
+  $('#category-summary').textContent = `${CATS.length} danh mục · ${CATS.filter(category => category.is_active).length} đang bật`;
+  $('#category-list').innerHTML = CATS.length ? CATS.map((category, index) => {
+    const count = categoryCount(category);
+    return `<article class="category-row" data-category-id="${esc(category.id)}">
+      <span class="category-row__order">${String(index + 1).padStart(2, '0')}</span>
+      <div class="category-row__name"><h3>${esc(category.name)}</h3><p>${category.en ? esc(category.en) + ' · ' : ''}${count} món${!category.is_active ? ' · Đang ẩn trên website' : ''}</p></div>
+      <button class="btn btn--ghost btn--sm" type="button" data-category-items ${!count ? 'disabled' : ''}>Xem món</button>
+      <div class="category-row__actions">
+        <button class="icon-btn" type="button" data-category-move="-1" aria-label="Đưa ${esc(category.name)} lên" ${disabled || !index ? 'disabled' : ''}>↑</button>
+        <button class="icon-btn" type="button" data-category-move="1" aria-label="Đưa ${esc(category.name)} xuống" ${disabled || index === CATS.length - 1 ? 'disabled' : ''}>↓</button>
+        <label class="switch switch--inline"><input type="checkbox" data-category-active ${category.is_active ? 'checked' : ''} ${disabled ? 'disabled' : ''} aria-label="Hiển thị danh mục ${esc(category.name)}"><span class="switch__ui"></span></label>
+        <button class="btn btn--ghost btn--sm" type="button" data-category-edit ${disabled ? 'disabled' : ''}>Sửa</button>
+        <button class="btn btn--danger-ghost btn--sm" type="button" data-category-delete ${disabled || count ? 'disabled' : ''} title="${count ? 'Chuyển các món sang danh mục khác trước khi xóa' : 'Xóa danh mục trống'}">Xóa</button>
+      </div>
+    </article>`;
+  }).join('') : '<div class="empty"><h3>Chưa có danh mục</h3><p>Thêm nhóm đầu tiên để bắt đầu sắp xếp thực đơn.</p></div>';
+}
+async function persistCategories(next) {
+  if (!categoryReady || categoryWorking) throw new Error('Vui lòng chờ danh mục tải xong.');
+  categoryWorking = true; $('#category-error').hidden = true; $('#category-list').setAttribute('aria-busy', 'true'); renderCategories();
+  try {
+    const saved = await api.saveCategories(next, categoryVersion);
+    adoptFavoritesShop(saved);
+    CATS = CATEGORY_SETTINGS.resolve(saved, drinks); categoryVersion = saved.updated_at || null;
+    syncCategoryFilter(); renderList();
+    try { localStorage.removeItem('homelody:menu:v1'); } catch (_) { /* optional cache */ }
+  } finally { categoryWorking = false; renderCategories(); $('#category-list').setAttribute('aria-busy', 'false'); }
+}
+$('#refresh-categories').addEventListener('click', async () => { await loadManagedCategories(); await loadDrinks(); });
+const categoryEditor = $('#category-editor'), categoryForm = $('#category-form');
+function openCategoryEditor(category) {
+  editingCategory = category; categoryForm.reset(); $('#category-form-error').hidden = true;
+  $('#category-editor-title').textContent = category ? 'Sửa danh mục' : 'Thêm danh mục';
+  categoryForm.elements.namedItem('name').value = category?.name || '';
+  categoryForm.elements.namedItem('en').value = category?.en || '';
+  categoryForm.elements.namedItem('is_active').checked = category?.is_active !== false;
+  categoryEditor.showModal(); categoryForm.elements.namedItem('name').focus();
+}
+$('#add-category').addEventListener('click', () => openCategoryEditor(null));
+$$('[data-category-close]').forEach(button => button.addEventListener('click', () => { if (!categoryWorking) categoryEditor.close(); }));
+categoryEditor.addEventListener('cancel', event => { if (categoryWorking) event.preventDefault(); });
+categoryForm.addEventListener('submit', async event => {
+  event.preventDefault(); if (categoryWorking) return;
+  const draft = { id: editingCategory?.id || crypto.randomUUID(), name: categoryForm.elements.namedItem('name').value.trim(), en: categoryForm.elements.namedItem('en').value.trim(), is_active: categoryForm.elements.namedItem('is_active').checked, aliases: [...(editingCategory?.aliases || [])] };
+  const error = $('#category-form-error'), issue = CATEGORY_SETTINGS.validate(CATS, draft, editingCategory?.id);
+  error.hidden = true;
+  if (issue) { error.textContent = issue; error.hidden = false; categoryForm.elements.namedItem('name').focus(); return; }
+  if (editingCategory && editingCategory.name !== draft.name) draft.aliases.push(editingCategory.name);
+  draft.aliases = [...new Set(draft.aliases)].filter(alias => CATEGORY_SETTINGS.key(alias) !== CATEGORY_SETTINGS.key(draft.name));
+  const next = editingCategory ? CATS.map(category => category.id === editingCategory.id ? draft : category) : [...CATS, draft];
+  await busy($('#save-category'), async () => {
+    try { await persistCategories(next); categoryEditor.close(); toast('Đã lưu danh mục'); }
+    catch (ex) { error.textContent = errText(ex); error.hidden = false; }
+  });
+});
+$('#category-list').addEventListener('click', async event => {
+  const row = event.target.closest('[data-category-id]'); if (!row || categoryWorking) return;
+  const category = CATS.find(item => item.id === row.dataset.categoryId); if (!category) return;
+  if (event.target.closest('[data-category-items]')) {
+    selectTab($('#tab-menu')); $('#search').value = ''; $('#filter-status').value = 'all'; $('#filter-category').value = category.name; renderList(); return;
+  }
+  if (event.target.closest('[data-category-edit]')) { openCategoryEditor(category); return; }
+  if (event.target.closest('[data-category-delete]') && !categoryCount(category)) {
+    deletingCategory = category; $('#category-delete-message').textContent = `Xóa danh mục “${category.name}”? Danh mục này chưa có món.`;
+    $('#category-delete-error').hidden = true; $('#category-delete-dialog').showModal(); return;
+  }
+  const moveButton = event.target.closest('[data-category-move]');
+  if (moveButton) {
+    const next = [...CATS], index = CATS.indexOf(category), target = index + Number(moveButton.dataset.categoryMove);
+    if (target < 0 || target >= next.length) return;
+    [next[index], next[target]] = [next[target], next[index]];
+    try { await persistCategories(next); toast('Đã đổi thứ tự danh mục'); }
+    catch (ex) { $('#category-error').textContent = errText(ex); $('#category-error').hidden = false; }
+  }
+});
+$('#category-list').addEventListener('change', async event => {
+  if (!event.target.matches('[data-category-active]') || categoryWorking) return;
+  const id = event.target.closest('[data-category-id]').dataset.categoryId;
+  const next = CATS.map(category => category.id === id ? { ...category, is_active: event.target.checked } : category);
+  try { await persistCategories(next); toast('Đã cập nhật hiển thị danh mục'); }
+  catch (ex) { renderCategories(); $('#category-error').textContent = errText(ex); $('#category-error').hidden = false; }
+});
+$('#cancel-delete-category').addEventListener('click', () => { if (!categoryWorking) $('#category-delete-dialog').close(); });
+$('#confirm-delete-category').addEventListener('click', async event => {
+  if (!deletingCategory || categoryWorking) return;
+  await busy(event.currentTarget, async () => {
+    try {
+      drinks = await api.listDrinks();
+      if (categoryCount(deletingCategory)) throw new Error('Danh mục đã có món. Hãy chuyển các món sang nhóm khác trước khi xóa.');
+      await persistCategories(CATS.filter(category => category.id !== deletingCategory.id));
+      $('#category-delete-dialog').close(); toast('Đã xóa danh mục trống');
+    } catch (ex) { $('#category-delete-error').textContent = errText(ex); $('#category-delete-error').hidden = false; }
+  });
+});
 
 /* ---------- drinks list */
 async function loadDrinks() {
-  try { drinks = await api.listDrinks(); renderList(); }
-  catch (e) { $('#drink-list').innerHTML = `<p class="empty">Không tải được danh sách món: ${esc(errText(e))}</p>`; }
+  $('#drink-list').setAttribute('aria-busy', 'true');
+  try { drinks = await api.listDrinks(); CATS = CATEGORY_SETTINGS.resolve({ menu_categories: CATS }, drinks); syncCategoryFilter(); renderList(); renderCategories(); }
+  catch (e) {
+    $('#list-summary').textContent = 'Chưa tải được dữ liệu. Bấm Tải lại để thử lại.';
+    $('#drink-list').innerHTML = `<p class="empty" role="alert">Không tải được danh sách món: ${esc(errText(e))}</p>`;
+  } finally { $('#drink-list').setAttribute('aria-busy', 'false'); }
+}
+const searchKey = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase();
+function syncCategoryFilter() {
+  const select = $('#filter-category'), selected = select.value;
+  const names = [...new Set([...CATS.map(c => c.name), ...drinks.map(d => canonicalCat(d.category)).filter(Boolean)])];
+  select.innerHTML = '<option value="">Tất cả</option>' + names.map(name => `<option value="${esc(name)}">${esc(name)}</option>`).join('');
+  select.value = names.includes(selected) ? selected : '';
 }
 function renderList() {
+  renderCategories();
+  renderFavoritesPreview();
+  const favoriteIds = new Set(currentFavorites().map(drink => String(drink.id)));
   $('#delete-all-drinks').disabled = !drinks.length;
-  const q = $('#search').value.trim().toLowerCase();
+  const q = searchKey($('#search').value.trim());
+  const category = $('#filter-category').value, status = $('#filter-status').value;
   const list = $('#drink-list');
-  const shown = drinks.filter((d) => !q || (d.name + ' ' + canonicalCat(d.category)).toLowerCase().includes(q));
-  const featured = drinks.filter((d) => d.is_featured && d.is_active).length;
-  $('#featured-hint').textContent = `${drinks.length} món · ${featured} món nổi bật` +
-    (featured > MAX_FEATURED ? ` (chỉ ${MAX_FEATURED} món đầu được hiện trên bàn xoay)` : featured === 0 ? ' (chưa chọn món nổi bật nào: bàn xoay sẽ dùng 4 món đầu)' : '');
+  const shown = drinks.filter((d) => (!q || searchKey(d.name + ' ' + canonicalCat(d.category)).includes(q)) &&
+    (!category || canonicalCat(d.category) === category) &&
+    (status === 'all' || (status === 'active' && publishedDrink(d)) || (status === 'hidden' && !publishedDrink(d)) ||
+      (status === 'featured' && favoriteIds.has(String(d.id))) || (status === 'missing-image' && !d.image_url)));
+  const featured = favoriteIds.size;
+  $('#metric-total').textContent = drinks.length;
+  $('#metric-active').textContent = drinks.filter(publishedDrink).length;
+  $('#metric-hidden').textContent = drinks.filter(d => !publishedDrink(d)).length;
+  $('#metric-featured').textContent = featured;
+  $('#nav-menu-count').textContent = drinks.length;
+  $('#list-summary').textContent = `Hiển thị ${shown.length} / ${drinks.length} món`;
+  $('#clear-filters').hidden = !q && !category && status === 'all';
+  $$('[data-status-filter]').forEach(button => {
+    const selected = button.dataset.statusFilter === status;
+    button.classList.toggle('is-selected', selected); button.setAttribute('aria-pressed', String(selected));
+  });
+  $('#featured-hint').textContent = `${drinks.length} món · ${featured} món yêu thích đang hiển thị. Chọn và sắp xếp riêng trong khung phía trên.`;
 
   if (!shown.length) {
-    list.innerHTML = `<p class="empty">${q ? 'Không có món nào khớp.' : 'Chưa có món nào. Bấm “+ Thêm món” để bắt đầu.'}</p>`;
+    list.innerHTML = `<div class="empty"><span class="empty__symbol" aria-hidden="true">⌕</span><h3>${drinks.length ? 'Chưa tìm thấy món phù hợp' : 'Thực đơn đang chờ món đầu tiên'}</h3><p>${drinks.length ? 'Thử một tên khác hoặc bỏ bớt điều kiện lọc.' : 'Bấm “Thêm món mới” để bắt đầu chăm chút thực đơn.'}</p>${drinks.length ? '<button class="btn btn--outline btn--sm" type="button" data-clear-filters>Xóa bộ lọc</button>' : ''}</div>`;
     return;
   }
   // nhóm theo tên chuẩn, đúng thứ tự tab trên web; nhóm lạ (chưa khai báo) xếp cuối
@@ -323,18 +622,19 @@ function renderList() {
   [...groups.keys()].forEach((k) => { if (!groups.get(k).length) groups.delete(k); });
   list.innerHTML = [...groups].map(([name, items]) => `
     <section class="group">
-      <h3 class="group__title">${esc(name)} · ${items.length}</h3>
+      <h3 class="group__title">${esc(name)} <span>${items.length} món</span></h3>
       <div class="group__items">${items.map((d) => {
         const up = neighbour(d, -1) < 0, down = neighbour(d, 1) < 0;
         return `
         <article class="drink${d.is_active ? '' : ' is-off'}" data-id="${esc(d.id)}">
           <div class="drink__thumb">${d.image_url ? `<img src="${esc(viewSrc(d.image_url))}" alt="" loading="lazy">` : '<span>Chưa ảnh</span>'}</div>
-          <div class="drink__main" data-edit>
-            <p class="drink__name">${esc(d.name)}</p>
-            <p class="drink__meta"><span>${money(d.price)}</span>
-              ${d.is_featured ? '<span class="badge badge--star">★ Nổi bật</span>' : ''}
-              ${d.is_active ? '' : '<span class="badge badge--off">Đang ẩn</span>'}</p>
+          <div class="drink__main">
+            <button class="drink__name" type="button" data-edit>${esc(d.name)}</button>
+            <p class="drink__description">${esc(d.description || 'Chưa có mô tả ngắn')}</p>
+            <p class="drink__meta">${favoriteIds.has(String(d.id)) ? '<span class="badge badge--star">★ Món yêu thích</span>' : ''}${!d.image_url ? '<span class="badge badge--missing">Chưa có ảnh</span>' : ''}${!CATEGORY_SETTINGS.visible(CATS, d.category) ? '<span class="badge badge--off">Danh mục đang ẩn</span>' : ''}</p>
           </div>
+          <p class="drink__price">${money(d.price)}</p>
+          <span class="drink__status ${publishedDrink(d) ? 'drink__status--active' : ''}"><i class="status-dot ${publishedDrink(d) ? '' : 'status-dot--muted'}"></i>${publishedDrink(d) ? 'Đang hiển thị' : 'Đang ẩn'}</span>
           <div class="drink__actions">
             <button class="icon-btn" type="button" data-move="-1" aria-label="Đưa ${esc(d.name)} lên trên" ${up || q ? 'disabled' : ''}>↑</button>
             <button class="icon-btn" type="button" data-move="1" aria-label="Đưa ${esc(d.name)} xuống dưới" ${down || q ? 'disabled' : ''}>↓</button>
@@ -346,8 +646,22 @@ function renderList() {
     </section>`).join('');
 }
 $('#search').addEventListener('input', renderList);
+$('#filter-category').addEventListener('change', renderList);
+$('#filter-status').addEventListener('change', renderList);
+function clearFilters() { $('#search').value = ''; $('#filter-category').value = ''; $('#filter-status').value = 'all'; renderList(); }
+$('#clear-filters').addEventListener('click', clearFilters);
+$$('[data-status-filter]').forEach(button => button.addEventListener('click', () => {
+  $('#filter-status').value = button.dataset.statusFilter; renderList();
+}));
+$('#refresh-drinks').addEventListener('click', async event => { await busy(event.currentTarget, loadDrinks, 'Đang tải…'); });
+$('#toggle-password').addEventListener('click', event => {
+  const input = $('#login-password'), show = input.type === 'password';
+  input.type = show ? 'text' : 'password'; event.currentTarget.textContent = show ? 'Ẩn' : 'Hiện';
+  event.currentTarget.setAttribute('aria-pressed', String(show));
+});
 
 $('#drink-list').addEventListener('click', async (e) => {
+  if (e.target.closest('[data-clear-filters]')) { clearFilters(); $('#search').focus(); return; }
   const card = e.target.closest('.drink'); if (!card) return;
   const d = drinks.find((x) => String(x.id) === card.dataset.id); if (!d) return;
   if (e.target.closest('[data-edit]')) { openEditor(d); return; }
@@ -359,6 +673,7 @@ $('#drink-list').addEventListener('change', async (e) => {
   const card = e.target.closest('.drink');
   const d = drinks.find((x) => String(x.id) === card.dataset.id);
   const was = d.is_active;
+  e.target.disabled = true;
   d.is_active = e.target.checked;
   try {
     const saved = await api.saveDrink({ ...d });
@@ -390,9 +705,20 @@ async function move(d, dir) {
 
 /* ---------- editor */
 const editor = $('#editor'), form = $('#drink-form');
+const discardEditor = $('#discard-editor');
+let editorSnapshot = '';
+const currentEditorSnapshot = () => JSON.stringify([...new FormData(form)]);
+function requestEditorClose() {
+  if (currentEditorSnapshot() !== editorSnapshot || pendingImage || (removeImageFlag && editing?.image_url)) {
+    discardEditor.showModal();
+  } else editor.close();
+}
+$('#keep-editing').addEventListener('click', () => discardEditor.close());
+$('#discard-changes').addEventListener('click', () => { discardEditor.close(); editor.close(); });
+editor.addEventListener('cancel', event => { event.preventDefault(); requestEditorClose(); });
 $('#add-drink').addEventListener('click', () => openEditor(null));
-$$('[data-close]', editor).forEach((b) => b.addEventListener('click', () => editor.close()));
-editor.addEventListener('click', (e) => { if (e.target === editor) editor.close(); });
+$$('[data-close]', editor).forEach((b) => b.addEventListener('click', requestEditorClose));
+editor.addEventListener('click', (e) => { if (e.target === editor) requestEditorClose(); });
 
 function openEditor(d) {
   editing = d; pendingImage = null; removeImageFlag = false;
@@ -401,9 +727,10 @@ function openEditor(d) {
   $('#drink-error').hidden = true; $('#img-warn').hidden = true;
   const del = $('#delete-drink'); del.hidden = !d; del.classList.remove('is-armed'); del.textContent = 'Xóa món';
   const v = d || { name: '', category: drinks[drinks.length - 1]?.category || (CATS[0] || {}).name || 'Cà phê Việt', price: '', description: '', note: '', ingredients: [], image_alt: '', is_active: true, is_featured: false };
-  // ô Nhóm: luôn liệt kê đủ các nhóm trong config.js; nhóm lạ của món đang sửa (nếu có) được giữ thêm ở cuối
+  // Keep every managed category available, including temporarily hidden groups.
   const cat = canonicalCat(v.category) || (CATS[0] || {}).name || '';
   const names = CATS.map((c) => c.name);
+  if (!names.length) { toast('Thêm ít nhất một danh mục trước khi thêm món.', true); selectTab($('#tab-categories')); return; }
   if (cat && !names.includes(cat)) names.push(cat);
   form.category.innerHTML = names.map((n) => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
   form.name.value = v.name; form.category.value = cat; form.price.value = v.price ? String(v.price) : '';
@@ -411,6 +738,7 @@ function openEditor(d) {
   form.image_alt.value = v.image_alt; form.is_active.checked = v.is_active; form.is_featured.checked = v.is_featured;
   showPreview(d && d.image_url ? viewSrc(d.image_url) : '');
   updatePricePreview();
+  editorSnapshot = currentEditorSnapshot();
   editor.showModal();
   if (!d) form.name.focus();
 }
@@ -469,7 +797,7 @@ form.addEventListener('submit', async (e) => {
       const saved = await api.saveDrink(row);
       if (oldImage && oldImage !== saved.image_url) await api.removeImage(oldImage);
       if (editing) Object.assign(editing, saved); else drinks.push(saved);
-      editor.close(); renderList();
+      editor.close(); syncCategoryFilter(); renderList();
       toast(`Đã lưu “${saved.name}”`);
     } catch (ex) { err.textContent = errText(ex); err.hidden = false; }
   });
@@ -486,24 +814,78 @@ $('#delete-drink').addEventListener('click', async (e) => {
 });
 
 /* ---------- shop */
+const SHOP_SETTINGS = window.HOMELODY_SHOP_SETTINGS;
+$('#shop-social-links').innerHTML = SHOP_SETTINGS.fields.map(field => `
+  <div class="field">
+    <label class="field__label" for="shop-${field.name}">${field.label}</label>
+    <input id="shop-${field.name}" name="${field.name}" type="url" inputmode="url" maxlength="2048" placeholder="${field.placeholder}" aria-describedby="current-${field.name}">
+    <span class="shop-link-current" id="current-${field.name}"><span>Đang dùng:</span><a data-current-link="${field.key}" target="_blank" rel="noopener noreferrer"></a></span>
+  </div>`).join('');
+function displayCurrentShopLinks(links) {
+  $$('[data-current-link]', $('#shop-form')).forEach(anchor => {
+    const key = anchor.dataset.currentLink, url = links[key];
+    if (url) { anchor.href = url; anchor.title = url; anchor.removeAttribute('aria-disabled'); }
+    else { anchor.removeAttribute('href'); anchor.setAttribute('aria-disabled', 'true'); }
+    if (key !== 'MAPS_URL') anchor.textContent = url || 'Chưa có liên kết';
+  });
+}
 async function loadShop() {
+  const button = $('#save-shop'), error = $('#shop-error');
+  button.disabled = true; error.hidden = true;
   try {
     const s = await api.getShop();
     const f = $('#shop-form');
-    ['address', 'hours', 'phone', 'directions_url', 'contact_url', 'facebook_url', 'instagram_url', 'tiktok_url']
-      .forEach((k) => { f[k].value = s[k] || ''; });
-  } catch (e) { toast('Không tải được thông tin quán: ' + errText(e), true); }
+    const links = SHOP_SETTINGS.resolveLinks(s);
+    ['address', 'hours'].forEach(k => { f.elements.namedItem(k).value = s[k] || ''; });
+    f.phone.value = SHOP_SETTINGS.formatPhone(links.PHONE);
+    f.directions_url.value = links.MAPS_URL;
+    SHOP_SETTINGS.fields.forEach(field => { f.elements.namedItem(field.name).value = links[field.key]; });
+    displayCurrentShopLinks(links);
+    const ready = api.demo || Object.prototype.hasOwnProperty.call(s, 'public_links');
+    f.dataset.ready = String(ready); button.disabled = !ready;
+    $('#shop-save-status').textContent = ready ? 'Đang hiển thị các liên kết website sử dụng.' : 'Đang chờ cập nhật bộ lưu liên kết. Bạn vẫn có thể xem các link hiện tại.';
+    return ready;
+  } catch (e) {
+    error.textContent = 'Không tải được thông tin quán: ' + errText(e); error.hidden = false;
+    $('#shop-form').dataset.ready = 'false';
+    $('#shop-save-status').textContent = 'Chưa tải được thông tin. Vui lòng tải lại trang.';
+    return false;
+  }
 }
 $('#shop-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const f = e.currentTarget, values = {};
-  for (const k of ['address', 'hours', 'phone', 'directions_url', 'contact_url', 'facebook_url', 'instagram_url', 'tiktok_url']) values[k] = f[k].value.trim();
-  for (const k of ['directions_url', 'contact_url', 'facebook_url', 'instagram_url', 'tiktok_url']) {
-    if (values[k] && !/^https?:\/\//i.test(values[k])) values[k] = 'https://' + values[k].replace(/^\/+/, '');
+  const f = e.currentTarget, error = $('#shop-error'); error.hidden = true;
+  if (f.dataset.ready !== 'true') return;
+  const phone = SHOP_SETTINGS.phoneUrl(f.phone.value);
+  if (!phone) { error.textContent = 'Nhập số điện thoại hợp lệ, từ 8 đến 15 chữ số.'; error.hidden = false; f.phone.focus(); return; }
+  const defaults = SHOP_SETTINGS.resolveLinks({});
+  const savedLinks = { PHONE: phone };
+  for (const field of [...SHOP_SETTINGS.fields, { name: 'directions_url', key: 'MAPS_URL', label: 'Google Maps' }]) {
+    const input = f.elements.namedItem(field.name), value = input.value.trim();
+    const url = value ? SHOP_SETTINGS.webUrl(value) : defaults[field.key];
+    if (value && !url) {
+      error.textContent = `Link ${field.label} chưa hợp lệ. Dùng địa chỉ HTTPS, không nhập mã hoặc thông tin đăng nhập.`;
+      error.hidden = false; input.focus(); return;
+    }
+    savedLinks[field.key] = url;
   }
-  await busy($('button[type=submit]', f), async () => {
-    try { await api.saveShop(values); await loadShop(); toast('Đã lưu thông tin quán'); }
-    catch (ex) { toast(errText(ex), true); }
+  const values = {
+    address: f.address.value.trim(), hours: f.hours.value.trim(), phone: SHOP_SETTINGS.formatPhone(phone),
+    directions_url: savedLinks.MAPS_URL, contact_url: savedLinks.ZALO_URL,
+    facebook_url: savedLinks.FACEBOOK_URL, instagram_url: savedLinks.INSTAGRAM_URL, tiktok_url: savedLinks.TIKTOK_URL,
+    public_links: savedLinks
+  };
+  await busy($('#save-shop'), async () => {
+    try {
+      const saved = await api.saveShop(values);
+      const links = SHOP_SETTINGS.resolveLinks(saved);
+      SHOP_SETTINGS.fields.forEach(field => { f.elements.namedItem(field.name).value = links[field.key]; });
+      f.directions_url.value = links.MAPS_URL; f.phone.value = SHOP_SETTINGS.formatPhone(links.PHONE);
+      displayCurrentShopLinks(links);
+      try { localStorage.removeItem('homelody:menu:v1'); } catch (_) { /* storage may be unavailable */ }
+      $('#shop-save-status').textContent = 'Đã lưu. Các liên kết mới hiển thị khi tải lại website.';
+      toast('Đã lưu thông tin và liên kết website');
+    } catch (ex) { error.textContent = 'Chưa lưu được: ' + errText(ex); error.hidden = false; }
   });
 });
 
@@ -567,6 +949,7 @@ async function prepareStoryImage(file) {
       const image = new Image(); image.onload = () => resolve(image);
       image.onerror = () => reject(new Error('Không đọc được ảnh này.')); image.src = url;
     });
+    if (!img.naturalWidth || !img.naturalHeight || img.naturalWidth * img.naturalHeight > 24000000 || Math.max(img.naturalWidth, img.naturalHeight) > 10000) throw new Error('Ảnh quá lớn. Chọn ảnh tối đa 24 megapixel và 10.000px mỗi cạnh.');
     const scale = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
     const canvas = document.createElement('canvas');
     canvas.width = Math.max(1, Math.round(img.naturalWidth * scale));

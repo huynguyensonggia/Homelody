@@ -1,17 +1,19 @@
 /* HOMELODY — public links, booking, delivery, mobile actions and click events. */
 (function () {
   'use strict';
-  var cfg = window.HOMELODY_CONFIG || {}, links = cfg.links || {};
+  var cfg = window.HOMELODY_CONFIG || {}, links = window.HOMELODY_PUBLIC_LINKS || cfg.links || {};
   (function setupDrinkBakeryPaging() {
     var drinks = document.getElementById('do-uong'), bakery = document.getElementById('banh-nha-lam');
     var header = document.querySelector('[data-header]');
     if (!drinks || !bakery) return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var nativeScroll = window.matchMedia('(max-width: 767px), (pointer: coarse)');
     var frame = 0, locked = false, wheelQuiet = 0, wheelSum = 0, wheelTime = 0, touch = null;
     function origin(section) {
       return Math.max(0, section.getBoundingClientRect().top + window.scrollY - (header ? header.offsetHeight : 0));
     }
     function destination(direction) {
+      if (nativeScroll.matches) return null;
       if (document.querySelector('dialog[open]') || (header && header.classList.contains('is-open'))) return null;
       var y = window.scrollY, start = origin(drinks), next = origin(bakery);
       if (direction > 0 && y >= start - 8 && y < next - 8) return bakery;
@@ -295,51 +297,61 @@
     if (!section) return;
     var data = cfg.statistics || {}, reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     var counters = [], frame = 0, started = false;
-    section.querySelectorAll('[data-stat-value]').forEach(function (el) {
-      var key = el.dataset.statValue, value = data[key];
-      // Menu total is rendered from the same catalogue as the category selector in main.js.
-      if (key === 'menuCount') return;
+    function configure(el, value) {
+      var key = el.dataset.statValue;
       if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 ||
           (key === 'rating' && value > 5) || (key === 'foundedYear' && value < 1)) return;
       var decimals = key === 'rating' ? 1 : 0;
       var format = new Intl.NumberFormat('vi-VN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals, useGrouping: key !== 'foundedYear' });
-      // A calendar year should remain meaningful while the other metrics count up.
-      var animated = key !== 'foundedYear';
+      counters = counters.filter(function (counter) { return counter.reserve !== el; });
       // The final text reserves its exact width and remains readable to assistive technology.
       // Only the overlaid, decorative number changes during the count-up.
       el.textContent = format.format(value);
-      if (animated && !reduced.matches) {
+      if (!reduced.matches) {
         var display = document.createElement('span');
         display.className = 'stats__value'; display.setAttribute('aria-hidden', 'true');
         display.textContent = format.format(0);
         el.classList.add('is-counting'); el.appendChild(display);
         counters.push({ el: display, reserve: el, key: key, value: value, format: format });
+        if (started && !frame) frame = requestAnimationFrame(tick);
       }
       var suffix = section.querySelector('[data-stat-suffix="' + key + '"]');
       if (suffix) suffix.hidden = false;
+    }
+    section.querySelectorAll('[data-stat-value]').forEach(function (el) {
+      configure(el, el.dataset.statValue === 'menuCount' ? (el.dataset.statTarget === undefined ? undefined : Number(el.dataset.statTarget)) : data[el.dataset.statValue]);
+    });
+    document.addEventListener('homelody:menu-count', function (event) {
+      var el = section.querySelector('[data-stat-value="menuCount"]');
+      if (el) configure(el, event.detail);
     });
     function finish() {
       cancelAnimationFrame(frame);
+      frame = 0;
       counters.forEach(function (counter) {
         counter.reserve.classList.remove('is-counting');
         counter.el.remove();
       });
+      counters = [];
+    }
+    function tick(now) {
+      frame = 0;
+      counters = counters.filter(function (counter) {
+        if (counter.startTime === undefined) counter.startTime = now;
+        var progress = Math.min((now - counter.startTime) / 1800, 1);
+        var value = counter.value * (1 - Math.pow(1 - progress, 3));
+        counter.el.textContent = counter.format.format(counter.key === 'rating' ? value : Math.floor(value));
+        if (progress < 1) return true;
+        counter.reserve.classList.remove('is-counting');
+        counter.el.remove();
+        return false;
+      });
+      if (counters.length) frame = requestAnimationFrame(tick);
     }
     function start() {
-      if (started || !counters.length) return;
+      if (started) return;
       started = true;
       if (reduced.matches) { finish(); return; }
-      var startTime;
-      function tick(now) {
-        if (startTime === undefined) startTime = now;
-        var progress = Math.min((now - startTime) / 1800, 1);
-        var eased = 1 - Math.pow(1 - progress, 3);
-        counters.forEach(function (counter) {
-          var value = counter.value * eased;
-          counter.el.textContent = counter.format.format(counter.key === 'rating' ? value : Math.floor(value));
-        });
-        if (progress < 1) frame = requestAnimationFrame(tick); else finish();
-      }
       frame = requestAnimationFrame(tick);
     }
     if ('IntersectionObserver' in window) {
@@ -377,7 +389,7 @@
   }
   var social = document.querySelector('[data-social]');
   if (social) {
-    var networks = [['Facebook','FACEBOOK_URL','facebook'],['Instagram','INSTAGRAM_URL','instagram'],['Zalo','ZALO_URL','chat'],['Google Maps','MAPS_URL','pin'],['GrabFood','GRABFOOD_URL','grab'],['ShopeeFood','SHOPEEFOOD_URL','shopee'],['TikTok','TIKTOK_URL','tiktok']];
+    var networks = [['Facebook','FACEBOOK_URL','facebook'],['Instagram','INSTAGRAM_URL','instagram'],['Zalo','ZALO_URL','chat'],['GrabFood','GRABFOOD_URL','grab'],['ShopeeFood','SHOPEEFOOD_URL','shopee'],['TikTok','TIKTOK_URL','tiktok']];
     social.innerHTML = networks.map(function (n) { return '<li><a class="social__link" data-link="' + n[1] + '" aria-label="' + n[0] + '" tabindex="0"><span class="social__tooltip" aria-hidden="true">' + n[0] + '</span>' + svg(n[2]) + '</a></li>'; }).join('');
     social.hidden = false;
   }

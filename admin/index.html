@@ -9,68 +9,105 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css?v=20261023supabase">
+  <link rel="stylesheet" href="admin.css?v=20261101favorites">
 </head>
 <body>
   <!-- LOGIN -->
   <main class="login" id="login" hidden>
+    <section class="login__intro" aria-label="Homelody Coffee & Brunch">
+      <a class="login__identity" href="../"><img src="../assets/images/homelody-logo.webp" width="64" height="64" alt=""><span>Homelody<small>COFFEE & BRUNCH · HỘI AN</small></span></a>
+      <div class="login__message"><span class="eyebrow">MỘT GÓC NHỎ, CHĂM CHÚT MỖI NGÀY</span><h1>Đằng sau một<br>góc nhà thân quen.</h1><p>Chăm chút thực đơn, cập nhật hình ảnh và giữ những thông tin của quán luôn mới.</p></div>
+      <p class="login__signature">Make yourself at home.</p>
+    </section>
     <form class="login__card" id="login-form" novalidate>
-      <p class="brand"><span class="brand__name">Homelody</span><span class="brand__sub">Quản lý thực đơn</span></p>
+      <div class="login__heading"><span class="eyebrow">HOMELODY WORKSPACE</span><h2>Chào bạn trở lại.</h2><p>Đăng nhập để chăm chút website của quán.</p></div>
       <p class="demo-hint" data-demo-only hidden>Chế độ xem thử: nhập email bất kỳ, mật khẩu bất kỳ.</p>
       <label class="field">
         <span class="field__label">Email</span>
-        <input type="email" name="email" autocomplete="username" required>
+        <input type="email" name="email" autocomplete="username" placeholder="Email quản trị của bạn" required>
       </label>
       <label class="field">
         <span class="field__label">Mật khẩu</span>
-        <input type="password" name="password" autocomplete="current-password" required>
+        <span class="password-field"><input type="password" id="login-password" name="password" autocomplete="current-password" placeholder="Nhập mật khẩu" required><button type="button" id="toggle-password" aria-controls="login-password" aria-pressed="false">Hiện</button></span>
       </label>
       <p class="form-error" id="login-error" role="alert" hidden></p>
-      <button class="btn btn--primary btn--block" type="submit">Đăng nhập</button>
+      <button class="btn btn--primary btn--block" type="submit">Đăng nhập vào quản lý <span aria-hidden="true">↗</span></button>
+      <p class="login__note">Chỉ dành cho người được cấp quyền quản trị quán.</p>
       <a class="login__back" href="../">← Về trang web</a>
     </form>
   </main>
 
   <!-- APP -->
   <div class="app" id="app" hidden>
+    <aside class="admin-sidebar">
+      <a class="workspace-brand" href="../"><img src="../assets/images/homelody-logo.webp" width="46" height="46" alt=""><span>Homelody<small>KHÔNG GIAN QUẢN LÝ</small></span></a>
+      <p class="sidebar-label">QUẢN LÝ WEBSITE</p>
+      <nav class="tabs" role="tablist" aria-label="Mục quản lý" aria-orientation="vertical">
+        <button class="tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-menu" id="tab-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Thực đơn</span><span class="nav-count" id="nav-menu-count">—</span></button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-categories" id="tab-categories" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M8 12h8M8 16h5"/></svg><span>Danh mục</span></button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-shop" id="tab-shop" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m3 10 2-6h14l2 6M5 11v9h14v-9M9 20v-6h6v6"/><path d="M3 10a3 3 0 0 0 4.5 2.5A3 3 0 0 0 12 12a3 3 0 0 0 4.5.5A3 3 0 0 0 21 10"/></svg><span>Thông tin quán</span></button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-images" id="tab-images" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/></svg><span>Hình ảnh</span></button>
+      </nav>
+      <div class="sidebar-footer"><a href="../" target="_blank" rel="noopener">Mở website của quán <span aria-hidden="true">↗</span></a><p>Một góc nhà, giữa vườn xanh.<br>Được chăm chút bởi bạn.</p><span>HOMELODY · HỘI AN</span></div>
+    </aside>
+    <div class="workspace-main">
     <header class="topbar">
-      <p class="brand brand--small"><span class="brand__name">Homelody</span><span class="brand__sub">Quản lý</span></p>
+      <p class="topbar__breadcrumb">Không gian quản lý <span aria-hidden="true">/</span> <strong id="workspace-current">Thực đơn</strong></p>
       <div class="topbar__right">
-        <a class="link" href="../" target="_blank" rel="noopener">Xem web ↗</a>
+        <span class="connection-state" id="connection-state">Đang kết nối</span>
         <span class="topbar__user" id="user-email"></span>
         <button class="btn btn--ghost btn--sm" type="button" id="logout">Đăng xuất</button>
       </div>
     </header>
 
     <p class="banner" data-demo-only hidden>
-      <strong>Chế độ xem thử.</strong> Chưa kết nối Supabase nên mọi thay đổi chỉ lưu trên trình duyệt này.
-      Mở trang web trên cùng trình duyệt để xem kết quả. Xem <em>HUONG-DAN-MENU-DONG.md</em> để kết nối thật.
+      <strong>Bản xem thử.</strong> Thay đổi chỉ lưu trên trình duyệt này, không cập nhật dữ liệu thật của quán.
     </p>
-
-    <nav class="tabs" role="tablist" aria-label="Mục quản lý">
-      <button class="tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-menu" id="tab-menu">Thực đơn</button>
-      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-shop" id="tab-shop" tabindex="-1">Thông tin quán</button>
-      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-images" id="tab-images" tabindex="-1">Hình ảnh</button>
-    </nav>
 
     <!-- MENU -->
     <section class="panel" id="panel-menu" role="tabpanel" aria-labelledby="tab-menu">
+      <div class="page-heading"><div><span class="eyebrow">THỰC ĐƠN & SẢN PHẨM</span><h1>Thực đơn của quán</h1><p>Mỗi món ngon, một lý do để khách ghé lại.</p></div><button class="btn btn--primary" type="button" id="add-drink"><span aria-hidden="true">＋</span> Thêm món mới</button></div>
+      <div class="menu-overview" aria-label="Tổng quan thực đơn">
+        <button class="overview-card is-selected" type="button" data-status-filter="all" aria-pressed="true"><span>Tổng số món</span><strong id="metric-total">—</strong><small>Toàn bộ thực đơn <span aria-hidden="true">↗</span></small></button>
+        <button class="overview-card" type="button" data-status-filter="active" aria-pressed="false"><span><i class="status-dot"></i> Đang hiển thị</span><strong id="metric-active">—</strong><small>Khách có thể xem trên web <span aria-hidden="true">↗</span></small></button>
+        <button class="overview-card" type="button" data-status-filter="hidden" aria-pressed="false"><span><i class="status-dot status-dot--muted"></i> Đang ẩn</span><strong id="metric-hidden">—</strong><small>Tạm ngưng hiển thị <span aria-hidden="true">↗</span></small></button>
+        <button class="overview-card" type="button" data-status-filter="featured" aria-pressed="false"><span><i class="status-dot status-dot--gold"></i> Món yêu thích</span><strong id="metric-featured">—</strong><small>Đang xuất hiện ở đầu website <span aria-hidden="true">↗</span></small></button>
+      </div>
+      <section class="catalog favorites-summary" aria-labelledby="favorites-title">
+        <div class="catalog-heading"><div><span class="eyebrow">GÓC NHÌN ĐẦU TIÊN CỦA KHÁCH</span><h2 id="favorites-title">Món yêu thích trên landing page</h2><p id="favorites-summary" role="status">Đang tải lựa chọn…</p></div><button class="btn btn--outline btn--sm" type="button" id="manage-favorites" disabled>Chọn & sắp xếp</button></div>
+        <div class="favorites-preview" id="favorites-preview"></div>
+        <p class="favorites-note" id="favorites-note">Tối đa 6 món. Chỉ hiển thị món đang bán, có ảnh và thuộc danh mục đang bật.</p>
+      </section>
+      <div class="catalog">
+      <div class="catalog-heading"><div><h2>Danh sách món</h2><p id="list-summary" role="status">Đang tải thực đơn…</p></div><div class="catalog-heading__actions"><button class="btn btn--ghost btn--sm" id="refresh-drinks" type="button" aria-label="Tải lại danh sách món">↻ <span>Tải lại</span></button></div></div>
       <div class="toolbar">
-        <input class="search" type="search" id="search" placeholder="Tìm món…" aria-label="Tìm món">
-        <button class="btn btn--primary" type="button" id="add-drink">+ Thêm món</button>
+        <label class="search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input class="search" type="search" id="search" placeholder="Tìm tên món, không cần gõ dấu…" aria-label="Tìm món"></label>
+        <label class="filter-field"><span>Danh mục</span><select id="filter-category" aria-label="Lọc theo danh mục"><option value="">Tất cả</option></select></label>
+        <label class="filter-field"><span>Hiển thị</span><select id="filter-status" aria-label="Lọc trạng thái món"><option value="all">Tất cả</option><option value="active">Đang hiển thị</option><option value="hidden">Đang ẩn</option><option value="featured">Món nổi bật</option><option value="missing-image">Chưa có ảnh</option></select></label>
       </div>
       <div class="import-toolbar">
-        <button class="btn btn--outline btn--sm" type="button" id="open-import">Nhập từ sheet</button>
+        <button class="btn btn--outline btn--sm" type="button" id="open-import">Nhập Excel / CSV</button>
         <button class="btn btn--ghost btn--sm" type="button" id="backup-data">Sao lưu dữ liệu</button>
         <a class="link" href="../public/templates/homelody-import-do-uong.xlsx" download>Tải file Excel mẫu ↓</a>
-        <button class="btn btn--danger-ghost btn--sm" type="button" id="delete-all-drinks" disabled>Xóa tất cả sản phẩm</button>
+        <button class="btn btn--ghost btn--sm clear-filters" id="clear-filters" type="button" hidden>Xóa bộ lọc ×</button>
       </div>
       <p class="hint" id="featured-hint"></p>
-      <div id="drink-list" class="drink-list" aria-live="polite"></div>
+      <div id="drink-list" class="drink-list" aria-busy="true"></div>
+      </div>
+      <details class="data-tools"><summary>Thao tác nâng cao <span>Quản lý toàn bộ dữ liệu thực đơn</span></summary><div><p>Việc xóa sẽ ảnh hưởng toàn bộ thực đơn. Hãy tải bản sao lưu trước khi thực hiện.</p><button class="btn btn--danger-ghost btn--sm" type="button" id="delete-all-drinks" disabled>Xóa tất cả sản phẩm</button></div></details>
+      <p class="workspace-footnote">HOMELODY WORKSPACE <span>Chăm chút từng chi tiết nhỏ.</span></p>
+    </section>
+
+    <section class="panel" id="panel-categories" role="tabpanel" aria-labelledby="tab-categories" hidden>
+      <div class="page-heading"><div><span class="eyebrow">SẮP XẾP THỰC ĐƠN</span><h1>Danh mục món</h1><p>Chia nhóm rõ ràng để khách dễ tìm món yêu thích.</p></div><button class="btn btn--primary" type="button" id="add-category" disabled>＋ Thêm danh mục</button></div>
+      <p class="section-notice"><strong>Một thay đổi, đồng bộ toàn thực đơn</strong>Đổi tên vẫn giữ nguyên các món. Ẩn danh mục sẽ ẩn cả nhóm món trên website, không xóa sản phẩm.</p>
+      <div class="catalog"><div class="catalog-heading"><div><h2>Các nhóm thực đơn</h2><p id="category-summary" role="status">Đang tải danh mục…</p></div><button class="btn btn--ghost btn--sm" id="refresh-categories" type="button">↻ Tải lại</button></div><p id="category-error" class="form-error" role="alert" hidden></p><div class="category-list" id="category-list" aria-busy="true"></div></div>
+      <p class="hint">Thứ tự từ trên xuống cũng là thứ tự danh mục trên website. Danh mục chưa có món sẽ không xuất hiện với khách.</p>
     </section>
 
     <!-- STORY IMAGES -->
     <section class="panel" id="panel-images" role="tabpanel" aria-labelledby="tab-images" hidden>
+      <div class="page-heading"><div><span class="eyebrow">CÂU CHUYỆN BẰNG HÌNH ẢNH</span><h1>Những góc nhà Homelody</h1><p>Chọn ảnh, xem trước và lưu khi bạn đã hài lòng.</p></div></div>
       <form id="story-form">
         <div class="story-manager-head">
           <div><h1>Ảnh Câu chuyện</h1><p class="hint">5 ảnh trong cụm “Cứ tự nhiên như ở nhà.” Chọn ảnh để xem trước, rồi bấm Lưu ảnh.</p></div>
@@ -102,7 +139,10 @@
 
     <!-- SHOP -->
     <section class="panel" id="panel-shop" role="tabpanel" aria-labelledby="tab-shop" hidden>
-      <form class="card form" id="shop-form">
+      <div class="page-heading"><div><span class="eyebrow">THÔNG TIN & LIÊN HỆ</span><h1>Thông tin của quán</h1><p>Quản lý địa chỉ, giờ mở cửa và thông tin liên hệ.</p></div></div>
+      <p class="section-notice"><strong>Liên kết website đang sử dụng</strong>Các ô bên dưới hiển thị link hiện tại của quán. Chỉnh sửa rồi bấm “Lưu thông tin” để cập nhật website; không cần sửa từng icon.</p>
+      <form class="card form" id="shop-form" novalidate>
+        <fieldset class="shop-section"><legend>Thông tin cơ bản</legend><p class="field__help">Địa chỉ, giờ mở cửa và số điện thoại hiển thị cho khách.</p>
         <label class="field">
           <span class="field__label">Địa chỉ</span>
           <input name="address" placeholder="Số nhà, đường, phường, thành phố">
@@ -113,33 +153,31 @@
         </label>
         <label class="field">
           <span class="field__label">Số điện thoại</span>
-          <input name="phone" inputmode="tel" placeholder="0905 xxx xxx">
+          <input name="phone" inputmode="tel" placeholder="0935 983 263" maxlength="24" required>
         </label>
         <label class="field">
           <span class="field__label">Link chỉ đường <small>(không bắt buộc)</small></span>
-          <input name="directions_url" inputmode="url" placeholder="Dán link chia sẻ Google Maps của quán">
-          <span class="field__help">Để trống thì web tự tìm theo địa chỉ. Nên dán link Google Maps của quán để chỉ đường chính xác.</span>
+          <input name="directions_url" type="url" inputmode="url" maxlength="2048" placeholder="Dán link chia sẻ Google Maps của quán">
+          <span class="field__help"><a data-current-link="MAPS_URL" target="_blank" rel="noopener noreferrer">Mở Google Maps đang dùng ↗</a></span>
         </label>
-        <label class="field">
-          <span class="field__label">Link nút “Liên hệ quán” <small>(không bắt buộc)</small></span>
-          <input name="contact_url" inputmode="url" placeholder="https://zalo.me/0905xxxxxx">
-          <span class="field__help">Để trống thì nút sẽ gọi điện tới số ở trên.</span>
-        </label>
-        <div class="field-row">
-          <label class="field"><span class="field__label">Facebook</span><input name="facebook_url" inputmode="url" placeholder="https://facebook.com/…"></label>
-          <label class="field"><span class="field__label">Instagram</span><input name="instagram_url" inputmode="url" placeholder="https://instagram.com/…"></label>
-          <label class="field"><span class="field__label">TikTok</span><input name="tiktok_url" inputmode="url" placeholder="https://tiktok.com/@…"></label>
-        </div>
+        </fieldset>
+        <fieldset class="shop-section"><legend>Mạng xã hội & đặt món</legend><p class="field__help">Mỗi ô tương ứng một icon trên website. Dòng “Đang dùng” là liên kết đã lưu, bạn có thể bấm để kiểm tra.</p>
+          <div class="shop-links-grid" id="shop-social-links"></div>
+          <p class="field__help">Bỏ trống một ô để dùng lại liên kết gốc của quán.</p>
+        </fieldset>
+        <p class="form-error" id="shop-error" role="alert" hidden></p>
         <div class="form-actions">
-          <button class="btn btn--primary" type="submit">Lưu thông tin</button>
+          <p class="shop-save-status" id="shop-save-status" role="status" aria-live="polite">Đang tải thông tin…</p>
+          <button class="btn btn--primary" type="submit" id="save-shop" disabled>Lưu thông tin</button>
         </div>
       </form>
     </section>
+    </div>
   </div>
 
   <dialog class="editor import-editor" id="import-editor" aria-labelledby="import-title">
     <form id="import-form" class="editor__form">
-      <header class="editor__head"><h2 id="import-title">Nhập đồ uống từ sheet</h2><button class="icon-btn" type="button" data-import-close aria-label="Đóng">✕</button></header>
+      <header class="editor__head"><h2 id="import-title">Nhập thực đơn từ file</h2><button class="icon-btn" type="button" data-import-close aria-label="Đóng">✕</button></header>
       <div class="editor__body">
         <p>Điền tab <b>Do uong</b> trong <a class="link" href="../public/templates/homelody-import-do-uong.xlsx" download>file Excel mẫu</a>, rồi chọn file để xem trước.</p>
         <p class="hint">Chỉ thêm món mới. Món có cùng tên và cùng nhóm được bỏ qua. Nhận XLSX hoặc CSV UTF-8, tối đa 5MB và 500 món. Có thể điền trên Google Sheets rồi tải xuống dạng Excel.</p>
@@ -194,7 +232,7 @@
           <label class="field">
             <span class="field__label">Nhóm</span>
             <select name="category"></select>
-            <span class="field__help">Danh sách nhóm sửa ở assets/js/config.js → menuCategories.</span>
+            <span class="field__help">Chọn nhóm phù hợp. Bạn có thể thêm hoặc đổi tên ở mục “Danh mục”.</span>
           </label>
           <label class="field">
             <span class="field__label">Giá *</span>
@@ -220,7 +258,8 @@
         </label>
         <div class="switches">
           <label class="switch"><input type="checkbox" name="is_active" checked><span class="switch__ui"></span><span>Đang bán <small>(tắt = ẩn khỏi web)</small></span></label>
-          <label class="switch"><input type="checkbox" name="is_featured"><span class="switch__ui"></span><span>Món nổi bật <small>(hiện trên bàn xoay đầu trang)</small></span></label>
+          <label hidden><input type="checkbox" name="is_featured">Lựa chọn nổi bật cũ</label>
+          <p class="field__help">Món yêu thích đầu trang được chọn và sắp xếp riêng trong mục “Món yêu thích trên landing page”.</p>
         </div>
         <p class="form-error" id="drink-error" role="alert" hidden></p>
       </div>
@@ -233,11 +272,51 @@
     </form>
   </dialog>
 
+  <dialog class="editor favorites-editor" id="favorites-editor" aria-labelledby="favorites-editor-title">
+    <form class="editor__form" id="favorites-form">
+      <header class="editor__head"><div><span class="eyebrow">TUYỂN CHỌN CỦA HOMELODY</span><h2 id="favorites-editor-title">Món yêu thích</h2></div><button class="icon-btn" type="button" data-favorites-close aria-label="Đóng">✕</button></header>
+      <div class="editor__body favorites-editor__body">
+        <section class="favorites-selection"><h3>Thứ tự trên website <span id="favorites-count"></span></h3><p class="hint">Món đầu tiên sẽ xuất hiện trước. Dùng ↑ ↓ để đổi vị trí.</p><ol id="favorites-selected"></ol></section>
+        <section class="favorites-picker"><h3>Chọn món từ thực đơn</h3><input class="search" id="favorites-search" type="search" placeholder="Tìm tên món hoặc danh mục…" aria-label="Tìm món yêu thích"><div id="favorites-options"></div></section>
+        <p class="form-error" id="favorites-error" role="alert" hidden></p>
+      </div>
+      <footer class="editor__foot"><p class="shop-save-status" id="favorites-status" role="status" aria-live="polite"></p><button class="btn btn--ghost" type="button" data-favorites-close>Hủy thay đổi</button><button class="btn btn--primary" type="submit" id="save-favorites">Lưu lựa chọn</button></footer>
+    </form>
+  </dialog>
+  <dialog class="editor discard-editor" id="favorites-discard" aria-labelledby="favorites-discard-title">
+    <div class="editor__head"><h2 id="favorites-discard-title">Bỏ thay đổi món yêu thích?</h2></div><div class="editor__body"><p>Thứ tự và lựa chọn mới chưa được lưu lên website.</p></div><div class="editor__foot"><button class="btn btn--ghost" id="favorites-continue" type="button">Tiếp tục chỉnh sửa</button><button class="btn btn--primary" id="favorites-discard-confirm" type="button">Bỏ thay đổi</button></div>
+  </dialog>
+  <dialog class="editor category-editor" id="category-editor" aria-labelledby="category-editor-title">
+    <form id="category-form" class="editor__form" novalidate>
+      <header class="editor__head"><h2 id="category-editor-title">Thêm danh mục</h2><button class="icon-btn" type="button" data-category-close aria-label="Đóng">✕</button></header>
+      <div class="editor__body">
+        <label class="field"><span class="field__label">Tên danh mục *</span><input name="name" maxlength="60" required placeholder="Ví dụ: Bánh nhà làm"></label>
+        <label class="field"><span class="field__label">Tên tiếng Anh <small>(không bắt buộc)</small></span><input name="en" maxlength="80" placeholder="Ví dụ: Homemade Bakery"></label>
+        <label class="switch"><input name="is_active" type="checkbox" checked><span class="switch__ui"></span><span>Hiển thị trên website</span></label>
+        <p class="field__help">Khi đổi tên, các món đang thuộc danh mục vẫn được giữ nguyên trong nhóm.</p>
+        <p id="category-form-error" class="form-error" role="alert" hidden></p>
+      </div>
+      <footer class="editor__foot"><span class="spacer"></span><button class="btn btn--ghost" type="button" data-category-close>Hủy</button><button class="btn btn--primary" id="save-category" type="submit">Lưu danh mục</button></footer>
+    </form>
+  </dialog>
+  <dialog class="editor category-editor" id="category-delete-dialog" aria-labelledby="category-delete-title">
+    <div class="editor__head"><h2 id="category-delete-title">Xóa danh mục?</h2></div>
+    <div class="editor__body"><p id="category-delete-message"></p><p id="category-delete-error" class="form-error" role="alert" hidden></p></div>
+    <div class="editor__foot"><span class="spacer"></span><button class="btn btn--ghost" id="cancel-delete-category" type="button">Hủy</button><button class="btn btn--danger" id="confirm-delete-category" type="button">Xóa danh mục</button></div>
+  </dialog>
+  <dialog class="editor discard-editor" id="discard-editor" aria-labelledby="discard-title" aria-describedby="discard-description">
+    <div class="editor__head"><h2 id="discard-title">Bạn có thay đổi chưa lưu</h2></div>
+    <div class="editor__body"><p id="discard-description">Nếu đóng lúc này, những chỉnh sửa của món sẽ bị mất.</p></div>
+    <div class="editor__foot"><button class="btn btn--ghost" id="keep-editing" type="button">Tiếp tục chỉnh sửa</button><button class="btn btn--primary" id="discard-changes" type="button">Bỏ thay đổi</button></div>
+  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="../assets/js/config.js?v=20261024categories"></script>
+  <script src="../assets/js/shop-settings.js?v=20261101links"></script>
+  <script src="../assets/js/menu-categories.js?v=20261101categories"></script>
+  <script src="../assets/js/featured-menu.js?v=20261101favorites"></script>
   <script src="../assets/js/menu-data.js?v=20261016a"></script>
   <script src="../assets/js/story-data.js?v=20261023import"></script>
-  <script type="module" src="admin.js?v=20261024study"></script>
+  <script type="module" src="admin.js?v=20261101favorites"></script>
 </body>
 </html>

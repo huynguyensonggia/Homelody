@@ -100,7 +100,7 @@
     var override = (CFG.productDisplayOverrides || {})[str(r.name).toLocaleLowerCase('vi')] || {};
     r = Object.assign({}, r, override);
     return {
-      id: r.id,
+      id: r.id || 'fallback:' + str(r.category) + ':' + str(r.name),
       name: str(r.name).replace(/^./u, function (c) { return c.toLocaleUpperCase('vi'); }),
       category: canonicalCategory(str(r.category)) || 'Thức uống',
       price: Number(r.price) || 0,
@@ -118,6 +118,9 @@
       address: str(r.address), hours: str(r.hours), phone: str(r.phone),
       directionsUrl: str(r.directions_url), contactUrl: str(r.contact_url),
       storyImages: r.story_images, spaceImages: r.space_images,
+      publicLinks: r.public_links,
+      menuCategories: r.menu_categories,
+      featuredDrinkIds: r.featured_drink_ids,
       social: { Instagram: str(r.instagram_url), Facebook: str(r.facebook_url), TikTok: str(r.tiktok_url) }
     };
   }
@@ -1003,7 +1006,11 @@
   function renderMenu() {
     clearMenuCarousels();
     var menuCount = $('[data-stat-value="menuCount"]');
-    if (menuCount) menuCount.textContent = new Intl.NumberFormat('vi-VN').format(DRINKS.length);
+    if (menuCount) {
+      menuCount.dataset.statTarget = String(DRINKS.length);
+      menuCount.textContent = new Intl.NumberFormat('vi-VN').format(DRINKS.length);
+      document.dispatchEvent(new CustomEvent('homelody:menu-count', { detail: DRINKS.length }));
+    }
     var root = $('[data-menu-list]');
     if (!root) return;
     if (!DRINKS.length) { root.innerHTML = '<p class="note">Thực đơn đang được cập nhật.</p>'; return; }
@@ -1171,7 +1178,37 @@
   })();
 
   function renderShop(shop) {
-    // Liên kết công khai chỉ lấy từ HOMELODY_CONFIG.links (landing.js).
+    var settings = window.HOMELODY_SHOP_SETTINGS;
+    if (!settings) return;
+    var resolved = settings.resolveLinks(shop);
+    window.HOMELODY_PUBLIC_LINKS = resolved;
+    $$('[data-link]').forEach(function (el) {
+      var key = el.dataset.link, url = resolved[key];
+      if (url === undefined) return;
+      if (url) {
+        el.href = url; el.removeAttribute('aria-disabled'); el.removeAttribute('title');
+        if (url.indexOf('https://') === 0) { el.target = '_blank'; el.rel = 'noopener noreferrer'; }
+        else { el.removeAttribute('target'); el.removeAttribute('rel'); }
+      } else { el.removeAttribute('href'); el.setAttribute('aria-disabled', 'true'); }
+    });
+    $$('[data-shop-phone]').forEach(function (el) { el.textContent = settings.formatPhone(resolved.PHONE); });
+    $$('[data-shop-zalo]').forEach(function (el) {
+      try {
+        var number = new URL(resolved.ZALO_URL).pathname.replace(/^\//, '');
+        el.textContent = /^\d{8,15}$/.test(number) ? settings.formatPhone(number) : 'Mở Zalo';
+      } catch (_) { el.textContent = 'Mở Zalo'; }
+    });
+    $$('[data-shop-instagram]').forEach(function (el) {
+      try {
+        var url = new URL(resolved.INSTAGRAM_URL), handle = url.pathname.split('/').filter(Boolean)[0];
+        el.textContent = /(^|\.)instagram\.com$/.test(url.hostname) && handle ? '@' + handle : 'Instagram';
+      } catch (_) { el.textContent = 'Instagram'; }
+    });
+    // Legacy profile values only become public after an explicit save in the new form.
+    if (shop.publicLinks && shop.publicLinks.PHONE) {
+      $$('[data-shop-address]').forEach(function (el) { if (shop.address) el.textContent = shop.address; });
+      $$('[data-shop-hours]').forEach(function (el) { if (shop.hours) el.textContent = shop.hours; });
+    }
   }
 
   function setupReveal() {
@@ -1202,13 +1239,14 @@
   /* ================================================================== BOOT */
   loadData().then(function (data) {
     SOURCE = data.source;
-    DRINKS = data.drinks.filter(function (d) { return d.name; });
+    var categorySettings = window.HOMELODY_CATEGORIES;
+    if (categorySettings) CATEGORIES = categorySettings.resolve(data.shop, data.drinks);
+    DRINKS = data.drinks.filter(function (d) { return d.name && (!categorySettings || categorySettings.visible(CATEGORIES, d.category)); }).map(function (d) {
+      return Object.assign({}, d, { category: canonicalCategory(d.category) });
+    });
     // Bàn xoay chỉ trình bày món có ảnh hoàn chỉnh; món chưa có ảnh vẫn nằm trong dữ liệu và thực đơn dạng chữ.
     // Món đầu tiên (theo thứ tự trong /admin) là món mặc định.
-    var max = Number(CFG.maxFeatured) || 6;
-    var hasImage = function (d) { return !!d.image; };
-    FEATURED = DRINKS.filter(function (d) { return d.featured && hasImage(d); }).slice(0, max);
-    if (!FEATURED.length) FEATURED = DRINKS.filter(hasImage).slice(0, 4);
+    FEATURED = window.HOMELODY_FEATURED_MENU.resolve(data.shop, DRINKS, CATEGORIES, CFG.maxFeatured);
     document.documentElement.setAttribute('data-menu-source', SOURCE);
 
 
@@ -1218,6 +1256,7 @@
     renderSiteImages(data.shop);
 
     if (!FEATURED.length) {
+      document.getElementById('do-uong').hidden = true;
       field.name.textContent = 'Thực đơn đang cập nhật';
       field.description.textContent = ''; field.price.textContent = ''; field.note.textContent = '';
       stageBtn.hidden = true; optionsRoot.hidden = true;

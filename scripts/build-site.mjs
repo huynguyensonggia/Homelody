@@ -4,6 +4,13 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const destination = path.join(root, 'dist');
+// Fail before publishing a private key or a backend that the CSP would block.
+const config = fs.readFileSync(path.join(root, 'assets/js/config.js'), 'utf8');
+const browserKey = config.match(/supabaseKey:\s*'([^']*)'/)?.[1];
+const backend = config.match(/supabaseUrl:\s*'([^']*)'/)?.[1];
+if (!browserKey?.startsWith('sb_publishable_')) throw new Error('Production requires a publishable Supabase browser key. Never publish a secret/service-role key.');
+if (!backend || !fs.readFileSync(path.join(root, '_headers'), 'utf8').includes(`connect-src 'self' ${backend};`)) throw new Error('Backend URL must match the reviewed Content-Security-Policy.');
+if (fs.existsSync(destination) && fs.lstatSync(destination).isSymbolicLink()) throw new Error('Build destination must not be a symlink.');
 const allowed = new Set(['.html', '.css', '.js', '.mjs', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.avif', '.gif', '.woff', '.woff2', '.ttf', '.otf', '.xlsx']);
 fs.rmSync(destination, { recursive: true, force: true });
 fs.mkdirSync(destination, { recursive: true });

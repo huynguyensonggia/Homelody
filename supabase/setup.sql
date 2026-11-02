@@ -75,6 +75,9 @@ create table if not exists public.shop_settings (
 );
 alter table public.shop_settings add column if not exists story_images jsonb not null default '[]'::jsonb;
 alter table public.shop_settings add column if not exists space_images jsonb not null default '[]'::jsonb;
+alter table public.shop_settings add column if not exists public_links jsonb not null default '{}'::jsonb check (jsonb_typeof(public_links) = 'object');
+alter table public.shop_settings add column if not exists menu_categories jsonb default null check (menu_categories is null or jsonb_typeof(menu_categories) = 'array');
+alter table public.shop_settings add column if not exists featured_drink_ids jsonb default null check (featured_drink_ids is null or (jsonb_typeof(featured_drink_ids) = 'array' and jsonb_array_length(featured_drink_ids) <= 6));
 
 insert into public.shop_settings (id) values (1) on conflict (id) do nothing;
 
@@ -119,6 +122,8 @@ drop policy if exists "shop: admin update" on public.shop_settings;
 create policy "shop: admin update" on public.shop_settings
   for update to authenticated using (public.is_admin()) with check (public.is_admin());
 
+-- Start from least privilege; RLS alone does not restrict TRUNCATE or DDL privileges.
+revoke all on public.drinks, public.shop_settings from public, anon, authenticated;
 grant select on public.drinks, public.shop_settings to anon, authenticated;
 grant insert, update, delete on public.drinks to authenticated;
 grant update on public.shop_settings to authenticated;

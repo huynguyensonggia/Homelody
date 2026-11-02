@@ -4,7 +4,7 @@ const vm = require('node:vm');
 const source = fs.readFileSync('assets/js/landing.js', 'utf8');
 const paging = source.slice(source.indexOf('(function setupDrinkBakeryPaging()'), source.indexOf('  (function setupVisitMap()'));
 
-function setup({ reduced = false, modal = false, start = 936 } = {}) {
+function setup({ reduced = false, mobile = false, modal = false, start = 936 } = {}) {
   let y = start, now = 0, nextId = 0;
   const frames = new Map(), listeners = {};
   class Element {
@@ -21,7 +21,7 @@ function setup({ reduced = false, modal = false, start = 936 } = {}) {
   const header = { offsetHeight: 64, classList: { contains: () => false } };
   const window = {
     get scrollY() { return y; }, innerHeight: 844,
-    matchMedia: () => ({ matches: reduced }),
+    matchMedia: query => ({ matches: query.includes('prefers-reduced-motion') ? reduced : mobile }),
     scrollTo: ({ top }) => { y = top; },
     addEventListener: (type, callback) => { listeners[type] = callback; }
   };
@@ -77,3 +77,11 @@ console.log('PASS synthetic vertical touch gestures move in both directions');
 s = setup(); assert.ok(!s.touch(s.drinks, 80, 5).prevented); s.settle(); assert.equal(s.y, 936);
 s.drinks.listeners.touchcancel();
 console.log('PASS horizontal touch and cancellation preserve native behavior');
+
+for (const [start, section, delta] of [[936, 'drinks', 40], [1936, 'bakery', -40]]) {
+  s = setup({ mobile: true, start });
+  assert.ok(!s.touch(s[section], 0, delta).prevented);
+  assert.ok(!s.wheel(delta, s[section]).prevented);
+  s.settle(); assert.equal(s.y, start);
+}
+console.log('PASS mobile preserves native touch and wheel scrolling in both directions');

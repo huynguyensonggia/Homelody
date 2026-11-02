@@ -1,0 +1,112 @@
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url), scope = { window: {} };
+vm.runInNewContext(fs.readFileSync('assets/js/config.js', 'utf8'), scope);
+vm.runInNewContext(fs.readFileSync('assets/js/menu-categories.js', 'utf8'), scope);
+vm.runInNewContext(fs.readFileSync('assets/js/featured-menu.js', 'utf8'), scope);
+const helper = scope.window.HOMELODY_FEATURED_MENU;
+const categories = [...JSON.parse(JSON.stringify(scope.window.HOMELODY_CATEGORIES.resolve({}))), { id: 'hidden-category', name: 'Nhóm ẩn', en: '', aliases: [], is_active: false }];
+const fixtures = Array.from({ length: 8 }, (_, i) => ({ id: 'pick-' + (i + 1), name: 'Món thử ' + (i + 1), category: 'Cà phê Việt', price: 35000 + i * 1000, image_url: 'assets/images/drink-matcha-latte.webp', image_alt: 'Ảnh món thử', is_active: true, is_featured: true, sort_order: i * 10, description: 'Món dùng trong kiểm thử giao diện.', note: '', ingredients: [] }));
+fixtures.push({ ...fixtures[0], id: 'hidden', name: 'Món đang ẩn', is_active: false }, { ...fixtures[0], id: 'no-image', name: 'Món chưa có ảnh', image_url: '' }, { ...fixtures[0], id: 'hidden-group', name: 'Món trong nhóm ẩn', category: 'Nhóm ẩn' });
+assert.equal(helper.resolve({}, fixtures, categories, 99).length, 6);
+assert.deepEqual(Array.from(helper.resolve({ featured_drink_ids: ['pick-7', 'pick-2', 'hidden', 'no-image', 'gone', 'hidden-group'] }, fixtures, categories, 6), d => d.id), ['pick-7', 'pick-2']);
+assert.equal(helper.resolve({ featured_drink_ids: [] }, fixtures, categories, 6).length, 0, 'An explicit empty list must not backfill legacy flags');
+assert.equal(helper.resolve({}, fixtures.map(d => ({ ...d, is_featured: false })), categories, 6).length, 4);
+console.log('PASS six-item cap, legacy compatibility, saved order, hidden/missing/deleted exclusions and no automatic backfill.');
+
+const shop = { address: '100 Lý Thường Kiệt, Hội An', hours: '6:30 – 22:00', phone: '0773 558 945', menu_categories: categories, featured_drink_ids: null, public_links: {}, updated_at: '2026-11-01T00:00:00.000Z' };
+const seed = { drinks: fixtures, shop };
+const chrome = spawn(process.env.CHROME_BIN || 'C:/Users/PC/AppData/Local/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-win64/chrome-headless-shell.exe', ['--headless', '--disable-gpu', '--remote-debugging-port=9252', `--user-data-dir=${fs.mkdtempSync(path.join(os.tmpdir(), 'homelody-favorites-'))}`, 'about:blank'], { windowsHide: true, stdio: 'ignore' });
+const base = process.env.STORY_URL || 'http://localhost:8000/';
+let ws, id = 0; const pending = new Map(), errors = [];
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const call = (method, params = {}) => new Promise((resolve, reject) => { pending.set(++id, { resolve, reject }); ws.send(JSON.stringify({ id, method, params })); });
+async function ev(expression) { const r = await call('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true }); if (r.exceptionDetails) throw Error(JSON.stringify(r.exceptionDetails)); return r.result.value; }
+async function poll(expression) { for (let i = 0; i < 150; i++) { try { if (await ev(expression)) return; } catch (e) { if (!/context.*destroyed|Cannot find context|navigated/i.test(e.message)) throw e; } await sleep(75); } throw Error('Timeout: ' + expression); }
+async function navigate(url) { await ev(`if(document.documentElement)document.documentElement.dataset.qaNavigation='leaving'`); await call('Page.navigate', { url }); await poll(`location.href===${JSON.stringify(url)} && document.readyState==='complete' && document.documentElement?.dataset.qaNavigation!=='leaving'`); }
+async function shot(name) { await ev(`document.querySelector('#toast').classList.remove('is-show');document.activeElement?.blur();Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})))`); const r = await call('Page.captureScreenshot', { format: 'png' }); fs.writeFileSync(`reports/admin-workspace/${name}.png`, Buffer.from(r.data, 'base64')); }
+const timeout = setTimeout(() => { chrome.kill(); process.exit(2); }, 60000);
+try {
+  let tab;
+  for (let i = 0; i < 60; i++) { try { tab = (await (await fetch('http://localhost:9252/json/list')).json()).find(t => t.type === 'page'); } catch {} if (tab) break; await sleep(150); }
+  assert.ok(tab); ws = new WebSocket(tab.webSocketDebuggerUrl); await new Promise(resolve => ws.addEventListener('open', resolve, { once: true }));
+  ws.addEventListener('message', ({ data }) => { const m = JSON.parse(data), p = pending.get(m.id); if (m.method === 'Runtime.exceptionThrown') errors.push(m.params); if (p) { pending.delete(m.id); m.error ? p.reject(m.error) : p.resolve(m.result); } });
+  await call('Page.enable'); await call('Runtime.enable'); await call('Network.enable');
+  await call('Network.setBlockedURLs', { urls: ['*supabase.co*'] });
+  await call('Page.addScriptToEvaluateOnNewDocument', { source: require('./demo-config.cjs') + `\nif(!localStorage.getItem('homelody:admin-demo'))localStorage.setItem('homelody:admin-demo',${JSON.stringify(JSON.stringify(seed))});` });
+  await call('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
+  await navigate(base + 'admin/');
+  await poll(`!!document.querySelector('#login:not([hidden])')`);
+  await ev(`document.querySelector('#login-form [name=email]').value='favorites-test@example.com';document.querySelector('#login-form').requestSubmit()`);
+  await poll(`document.querySelectorAll('#favorites-preview figure').length===6`);
+  assert.equal(await ev(`document.querySelector('#metric-featured').textContent`), '6');
+  await ev(`document.querySelector('#manage-favorites').click()`);
+  await poll(`document.querySelector('#favorites-editor').open`);
+  assert.equal(await ev(`document.querySelector('[data-favorite-pick][value="pick-7"]').disabled`), true);
+  assert.equal(await ev(`document.querySelector('[data-favorite-pick][value="no-image"]').disabled`), true);
+  assert.equal(await ev(`document.querySelector('[data-favorite-pick][value="hidden"]').disabled`), true);
+  assert.equal(await ev(`document.querySelector('[data-favorite-pick][value="hidden-group"]').disabled`), true);
+  await ev(`document.querySelector('#favorites-search').value='mon thu 8';document.querySelector('#favorites-search').dispatchEvent(new Event('input'))`);
+  assert.equal(await ev(`document.querySelectorAll('[data-favorite-pick]').length`), 1);
+  await ev(`document.querySelector('#favorites-search').value='';document.querySelector('#favorites-search').dispatchEvent(new Event('input'));document.querySelector('[data-favorite-remove="0"]').click();document.querySelector('[data-favorite-pick][value="pick-7"]').click()`);
+  for (let index = 5; index > 0; index--) await ev(`document.querySelector('[data-favorite-up="${index}"]').click()`);
+  await ev(`document.querySelector('#favorites-editor [data-favorites-close]').click()`);
+  assert.equal(await ev(`document.querySelector('#favorites-discard').open`), true);
+  await ev(`document.querySelector('#favorites-continue').click()`);
+  assert.equal(await ev(`document.querySelector('#favorites-selected strong').textContent`), 'Món thử 7');
+  console.log('PASS actual count is six despite extra legacy flags; eligibility, search, limit, reorder and unsaved-change protection.');
+  await ev(`window.savedSetItem=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='homelody:admin-demo')throw Error('quota');return window.savedSetItem.call(this,k,v)};document.querySelector('#favorites-form').requestSubmit()`);
+  await poll(`!document.querySelector('#favorites-error').hidden`);
+  assert.equal(await ev(`JSON.parse(localStorage.getItem('homelody:admin-demo')).shop.featured_drink_ids`), null);
+  await ev(`Storage.prototype.setItem=window.savedSetItem;document.querySelector('#favorites-form').requestSubmit()`);
+  await poll(`!document.querySelector('#favorites-editor').open`);
+  const expected = ['pick-7', 'pick-2', 'pick-3', 'pick-4', 'pick-5', 'pick-6'];
+  assert.deepEqual(await ev(`JSON.parse(localStorage.getItem('homelody:admin-demo')).shop.featured_drink_ids`), expected);
+  await navigate(base + 'admin/');
+  await poll(`document.querySelectorAll('#favorites-preview figure').length===6`);
+  assert.ok(await ev(`document.querySelector('#favorites-preview figcaption').textContent.startsWith('Món thử 7')`));
+  fs.mkdirSync('reports/admin-workspace', { recursive: true });
+  await shot('favorites-preview-desktop');
+  await ev(`document.querySelector('#manage-favorites').click()`);
+  await poll(`document.querySelector('#favorites-editor').open`);
+  for (const width of [1440, 390, 320]) {
+    await call('Emulation.setDeviceMetricsOverride', { width, height: 950, deviceScaleFactor: 1, mobile: false });
+    assert.ok(await ev(`(()=>{const r=document.querySelector('#favorites-editor').getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight&&document.documentElement.scrollWidth<=innerWidth})()`), `Favorites dialog fits ${width}px`);
+    await shot(`favorites-picker-${width}`);
+  }
+  await ev(`document.querySelector('#favorites-editor [data-favorites-close]').click()`);
+  await navigate(base);
+  await poll(`document.documentElement?.dataset.menuSource==='demo'&&document.querySelectorAll('#drink-options .option__name').length===6`);
+  assert.deepEqual(await ev(`[...document.querySelectorAll('#drink-options .option__name')].map(el=>el.textContent)`), [7, 2, 3, 4, 5, 6].map(i => 'Món thử ' + i));
+  assert.equal(await ev(`document.querySelector('[data-field="total"]').textContent`), '06');
+  console.log('PASS failed saves preserve original selection and can retry; reload, public order/counter and 320–1440px layouts.');
+  await ev(`const state=JSON.parse(localStorage.getItem('homelody:admin-demo'));state.drinks.find(d=>d.id==='pick-2').is_active=false;localStorage.setItem('homelody:admin-demo',JSON.stringify(state))`);
+  await navigate(base);
+  await poll(`document.querySelectorAll('#drink-options .option__name').length===5`);
+  assert.ok(await ev(`![...document.querySelectorAll('#drink-options .option__name')].some(el=>el.textContent==='Món thử 1'||el.textContent==='Món thử 8')`));
+  await navigate(base + 'admin/');
+  await poll(`document.querySelectorAll('#favorites-preview figure').length===5`);
+  assert.ok(await ev(`document.querySelector('#favorites-note').textContent.startsWith('1 món')`));
+  await ev(`document.querySelector('#manage-favorites').click()`);
+  await poll(`document.querySelector('#favorites-editor').open`);
+  assert.equal(await ev(`document.querySelector('#save-favorites').disabled`), true);
+  await ev(`document.querySelector('[data-favorite-remove="1"]').click();document.querySelector('#favorites-form').requestSubmit()`);
+  await poll(`!document.querySelector('#favorites-editor').open`);
+  await ev(`document.querySelector('#manage-favorites').click()`);
+  await poll(`document.querySelector('#favorites-editor').open`);
+  await ev(`while(document.querySelector('[data-favorite-remove]'))document.querySelector('[data-favorite-remove]').click()`);
+  assert.equal(await ev(`document.querySelector('#save-favorites').disabled`), true);
+  await ev(`document.querySelector('#favorites-editor [data-favorites-close]').click();document.querySelector('#favorites-discard-confirm').click();document.querySelector('#manage-favorites').click()`);
+  await poll(`document.querySelector('#favorites-editor').open`);
+  await ev(`const state=JSON.parse(localStorage.getItem('homelody:admin-demo'));state.shop.updated_at='2099-01-01T00:00:00.000Z';localStorage.setItem('homelody:admin-demo',JSON.stringify(state));document.querySelector('[data-favorite-down="0"]').click();document.querySelector('#favorites-form').requestSubmit()`);
+  await poll(`!document.querySelector('#favorites-error').hidden`);
+  assert.ok(await ev(`document.querySelector('#favorites-error').textContent.includes('vừa thay đổi')`));
+  assert.equal(await ev(`JSON.parse(localStorage.getItem('homelody:admin-demo')).shop.featured_drink_ids[0]`), 'pick-7');
+  assert.deepEqual(errors, []);
+  console.log('PASS hidden selected items are flagged without backfill, empty saves blocked, stale writes rejected; production requests blocked throughout.');
+} finally { clearTimeout(timeout); ws?.close(); chrome.kill(); }

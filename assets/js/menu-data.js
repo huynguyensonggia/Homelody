@@ -61,7 +61,7 @@ window.HOMELODY_FALLBACK = {
   shop: {
     address: '100 Lý thường kiệt, Hội An, Thành Phố Đà Nẵng',
     hours: 'Hằng ngày · 6:30 – 22:00',
-    phone: '0773 558 945',
+    phone: '0935 983 263',
     directionsUrl: '',   // trống → tự tạo link Google Maps từ địa chỉ
     contactUrl: '',      // trống → gọi điện (tel:). Có thể dán link Zalo: https://zalo.me/09xxxxxxxx
     social: { Instagram: '', Facebook: '', TikTok: '' }

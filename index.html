@@ -28,8 +28,8 @@
   <link rel="preload" fetchpriority="high" as="image" href="assets/images/hero-coffee-banner.webp" imagesrcset="assets/images/hero-coffee-banner-960.webp 960w, assets/images/hero-coffee-banner.webp 1672w" imagesizes="100vw">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm81Rb0.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm86Rb0bcw.woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/site.min.css?v=20261026herospacing">
-  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="assets/css/site.min.css?v=20261101menuclean">
+  <script src="assets/js/bootstrap.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
@@ -80,9 +80,9 @@
             <a class="btn hero__menu-cta" href="#thuc-don">Xem thực đơn</a>
           </div>
           <div class="hero__visit">
-            <p>100 Lý Thường Kiệt, Hội An</p>
+            <p data-shop-address>100 Lý Thường Kiệt, Hội An</p>
             <div class="hero__visit-details">
-              <p>Hằng ngày · 6:30–22:00</p>
+              <p data-shop-hours>Hằng ngày · 6:30–22:00</p>
               <a data-link="MAPS_URL" aria-label="Chỉ đường đến Homelody"><span data-icon="pin" aria-hidden="true"></span>Chỉ đường</a>
             </div>
           </div>
@@ -263,7 +263,7 @@
           <li>
             <span class="experiences__icon" data-icon="clock" aria-hidden="true"></span>
             <h3>Đón bạn từ sáng đến tối</h3>
-            <p>Mở cửa mỗi ngày, 6:30–22:00. Cho ly cà phê đầu ngày hay cuộc hẹn khi chiều xuống.</p>
+            <p>Mở cửa mỗi ngày, <span data-shop-hours>6:30–22:00</span>. Cho ly cà phê đầu ngày hay cuộc hẹn khi chiều xuống.</p>
           </li>
           <li>
             <span class="experiences__icon" data-icon="trees" aria-hidden="true"></span>
@@ -329,15 +329,15 @@
             <ul class="destination__details">
               <li>
                 <span class="destination__detail-icon" data-icon="pin" aria-hidden="true"></span>
-                <div><p>Địa chỉ</p><a data-link="MAPS_URL">100 Lý thường kiệt, Hội An,<br>Thành Phố Đà Nẵng</a></div>
+                <div><p>Địa chỉ</p><a data-link="MAPS_URL" data-shop-address>100 Lý thường kiệt, Hội An,<br>Thành Phố Đà Nẵng</a></div>
               </li>
               <li>
                 <span class="destination__detail-icon" data-icon="clock" aria-hidden="true"></span>
-                <div><p>Giờ mở cửa</p><span>Hằng ngày · 6:30 – 22:00</span></div>
+                <div><p>Giờ mở cửa</p><span data-shop-hours>Hằng ngày · 6:30 – 22:00</span></div>
               </li>
               <li>
                 <span class="destination__detail-icon" data-icon="chat" aria-hidden="true"></span>
-                <div><p>Đặt bàn qua Zalo</p><a data-link="ZALO_URL">0935 983 263 <span aria-hidden="true">↗</span></a></div>
+                <div><p>Đặt bàn qua Zalo</p><a data-link="ZALO_URL"><span data-shop-zalo>0935 983 263</span> <span aria-hidden="true">↗</span></a></div>
               </li>
             </ul>
           </div>
@@ -371,10 +371,10 @@
       <div class="site-footer__column">
         <h3>Liên hệ</h3>
         <ul class="site-footer__list">
-          <li><span data-icon="phone" aria-hidden="true"></span><a data-link="PHONE">0773 558 945</a></li>
-          <li><span data-icon="chat" aria-hidden="true"></span><a data-link="ZALO_URL">Zalo: 0935 983 263</a></li>
+          <li><span data-icon="phone" aria-hidden="true"></span><a data-link="PHONE" data-shop-phone>0935 983 263</a></li>
+          <li><span data-icon="chat" aria-hidden="true"></span><a data-link="ZALO_URL">Zalo: <span data-shop-zalo>0935 983 263</span></a></li>
           <li><span data-icon="mail" aria-hidden="true"></span><a href="mailto:homelodycoffee@gmail.com">homelodycoffee@gmail.com</a></li>
-          <li><span data-icon="instagram" aria-hidden="true"></span><a data-link="INSTAGRAM_URL">@homelody.coffee</a></li>
+          <li><span data-icon="instagram" aria-hidden="true"></span><a data-link="INSTAGRAM_URL" data-shop-instagram>@homelody.coffee</a></li>
         </ul>
       </div>
       <div class="site-footer__column site-footer__column--highlights">
@@ -434,10 +434,13 @@
   <!-- Dữ liệu: config.js (kết nối Supabase) → menu-data.js (dự phòng) → main.js (giao diện + chuyển động).
        ?v=… giúp trình duyệt tải bản mới sau mỗi lần sửa file: đổi số này khi cập nhật CSS/JS. -->
   <script src="assets/js/config.js?v=20261024menucount"></script>
+  <script src="assets/js/shop-settings.js?v=20261101links"></script>
+  <script src="assets/js/menu-categories.js?v=20261101categories"></script>
+  <script src="assets/js/featured-menu.js?v=20261101favorites"></script>
   <script src="assets/js/menu-data.js?v=20261020landing"></script>
   <script src="assets/js/image-variants.js?v=20261024performance"></script>
   <script src="assets/js/story-data.js?v=20261023galleries"></script>
-  <script src="assets/js/main.js?v=20261024menucount" defer></script>
-  <script src="assets/js/landing.js?v=20261026reviewcover" defer></script>
+  <script src="assets/js/main.js?v=20261101favorites" defer></script>
+  <script src="assets/js/landing.js?v=20261101links" defer></script>
 </body>
 </html>
