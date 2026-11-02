@@ -1,5 +1,5 @@
 /* Conversion and consistency pass. Brand colors and existing product motion are retained. */
-:root { --section-y: 120px; --stage-bg: var(--band); }
+:root { --section-y: 120px; --stage-bg: var(--band); --hl-sand: #EAE4D8; --hl-deep-moss: #232617; --surface-white: #FFFFFF; }
 .eyebrow:not(.hero__eyebrow), .drink-info__label, .drink-dialog__subtitle {
   font-size: 14px; line-height: 1.5; font-weight: 500;
   letter-spacing: .02em; text-transform: none;
@@ -16,7 +16,7 @@ a[aria-disabled="true"] { cursor: default; }
 @media (hover: hover) and (pointer: fine) {
   .btn:not([aria-disabled="true"]):hover { transform: translateY(-2px); box-shadow: 0 6px 14px -8px rgba(44,47,30,.35); }
 }
-.site-header { z-index: 100; background: rgba(242,237,228,.92); color: #3F3826; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background-color 300ms, color 300ms, border-color 300ms; }
+.site-header { z-index: 100; background: rgba(242,237,228,.95); color: #3F3826; border-bottom-color: rgba(93,96,67,.1); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background-color 300ms, color 300ms, border-color 300ms; }
 .site-header .brand--with-logo { flex-direction: row; align-items: center; gap: 10px; flex-shrink: 0; }
 .brand__logo { display: block; width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; }
 .brand__wordmark { display: flex; flex-direction: column; gap: 3px; }
@@ -96,7 +96,7 @@ a[aria-disabled="true"] { cursor: default; }
 }
 .delivery-links { margin-top: 20px; font-size: 14px; line-height: 1.6; color: var(--muted); }
 .delivery-links a { text-decoration: underline; text-underline-offset: 4px; }
-.experiences { padding-block: 88px 96px; background: var(--hl-charcoal); color: var(--hl-cream); }
+.experiences { padding-block: 88px 96px; background: var(--hl-moss); color: var(--hl-cream); }
 .experiences__heading { text-align: center; }
 .experiences__heading .eyebrow { margin-bottom: 20px; color: var(--hl-tan); }
 .experiences__heading .h2 { font-size: var(--type-section); font-weight: 400; color: var(--hl-cream); }
@@ -173,7 +173,14 @@ a[aria-disabled="true"] { cursor: default; }
   transition: background-color 480ms cubic-bezier(.22, 1, .36, 1);
 }
 .drink-info__desc, .drink-info__note { font-size: 16px; }
-.story { padding-block: 120px; }
+.drinks { background: var(--hl-cream); }
+.drinks .option { background: var(--surface-white); border-radius: var(--radius-card); }
+.drinks .option.is-active { background: var(--band); }
+.story {
+  --ink: var(--hl-cream); --muted: var(--on-dark-muted);
+  --accent: var(--hl-tan); --accent-ink: var(--hl-tan);
+  padding-block: 120px; background: var(--hl-moss); color: var(--hl-cream);
+}
 /* Compact gap between the bakery and space sections. */
 #do-uong.drinks { padding-bottom: 56px; }
 #banh-nha-lam + .space-menu > #khong-gian.space { padding-top: 56px; }
@@ -181,8 +188,8 @@ a[aria-disabled="true"] { cursor: default; }
   #do-uong.drinks { padding-bottom: 32px; }
   #banh-nha-lam + .space-menu > #khong-gian.space { padding-top: 32px; }
 }
-.bakery { position: relative; overflow: clip; background: var(--hl-cream); }
-.bakery__page { padding-block: 40px 56px; background: radial-gradient(ellipse at 75% 45%, var(--ivory), var(--band)); }
+.bakery { position: relative; overflow: clip; background: var(--hl-sand); }
+.bakery__page { padding-block: 40px 56px; background: var(--hl-sand); }
 .bakery__chapter { display: flex; justify-content: center; align-items: center; gap: 20px; padding-inline: var(--gutter); text-align: center; color: var(--accent-ink); font-family: var(--script); font-size: clamp(22px, 2vw, 26px); line-height: 1.5; }
 .bakery__chapter::before, .bakery__chapter::after { content: ''; flex: 0 1 72px; height: 1px; background: rgb(135 96 58 / .28); }
 .bakery__inner { margin-top: 12px; }
@@ -235,6 +242,7 @@ a[aria-disabled="true"] { cursor: default; }
   }
 }
 .space, .menu { padding-block: 120px; }
+.space.section-band { background: var(--hl-cream); }
 /* Keep static fallback photos out of the first paint until current gallery sources load. */
 .js [data-story-stack] .story__card img:not([data-gallery-ready]),
 .js #khong-gian .space-card > img:not([data-gallery-ready]) { opacity: 0; }
@@ -256,13 +264,13 @@ a[aria-disabled="true"] { cursor: default; }
   }
 }
 /* Reviews rise over the experiences section; tall content scrolls fully before pinning. */
-.experiences-reviews { position: relative; isolation: isolate; background: var(--hl-charcoal); }
+.experiences-reviews { position: relative; isolation: isolate; background: var(--hl-moss); }
 @media (prefers-reduced-motion: no-preference) {
   .experiences-reviews.is-cover-enabled > .experiences {
     position: sticky; top: var(--experiences-pin-top, 0px); z-index: 1;
   }
   .experiences-reviews.is-cover-enabled > .experiences::after {
-    content: ''; position: absolute; inset: 0; z-index: 10; background: var(--hl-charcoal);
+    content: ''; position: absolute; inset: 0; z-index: 10; background: var(--hl-moss);
     opacity: var(--experiences-cover-shade, 0); pointer-events: none;
   }
   .experiences-reviews.is-cover-enabled > .experiences > .container {
@@ -567,6 +575,7 @@ a[aria-disabled="true"] { cursor: default; }
   .menu .menu-tabs .menu-tab[role="tab"][aria-selected="true"] { background: var(--hl-moss); color: var(--hl-cream); border-color: var(--hl-moss); }
 }
 .menu .menu-group__title { gap: 0; padding-bottom: 10px; margin-bottom: 0; border-bottom-color: #dfd5c4; }
+.menu-group__en { color: var(--accent-ink); }
 html:lang(vi) .menu .menu-group__en { display: none; }
 .menu .menu-group + .menu-group { margin-top: 32px; }
 .menu .menu-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding-top: 16px; }
@@ -606,14 +615,14 @@ html:lang(vi) .menu .menu-group__en { display: none; }
 }
 .menu-card__category, .menu .menu-card .menu-item__body {
   position: relative; display: flex; width: calc(100% - 32px); padding: 12px;
-  background: var(--ivory); transition: transform .5s cubic-bezier(1, 0, 0, 1);
+  background: var(--surface-white); transition: transform .5s cubic-bezier(1, 0, 0, 1);
 }
 .menu-card__category { justify-content: space-between; align-items: center; gap: 12px; min-height: 44px; border: 1px solid var(--line-soft); border-bottom: 0; border-radius: var(--radius-card) var(--radius-card) 0 0; font-size: 14px; font-weight: 500; color: var(--hl-olive); }
 .menu-card__category svg { width: 18px; height: 18px; flex-shrink: 0; }
 .menu .menu-card .menu-item__body { flex-direction: column; justify-content: center; min-height: 104px; border: 1px solid var(--line-soft); border-top: 0; border-radius: 0 0 var(--radius-card) var(--radius-card); }
 .menu .menu-card .menu-item__name { font-size: 18px; color: var(--ink); }
 .menu .menu-card .menu-item__desc { display: block; margin-top: 5px; font-size: 14px; line-height: 1.6; white-space: normal; overflow: visible; }
-.menu-card__image { position: relative; z-index: 5; display: flex; align-items: center; justify-content: center; overflow: hidden; width: 100%; height: 260px; border: 1px solid var(--line-soft); border-radius: var(--radius-card); background: radial-gradient(ellipse at 50% 42%, var(--ivory), var(--band)); }
+.menu-card__image { position: relative; z-index: 5; display: flex; align-items: center; justify-content: center; overflow: hidden; width: 100%; height: 260px; border: 1px solid var(--line-soft); border-radius: var(--radius-card); background: var(--surface-white); }
 .menu-card__image > img { width: 100%; height: 234px; padding: 8px 24px; object-fit: contain; }
 .menu-card__symbol { color: var(--accent); opacity: .55; }
 .menu-card__symbol svg { width: 56px; height: 56px; }
@@ -700,7 +709,7 @@ html:lang(vi) .menu .menu-group__en { display: none; }
   .hero__actions .hero__menu-cta:hover { background: var(--tan-hover); box-shadow: 0 12px 28px rgb(0 0 0 / .24); }
 }
 /* Guest reviews: three softly faded columns, looping upward at an unhurried pace. */
-.reviews { padding-block: 96px 80px; overflow: hidden; background: var(--hl-cream); color: var(--hl-espresso); }
+.reviews { padding-block: 96px 80px; overflow: hidden; background: var(--hl-cream); color: var(--hl-espresso); border-radius: 36px 36px 0 0; }
 .reviews__heading { max-width: 660px; margin: 0 auto 48px; text-align: center; }
 .reviews__heading .eyebrow { display: inline-block; margin-bottom: 22px; padding: 6px 16px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; letter-spacing: .02em; }
 .reviews__heading .h2 { font-size: var(--type-section); line-height: 1.25; letter-spacing: -.02em; }
@@ -765,7 +774,7 @@ html.is-review-open { overflow: hidden; }
 .review-dialog__text { margin-top: 22px; font-size: 16px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
 @media (max-width: 599px) { .review-dialog { padding: 28px 24px; } }
 /* A moss-green closing chapter separates the visit invitation from the cream guestbook. */
-.visit.visit--destination { padding-block: 80px 96px; background: var(--hl-moss); color: var(--hl-cream); border-top: 0; }
+.visit.visit--destination { padding-block: 80px 96px; background: var(--hl-deep-moss); color: var(--hl-cream); border-top: 0; }
 .visit--destination::before { display: none; }
 .destination__heading { margin-bottom: 40px; text-align: center; }
 .destination__heading > p { margin-bottom: 10px; font-family: var(--script); font-size: 26px; line-height: 1.4; color: var(--hl-tan); }
@@ -833,7 +842,7 @@ html.is-review-open { overflow: hidden; }
   .destination__details > li { gap: 12px; }
 }
 /* Four-column footer: brand, navigation, contact and favorite details. */
-.site-footer--expanded { background: var(--hl-charcoal); color: var(--hl-cream); border-top: 1px solid rgb(210 173 129 / .15); }
+.site-footer--expanded { background: var(--hl-deep-moss); color: var(--hl-cream); border-top: 1px solid rgb(210 173 129 / .15); }
 .site-footer--expanded > .container { max-width: calc(1480px + 2 * var(--gutter)); }
 .site-footer--expanded .site-footer__inner {
   display: grid; grid-template-columns: minmax(0,1.25fr) minmax(0,.6fr) minmax(0,1fr) minmax(0,1.1fr);
