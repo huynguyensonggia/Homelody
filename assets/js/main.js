@@ -973,6 +973,10 @@
       t.setAttribute('aria-selected', on ? 'true' : 'false');
       t.tabIndex = on ? 0 : -1;
       if (on && focus) t.focus();
+      if (on && window.matchMedia('(max-width: 767px)').matches) {
+        var rail = t.parentElement;
+        rail.scrollTo({ left: Math.max(0, t.offsetLeft - (rail.clientWidth - t.offsetWidth) / 2), behavior: animate && !still() ? 'smooth' : 'instant' });
+      }
     });
     panelEl.setAttribute('aria-labelledby', 'menu-tab-' + k);
     moveTabInk(k, animate);
@@ -1030,8 +1034,12 @@
     }
     menuTabs = [{ name: 'Tất cả', all: true, items: DRINKS }].concat(groups);
     menuTab = Math.min(menuTab, menuTabs.length - 1);
+    if (menuTab === 0 && window.matchMedia('(max-width: 767px)').matches) {
+      menuTab = menuTabs.findIndex(function (t) { return t.name === 'Cà phê Việt'; });
+      if (menuTab < 1) menuTab = 1;
+    }
     root.innerHTML =
-      '<div class="menu-category"><label for="menu-category">Chọn danh mục</label>' +
+      '<div class="menu-filters"><div class="menu-category"><label for="menu-category">Chọn danh mục</label>' +
       '<select id="menu-category" aria-controls="menu-panel">' + menuTabs.map(function (t, k) {
         return '<option value="' + k + '">' + esc(t.name) + ' (' + t.items.length + ')</option>';
       }).join('') + '</select></div>' +
@@ -1040,7 +1048,7 @@
           (t.en ? ' title="' + esc(t.en) + '"' : '') + '>' + esc(t.name) + '</button>';
       }).join('') +
       '<span class="menu-tabs__ink" aria-hidden="true">' + menuTabs.map(function (t) { return '<span class="menu-tab menu-tab--ink">' + esc(t.name) + '</span>'; }).join('') + '</span>' +
-      '</div>' +
+      '</div></div>' +
       '<div id="menu-panel" role="tabpanel"></div>';
     var tabs = $$('.menu-tab[role="tab"]', root);
     $('#menu-category', root).addEventListener('change', function (e) {
