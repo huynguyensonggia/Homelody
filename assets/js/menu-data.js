@@ -59,7 +59,7 @@ window.HOMELODY_FALLBACK = {
 
   // Thông tin quán — để trống thì web hiện [chỗ trống] và nút Chỉ đường/Liên hệ chưa bấm được
   shop: {
-    address: '100 Lý thường kiệt, Hội An, Thành Phố Đà Nẵng',
+    address: '100 Lý Thường Kiệt, Hội An, Thành phố Đà Nẵng',
     hours: 'Hằng ngày · 6:30 – 22:00',
     phone: '0935 983 263',
     directionsUrl: '',   // trống → tự tạo link Google Maps từ địa chỉ
