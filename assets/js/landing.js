@@ -432,12 +432,10 @@
     closeReview.type = 'button'; closeReview.setAttribute('aria-label', 'Đóng đánh giá');
     var dialogName = element('h2', '', ''); dialogName.id = 'review-detail-name';
     var dialogText = element('p', 'review-dialog__text');
-    var dialogSource = element('a', 'review-dialog__source', 'Xem trên Google Maps ↗');
-    dialogSource.target = '_blank'; dialogSource.rel = 'noopener';
     reviewDialog.appendChild(closeReview);
     reviewDialog.appendChild(element('p', 'eyebrow', 'Lời nhắn từ khách ghé nhà'));
     reviewDialog.appendChild(dialogName);
-    reviewDialog.appendChild(dialogText); reviewDialog.appendChild(dialogSource);
+    reviewDialog.appendChild(dialogText);
     document.body.appendChild(reviewDialog);
     closeReview.addEventListener('click', function () { reviewDialog.close(); });
     reviewDialog.addEventListener('click', function (event) {
@@ -537,11 +535,8 @@
       var button = event.target.closest('.reviews__read-more');
       if (!button) return;
       var card = button.closest('[data-review-index]'), review = entries[Number(card.dataset.reviewIndex)];
-      var source = card.querySelector('a.reviews__source');
       opener = button;
       dialogName.textContent = review.name; dialogText.textContent = review.text;
-      dialogSource.hidden = !source;
-      if (source) dialogSource.href = source.href; else dialogSource.removeAttribute('href');
       section.classList.add('is-dialog-open');
       reviewDialog.showModal(); reviewDialog.scrollTop = 0;
       document.documentElement.classList.add('is-review-open');
