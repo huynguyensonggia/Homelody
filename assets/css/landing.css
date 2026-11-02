@@ -179,7 +179,12 @@ a[aria-disabled="true"] { cursor: default; }
 .story {
   --ink: var(--hl-cream); --muted: var(--on-dark-muted);
   --accent: var(--hl-tan); --accent-ink: var(--hl-tan);
-  padding-block: 120px; background: var(--hl-moss); color: var(--hl-cream);
+  position: relative; padding-block: 120px; background: var(--hl-moss); color: var(--hl-cream);
+}
+.story::after {
+  content: ''; position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  width: min(280px, 40vw); height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #B98C4E 18%, #F3D596 50%, #B98C4E 82%, transparent);
 }
 /* Compact gap between the bakery and space sections. */
 #do-uong.drinks { padding-bottom: 56px; }
@@ -395,6 +400,7 @@ a[aria-disabled="true"] { cursor: default; }
   .experiences__icon { margin-bottom: 16px; }
   .experiences h3 { margin-bottom: 10px; }
   .drinks, .story, .space, .menu, .visit__inner { padding-block: 80px; }
+  .story::after { bottom: 12px; }
   .drink-info { max-width: 100%; }
   .selector-row { gap: 5px; }
   .selector-row .selector { gap: 8px; padding-inline: 2px; }
