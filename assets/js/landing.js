@@ -128,6 +128,69 @@
       timeout = setTimeout(finish, 2500);
     }
   })();
+  (function setupChapterCover() {
+    var chapters = document.querySelector('[data-space-menu]');
+    if (!chapters || !window.CSS || !CSS.supports('position', 'sticky')) return;
+    var outgoing = chapters.querySelector('#khong-gian'), incoming = chapters.querySelector('#thuc-don');
+    var header = document.querySelector('[data-header]'), mobileOrder = document.querySelector('[data-mobile-order]');
+    if (!outgoing || !incoming) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var height = window.innerHeight, headerHeight = 0, enabled = false, lastProgress = -1;
+    var scrollFrame = 0, measureFrame = 0;
+    function update() {
+      scrollFrame = 0;
+      if (!enabled) return;
+      var progress = Math.max(0, Math.min(1, (height - incoming.getBoundingClientRect().top) / Math.max(1, height - headerHeight)));
+      if (Math.abs(progress - lastProgress) < .0005) return;
+      lastProgress = progress;
+      chapters.style.setProperty('--space-cover-shade', (progress * .12).toFixed(4));
+      chapters.style.setProperty('--space-cover-scale', (1 - progress * .02).toFixed(4));
+      chapters.style.setProperty('--chapter-cover-radius', ((1 - progress) * 36).toFixed(2) + 'px');
+      chapters.classList.toggle('is-space-covered', progress >= .999);
+    }
+    function request() { if (!scrollFrame) scrollFrame = requestAnimationFrame(update); }
+    function measure() {
+      measureFrame = 0;
+      enabled = !reduce.matches;
+      height = window.innerHeight;
+      headerHeight = header ? header.getBoundingClientRect().height : 0;
+      var bottomInset = mobileOrder && !mobileOrder.hidden && getComputedStyle(mobileOrder).position === 'fixed' ? mobileOrder.getBoundingClientRect().height : 0;
+      // Tall content scrolls fully before pinning above the fixed mobile controls.
+      var pinTop = Math.min(headerHeight, height - bottomInset - outgoing.offsetHeight);
+      chapters.style.setProperty('--space-pin-top', pinTop + 'px');
+      chapters.style.setProperty('--chapter-viewport-height', height + 'px');
+      chapters.style.setProperty('--chapter-header-height', headerHeight + 'px');
+      chapters.classList.toggle('is-cover-enabled', enabled);
+      if (!enabled) chapters.classList.remove('is-space-covered');
+      lastProgress = -1; request();
+    }
+    function requestMeasure() { if (!measureFrame) measureFrame = requestAnimationFrame(measure); }
+    function spaceStart(behavior) {
+      window.scrollTo({ top: Math.max(0, chapters.getBoundingClientRect().top + window.scrollY - headerHeight), behavior: behavior });
+    }
+    // Hash navigation targets the chapter's flow origin while the space section is pinned.
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest('a[href="#khong-gian"]');
+      if (!enabled || !link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      if (window.location.hash !== '#khong-gian') history.pushState(history.state, '', '#khong-gian');
+      spaceStart('smooth');
+    });
+    window.addEventListener('hashchange', function () {
+      if (enabled && window.location.hash === '#khong-gian') requestAnimationFrame(function () { spaceStart('instant'); });
+    });
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', requestMeasure);
+    reduce.addEventListener('change', measure);
+    if ('ResizeObserver' in window) {
+      var observer = new ResizeObserver(requestMeasure);
+      observer.observe(outgoing);
+      if (header) observer.observe(header);
+      if (mobileOrder) observer.observe(mobileOrder);
+    }
+    if (document.fonts) document.fonts.ready.then(measure);
+    measure();
+  })();
   (function setupExperiencesCover() {
     var chapters = document.querySelector('[data-experiences-reviews]');
     if (!chapters || !window.CSS || !CSS.supports('position', 'sticky')) return;

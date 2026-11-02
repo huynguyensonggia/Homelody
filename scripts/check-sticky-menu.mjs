@@ -48,7 +48,7 @@ try {
     await sleep(100);
     fs.mkdirSync('reports/sticky-menu', { recursive: true });
     const shot = await call('Page.captureScreenshot', { format: 'png' }); fs.writeFileSync(`reports/sticky-menu/mobile-${width}.png`, Buffer.from(shot.data, 'base64'));
-    await ev(`document.querySelector('#thuc-don').nextElementSibling.scrollIntoView({behavior:'instant'})`); await sleep(100);
+    await ev(`document.querySelector('#cau-chuyen').scrollIntoView({behavior:'instant'})`); await sleep(100);
     assert.ok(await ev(`document.querySelector('.menu-filters').getBoundingClientRect().bottom<=document.querySelector('.site-header').getBoundingClientRect().bottom`), 'Released after menu');
     console.log('PASS mobile default, sticky bounds, horizontal selection, keyboard and overflow at ' + width);
   }
@@ -58,10 +58,15 @@ try {
     await call('Page.navigate', { url: 'http://localhost:8000/' });
     await poll(`!!document.querySelector('.menu-filters')`);
     await ev('document.fonts.ready');
-    assert.deepEqual(await ev(`Array.from(document.querySelectorAll('main > section')).map(s=>s.id).filter(id=>['khong-gian','thuc-don','cau-chuyen'].includes(id))`), ['khong-gian', 'thuc-don', 'cau-chuyen']);
+    assert.deepEqual(await ev(`Array.from(document.querySelectorAll('main section')).map(s=>s.id).filter(id=>['khong-gian','thuc-don','cau-chuyen'].includes(id))`), ['khong-gian', 'thuc-don', 'cau-chuyen']);
     assert.ok(await ev(`!['fixed','sticky'].includes(getComputedStyle(document.querySelector('#cau-chuyen')).position)`), 'Story scrolls naturally in its new position');
+    assert.equal(await ev(`getComputedStyle(document.querySelector('#khong-gian')).position`), 'sticky', 'Chapter cover restored');
+    await ev(`(()=>{const menu=document.querySelector('#thuc-don'),h=document.querySelector('.site-header').offsetHeight;scrollTo({top:menu.getBoundingClientRect().top+scrollY-(innerHeight+h)/2,behavior:'instant'})})()`);
+    await sleep(200);
+    assert.ok(await ev(`(()=>{const c=document.querySelector('[data-space-menu]'),shade=Number(c.style.getPropertyValue('--space-cover-shade')),scale=Number(c.style.getPropertyValue('--space-cover-scale'));return shade>0&&shade<.12&&scale<1&&scale>.98})()`), 'Cover shade and scale animate partway through');
+    assert.ok(await ev(`Number(getComputedStyle(document.querySelector('#thuc-don')).zIndex)>Number(getComputedStyle(document.querySelector('#khong-gian')).zIndex)`), 'Menu covers space');
     for (const section of ['khong-gian', 'thuc-don', 'cau-chuyen']) {
-      await ev(`document.querySelector('#${section}').scrollIntoView({behavior:'instant'})`);
+      await ev(section === 'khong-gian' ? `scrollTo({top:document.querySelector('[data-space-menu]').getBoundingClientRect().top+scrollY-document.querySelector('.site-header').offsetHeight,behavior:'instant'})` : `document.querySelector('#${section}').scrollIntoView({behavior:'instant'})`);
       await sleep(900);
       assert.ok(await ev(`Math.abs(document.querySelector('#${section}').getBoundingClientRect().top-document.querySelector('.site-header').getBoundingClientRect().bottom)<3`), 'Section anchor clears header');
       assert.equal(await ev(`document.querySelectorAll('#${section}').length`), 1, 'Unique section ID');
