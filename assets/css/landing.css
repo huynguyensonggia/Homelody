@@ -139,6 +139,16 @@ a[aria-disabled="true"] { cursor: default; }
   .experiences.is-experience-ready .experiences__grid > li.is-experience-in::after { transform: scaleY(1); }
   .experiences.is-experience-ready .experiences__grid > li.is-experience-in::before { transform: scaleX(1); }
   .experiences__icon { transition: transform 220ms ease, border-color 220ms ease; }
+  .experiences.is-experience-ready .experiences__grid > li.is-experience-in .experiences__icon {
+    animation: experience-tumble 700ms cubic-bezier(.22, 1, .36, 1) var(--experience-delay, 0ms) backwards;
+    transform-origin: 50% 60%;
+  }
+  @keyframes experience-tumble {
+    0% { opacity: 0; transform: translate(-26px, 22px) rotate(-150deg) scale(.72); }
+    55% { opacity: 1; transform: translate(3px, -4px) rotate(16deg) scale(1.05); }
+    78% { opacity: 1; transform: translate(-1px, 1px) rotate(-7deg) scale(.98); }
+    100% { opacity: 1; transform: translate(0, 0) rotate(0) scale(1); }
+  }
   @media (hover: hover) and (pointer: fine) {
     .experiences li:hover .experiences__icon { transform: translateY(-3px); border-color: rgb(229 195 148 / .7); }
   }
