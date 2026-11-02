@@ -128,69 +128,6 @@
       timeout = setTimeout(finish, 2500);
     }
   })();
-  (function setupChapterCover() {
-    var chapters = document.querySelector('[data-story-space]');
-    if (!chapters || !window.CSS || !CSS.supports('position', 'sticky')) return;
-    var story = chapters.querySelector('#cau-chuyen'), space = chapters.querySelector('#khong-gian');
-    var header = document.querySelector('[data-header]'), mobileOrder = document.querySelector('[data-mobile-order]');
-    if (!story || !space) return;
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var height = window.innerHeight, headerHeight = 0, enabled = false, lastProgress = -1;
-    var scrollFrame = 0, measureFrame = 0;
-    function update() {
-      scrollFrame = 0;
-      if (!enabled) return;
-      var progress = Math.max(0, Math.min(1, (height - space.getBoundingClientRect().top) / Math.max(1, height - headerHeight)));
-      if (Math.abs(progress - lastProgress) < .0005) return;
-      lastProgress = progress;
-      chapters.style.setProperty('--story-cover-shade', (progress * .12).toFixed(4));
-      chapters.style.setProperty('--story-cover-scale', (1 - progress * .02).toFixed(4));
-      chapters.style.setProperty('--chapter-cover-radius', ((1 - progress) * 36).toFixed(2) + 'px');
-      chapters.classList.toggle('is-story-covered', progress >= .999);
-    }
-    function request() { if (!scrollFrame) scrollFrame = requestAnimationFrame(update); }
-    function measure() {
-      measureFrame = 0;
-      enabled = !reduce.matches;
-      height = window.innerHeight;
-      headerHeight = header ? header.getBoundingClientRect().height : 0;
-      var bottomInset = mobileOrder && !mobileOrder.hidden && getComputedStyle(mobileOrder).position === 'fixed' ? mobileOrder.getBoundingClientRect().height : 0;
-      // A tall story scrolls naturally first, then pins with its bottom above any fixed mobile controls.
-      var pinTop = Math.min(headerHeight, height - bottomInset - story.offsetHeight);
-      chapters.style.setProperty('--story-pin-top', pinTop + 'px');
-      chapters.style.setProperty('--chapter-viewport-height', height + 'px');
-      chapters.style.setProperty('--chapter-header-height', headerHeight + 'px');
-      chapters.classList.toggle('is-cover-enabled', enabled);
-      if (!enabled) chapters.classList.remove('is-story-covered');
-      lastProgress = -1; request();
-    }
-    function requestMeasure() { if (!measureFrame) measureFrame = requestAnimationFrame(measure); }
-    function storyStart(behavior) {
-      window.scrollTo({ top: Math.max(0, chapters.getBoundingClientRect().top + window.scrollY - headerHeight), behavior: behavior });
-    }
-    // Hash navigation targets the chapter's flow origin, even while its story is pinned below.
-    document.addEventListener('click', function (event) {
-      var link = event.target.closest('a[href="#cau-chuyen"]');
-      if (!enabled || !link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      if (window.location.hash !== '#cau-chuyen') history.pushState(history.state, '', '#cau-chuyen');
-      storyStart('smooth');
-    });
-    window.addEventListener('hashchange', function () {
-      if (enabled && window.location.hash === '#cau-chuyen') requestAnimationFrame(function () { storyStart('instant'); });
-    });
-    window.addEventListener('scroll', request, { passive: true });
-    window.addEventListener('resize', requestMeasure);
-    reduce.addEventListener('change', measure);
-    if ('ResizeObserver' in window) {
-      var observer = new ResizeObserver(requestMeasure);
-      observer.observe(story);
-      if (header) observer.observe(header);
-      if (mobileOrder) observer.observe(mobileOrder);
-    }
-    if (document.fonts) document.fonts.ready.then(measure);
-    measure();
-  })();
   (function setupExperiencesCover() {
     var chapters = document.querySelector('[data-experiences-reviews]');
     if (!chapters || !window.CSS || !CSS.supports('position', 'sticky')) return;
@@ -228,8 +165,9 @@
     measure();
   })();
   (function setupStoryWords() {
-    var story = document.querySelector('#cau-chuyen'), space = document.querySelector('#khong-gian');
-    if (!story || !space || !('requestAnimationFrame' in window)) return;
+    var story = document.querySelector('#cau-chuyen');
+    var nextChapter = story && story.nextElementSibling;
+    if (!story || !nextChapter || !('requestAnimationFrame' in window)) return;
     var paragraphs = Array.from(story.querySelectorAll('.story__body'));
     if (!paragraphs.length) return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -266,7 +204,7 @@
       var finishLine = headerHeight + available * .54;
       var lead = Math.min(240, available * .34);
       // Finish before the next chapter reaches the readable viewport, including mobile controls.
-      var deadline = clamp((height - bottomInset + lead - space.getBoundingClientRect().top) / lead);
+      var deadline = clamp((height - bottomInset + lead - nextChapter.getBoundingClientRect().top) / lead);
       var boundsByParagraph = groups.map(function (group) { return group.paragraph.getBoundingClientRect(); });
       groups.forEach(function (group, groupIndex) {
         var bounds = boundsByParagraph[groupIndex];

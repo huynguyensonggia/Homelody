@@ -164,12 +164,12 @@ a[aria-disabled="true"] { cursor: default; }
 }
 .drink-info__desc, .drink-info__note { font-size: 16px; }
 .story { padding-block: 120px; }
-/* Shared gap at the featured drinks/story boundary: 112px, or 64px on mobile. */
+/* Compact gap between the bakery and space sections. */
 #do-uong.drinks { padding-bottom: 56px; }
-#do-uong + #cau-chuyen.story, #banh-nha-lam + #cau-chuyen.story, .story-space > #cau-chuyen.story { padding-top: 56px; }
+#banh-nha-lam + #khong-gian.space { padding-top: 56px; }
 @media (max-width: 767px) {
   #do-uong.drinks { padding-bottom: 32px; }
-  #do-uong + #cau-chuyen.story, #banh-nha-lam + #cau-chuyen.story, .story-space > #cau-chuyen.story { padding-top: 32px; }
+  #banh-nha-lam + #khong-gian.space { padding-top: 32px; }
 }
 .bakery { position: relative; overflow: clip; background: var(--hl-cream); }
 .bakery__page { padding-block: 40px 56px; background: radial-gradient(ellipse at 75% 45%, var(--ivory), var(--band)); }
@@ -225,19 +225,6 @@ a[aria-disabled="true"] { cursor: default; }
   }
 }
 .space, .menu { padding-block: 120px; }
-/* The incoming chapter covers a story that pins only after its last lines are readable. */
-.story-space { position: relative; isolation: isolate; background: var(--hl-cream); }
-@media (prefers-reduced-motion: no-preference) {
-  .story-space.is-cover-enabled > .story { position: sticky; top: var(--story-pin-top, 0px); z-index: 1; }
-  .story-space.is-cover-enabled > .story::after { content: ''; position: absolute; inset: 0; z-index: 10; background: var(--hl-moss); opacity: var(--story-cover-shade, 0); pointer-events: none; }
-  .story-space.is-cover-enabled > .story > .story__inner { transform: scale(var(--story-cover-scale, 1)); transform-origin: 50% 100%; }
-  .story-space.is-cover-enabled > .space {
-    position: relative; z-index: 2; min-height: calc(var(--chapter-viewport-height, 100svh) - var(--chapter-header-height, var(--header-h)));
-    border-top: 1px solid var(--line-soft); border-radius: var(--chapter-cover-radius, 36px) var(--chapter-cover-radius, 36px) 0 0;
-    box-shadow: 0 -20px 56px -24px rgb(44 47 30 / .22);
-  }
-  .story-space.is-cover-enabled.is-story-covered .story__carousel > .story__card { animation-play-state: paused; }
-}
 /* Reviews rise over the experiences section; tall content scrolls fully before pinning. */
 .experiences-reviews { position: relative; isolation: isolate; background: var(--hl-charcoal); }
 @media (prefers-reduced-motion: no-preference) {

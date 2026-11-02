@@ -28,7 +28,7 @@
   <link rel="preload" fetchpriority="high" as="image" href="assets/images/hero-coffee-banner.webp" imagesrcset="assets/images/hero-coffee-banner-960.webp 960w, assets/images/hero-coffee-banner.webp 1672w" imagesizes="100vw">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm81Rb0.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm86Rb0bcw.woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/site.min.css?v=20261102reviewdialog">
+  <link rel="stylesheet" href="assets/css/site.min.css?v=20261102sectionorder">
   <script src="assets/js/bootstrap.js"></script>
 </head>
 <body>
@@ -40,9 +40,9 @@
       <a class="brand brand--with-logo" href="#top" aria-label="Homelody Coffee &amp; Brunch — về đầu trang"><img class="brand__logo" src="assets/images/homelody-logo.webp" width="48" height="48" alt="" decoding="async"><span class="brand__wordmark"><span class="brand__name">Homelody</span><span class="brand__descriptor">COFFEE &amp; BRUNCH</span></span></a>
       <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính" data-nav data-location="header">
         <a href="#do-uong">Món nổi bật</a>
-        <a href="#cau-chuyen">Câu chuyện</a>
         <a href="#khong-gian">Không gian</a>
         <a href="#thuc-don">Thực đơn</a>
+        <a href="#cau-chuyen">Câu chuyện</a>
         <a href="#ghe-quan">Ghé quán</a>
         <a class="btn btn--accent site-nav__booking" data-link="ZALO_URL"><span data-icon="java" aria-hidden="true"></span>Đặt bàn qua Zalo</a>
       </nav>
@@ -172,8 +172,46 @@
       </div>
     </section>
 
-    <!-- 3. CÂU CHUYỆN — 5 ảnh quản lý tại /admin → Hình ảnh. -->
-    <div class="story-space" data-story-space>
+    <!-- Space, menu, story. -->
+    <section class="space section-band" id="khong-gian" aria-labelledby="space-title">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">Không gian</p><h2 class="h2 space__title" id="space-title">Một góc nhỏ,<br class="space__title-break"> ngồi lại lâu hơn.</h2></div>
+          <p class="section-head__aside">Chọn một chỗ bên hiên, giữa vườn xanh hay trong nhà ấm cúng.</p>
+        </div>
+        <div class="space-cards">
+          <figure class="space-card space-card--path" tabindex="0">
+            <img src="assets/images/optimized/b8e797ee8efc0608-960.webp" width="600" height="800" alt="Lối đá dẫn vào cửa Homelody, chậu gốm và dương xỉ hai bên" loading="lazy" decoding="async">
+            <figcaption><span class="space-card__title">Một góc học bài trên tầng hai</span><span class="space-card__text">Không gian yên tĩnh, mát mẻ để bạn tập trung học bài.</span></figcaption>
+          </figure>
+          <figure class="space-card space-card--coffee" tabindex="0">
+            <img src="assets/images/optimized/72538b76b2fa0e9e-960.webp" width="960" height="540" alt="Tách cà phê trên bàn gỗ dưới hiên, giữa nắng và cây xanh" loading="lazy" decoding="async">
+            <figcaption><span class="space-card__title">Một chỗ bên hiên</span><span class="space-card__text">Nhâm nhi cà phê, chuyện trò dưới nắng nhẹ.</span></figcaption>
+          </figure>
+          <figure class="space-card space-card--entrance" tabindex="0">
+            <img src="assets/images/optimized/a8153e0447dce7aa-960.webp" width="960" height="1440" alt="Lối vào Homelody giữa cây xanh và hiên nhà tường vôi" loading="lazy" decoding="async">
+            <figcaption><span class="space-card__title">Homelody chào bạn</span><span class="space-card__text">Ghé vào, chọn một chỗ ngồi thật thoải mái.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu" id="thuc-don" aria-labelledby="menu-title">
+      <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Thực đơn</p>
+          <h2 class="h2" id="menu-title" tabindex="-1">Hôm nay, bạn uống gì?</h2>
+        </div>
+      </div>
+      <div class="menu__body" data-menu-list>
+        <ul class="menu-list" role="list">
+          <li class="menu-item"><a class="menu-item__btn menu-card" href="#do-uong" aria-label="Matcha Latte, 55.000đ"><span class="menu-card__category">Trà</span><span class="menu-card__image"><img src="assets/images/optimized/e9c0eee833b774aa-800.webp" alt="" width="400" height="780" loading="lazy"><span class="menu-item__price">55.000đ</span><span class="menu-card__more" aria-hidden="true">Xem thêm</span></span><span class="menu-item__body"><span class="menu-item__name">Matcha Latte</span><span class="menu-item__desc">Matcha thanh nhẹ, quyện cùng sữa tươi béo dịu.</span></span></a></li>
+        </ul>
+      </div>
+      </div>
+    </section>
+
     <section class="story" id="cau-chuyen" aria-labelledby="story-title">
       <div class="story__inner container">
         <p class="eyebrow">Câu chuyện</p>
@@ -206,49 +244,6 @@
           <p class="story__body">Chọn chỗ bên hiên, cạnh hồ cá koi hay cây đàn piano. Tầng hai có điều hòa cho những buổi học tập và làm việc.</p>
         </div>
         <p class="story__sign" lang="en" data-story-sign>Make yourself at home.</p>
-      </div>
-    </section>
-
-    <!-- Ảnh không gian hiện có dùng xem trước; thay src và alt khi có bộ ảnh mới. -->
-    <section class="space section-band" id="khong-gian" aria-labelledby="space-title">
-      <div class="container">
-        <div class="section-head">
-          <div><p class="eyebrow">Không gian</p><h2 class="h2 space__title" id="space-title">Một góc nhỏ,<br class="space__title-break"> ngồi lại lâu hơn.</h2></div>
-          <p class="section-head__aside">Chọn một chỗ bên hiên, giữa vườn xanh hay trong nhà ấm cúng.</p>
-        </div>
-        <div class="space-cards">
-          <figure class="space-card space-card--path" tabindex="0">
-            <img src="assets/images/optimized/b8e797ee8efc0608-960.webp" width="600" height="800" alt="Lối đá dẫn vào cửa Homelody, chậu gốm và dương xỉ hai bên" loading="lazy" decoding="async">
-            <figcaption><span class="space-card__title">Một góc học bài trên tầng hai</span><span class="space-card__text">Không gian yên tĩnh, mát mẻ để bạn tập trung học bài.</span></figcaption>
-          </figure>
-          <figure class="space-card space-card--coffee" tabindex="0">
-            <img src="assets/images/optimized/72538b76b2fa0e9e-960.webp" width="960" height="540" alt="Tách cà phê trên bàn gỗ dưới hiên, giữa nắng và cây xanh" loading="lazy" decoding="async">
-            <figcaption><span class="space-card__title">Một chỗ bên hiên</span><span class="space-card__text">Nhâm nhi cà phê, chuyện trò dưới nắng nhẹ.</span></figcaption>
-          </figure>
-          <figure class="space-card space-card--entrance" tabindex="0">
-            <img src="assets/images/optimized/a8153e0447dce7aa-960.webp" width="960" height="1440" alt="Lối vào Homelody giữa cây xanh và hiên nhà tường vôi" loading="lazy" decoding="async">
-            <figcaption><span class="space-card__title">Homelody chào bạn</span><span class="space-card__text">Ghé vào, chọn một chỗ ngồi thật thoải mái.</span></figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    </div>
-
-    <!-- 5. THỰC ĐƠN — tab theo nhóm món có trong dữ liệu (main.js → renderMenu) -->
-    <section class="menu" id="thuc-don" aria-labelledby="menu-title">
-      <div class="container">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Thực đơn</p>
-          <h2 class="h2" id="menu-title" tabindex="-1">Hôm nay, bạn uống gì?</h2>
-        </div>
-      </div>
-      <div class="menu__body" data-menu-list>
-        <ul class="menu-list" role="list">
-          <li class="menu-item"><a class="menu-item__btn menu-card" href="#do-uong" aria-label="Matcha Latte, 55.000đ"><span class="menu-card__category">Trà</span><span class="menu-card__image"><img src="assets/images/optimized/e9c0eee833b774aa-800.webp" alt="" width="400" height="780" loading="lazy"><span class="menu-item__price">55.000đ</span><span class="menu-card__more" aria-hidden="true">Xem thêm</span></span><span class="menu-item__body"><span class="menu-item__name">Matcha Latte</span><span class="menu-item__desc">Matcha thanh nhẹ, quyện cùng sữa tươi béo dịu.</span></span></a></li>
-        </ul>
-      </div>
       </div>
     </section>
 
@@ -362,9 +357,9 @@
         <nav class="site-footer__navigation" aria-label="Điều hướng chân trang">
           <a href="#top">Trang chủ</a>
           <a href="#do-uong">Món nổi bật</a>
-          <a href="#cau-chuyen">Câu chuyện</a>
           <a href="#khong-gian">Không gian</a>
           <a href="#thuc-don">Thực đơn</a>
+          <a href="#cau-chuyen">Câu chuyện</a>
           <a href="#ghe-quan">Ghé quán</a>
         </nav>
       </div>
@@ -441,6 +436,6 @@
   <script src="assets/js/image-variants.js?v=20261024performance"></script>
   <script src="assets/js/story-data.js?v=20261023galleries"></script>
   <script src="assets/js/main.js?v=20261102stickymenu" defer></script>
-  <script src="assets/js/landing.js?v=20261102reviewdialog" defer></script>
+  <script src="assets/js/landing.js?v=20261102sectionorder" defer></script>
 </body>
 </html>

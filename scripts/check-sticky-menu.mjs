@@ -52,6 +52,27 @@ try {
     assert.ok(await ev(`document.querySelector('.menu-filters').getBoundingClientRect().bottom<=document.querySelector('.site-header').getBoundingClientRect().bottom`), 'Released after menu');
     console.log('PASS mobile default, sticky bounds, horizontal selection, keyboard and overflow at ' + width);
   }
+  await call('Emulation.setEmulatedMedia', { features: [] });
+  for (const width of [390, 1440]) {
+    await call('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: false });
+    await call('Page.navigate', { url: 'http://localhost:8000/' });
+    await poll(`!!document.querySelector('.menu-filters')`);
+    await ev('document.fonts.ready');
+    assert.deepEqual(await ev(`Array.from(document.querySelectorAll('main > section')).map(s=>s.id).filter(id=>['khong-gian','thuc-don','cau-chuyen'].includes(id))`), ['khong-gian', 'thuc-don', 'cau-chuyen']);
+    assert.ok(await ev(`!['fixed','sticky'].includes(getComputedStyle(document.querySelector('#cau-chuyen')).position)`), 'Story scrolls naturally in its new position');
+    for (const section of ['khong-gian', 'thuc-don', 'cau-chuyen']) {
+      await ev(`document.querySelector('#${section}').scrollIntoView({behavior:'instant'})`);
+      await sleep(900);
+      assert.ok(await ev(`Math.abs(document.querySelector('#${section}').getBoundingClientRect().top-document.querySelector('.site-header').getBoundingClientRect().bottom)<3`), 'Section anchor clears header');
+      assert.equal(await ev(`document.querySelectorAll('#${section}').length`), 1, 'Unique section ID');
+      assert.ok(await ev('document.documentElement.scrollWidth<=innerWidth'), 'No overflow after reorder');
+      const shot = await call('Page.captureScreenshot', { format: 'png' }); fs.writeFileSync(`reports/sticky-menu/${section}-${width}.png`, Buffer.from(shot.data, 'base64'));
+    }
+    await ev(`(()=>{const next=document.querySelector('#cau-chuyen').nextElementSibling;scrollTo({top:next.getBoundingClientRect().top+scrollY-innerHeight+80,behavior:'instant'})})()`);
+    await sleep(150);
+    assert.ok(await ev(`Array.from(document.querySelectorAll('#cau-chuyen .story__text:not(.story__text--mobile) .story__word')).every(w=>Number(w.style.getPropertyValue('--word-reveal'))===1)`), 'Story words finish before following chapter');
+    console.log('PASS reordered sections, normal-motion anchors and story reveal at ' + width);
+  }
   assert.equal(errors.length, 0, 'No JavaScript exceptions');
   console.log('PASS desktop retains all groups and ordinary category tabs.');
 } finally { clearTimeout(timeout); ws?.close(); chrome.kill(); }
