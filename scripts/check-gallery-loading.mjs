@@ -57,7 +57,7 @@ try {
     console.log('PASS delayed settings/menu, current image readiness, story/space and hard reload at '+width);
   }
   await call('Page.navigate',{url:'http://localhost:8000/?menu-fail=1#khong-gian'});
-  await poll("document.documentElement.hasAttribute('data-menu-source')");
+  await poll("location.search==='?menu-fail=1'&&document.documentElement?.hasAttribute('data-menu-source')");
   assert.ok(await ev("Array.from(document.querySelectorAll('#khong-gian img')).every(img=>img.alt==='Current test gallery')"),'Menu failure keeps fresh gallery settings');
   assert.deepEqual(await ev('window.galleryFlash'),[]);
   console.log('PASS menu failure does not restore stale gallery photos.');
