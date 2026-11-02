@@ -142,20 +142,32 @@
   function loadData() {
     if (!isConfigured()) return Promise.resolve(demoData());
     var base = str(CFG.supabaseUrl).replace(/\/+$/, '') + '/rest/v1/';
+    var latestShop;
+    var shopRequest = getJson(base + 'shop_settings?select=*&id=eq.1', 6000).then(function (rows) {
+      // Resolve gallery sources as soon as shop settings arrive, independently of the menu.
+      latestShop = rows[0] ? normShopRow(rows[0]) : {};
+      renderSiteImages(latestShop);
+      return rows;
+    });
     return Promise.all([
       getJson(base + 'drinks?select=*&is_active=eq.true&order=sort_order.asc,created_at.asc', 6000),
-      getJson(base + 'shop_settings?select=*&id=eq.1', 6000)
+      shopRequest
     ]).then(function (res) {
       var data = { drinks: res[0].map(normDrink), shop: res[1][0] ? normShopRow(res[1][0]) : {}, source: 'live' };
       try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), drinks: data.drinks, shop: data.shop })); } catch (e) { /* storage off */ }
       return data;
     }).catch(function (err) {
       console.warn('[Homelody] Không tải được menu từ Supabase, dùng dữ liệu dự phòng.', err);
-      try {
-        var c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-        if (c && c.drinks && c.drinks.length) return { drinks: c.drinks.map(normDrink), shop: c.shop || {}, source: 'cache' };
-      } catch (e) { /* ignore */ }
-      return demoData();
+      // A menu failure must not replace fresh gallery settings with an older cached copy.
+      return shopRequest.catch(function () {}).then(function () {
+        var fallback = demoData();
+        try {
+          var c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+          if (c && c.drinks && c.drinks.length) fallback = { drinks: c.drinks.map(normDrink), shop: c.shop || {}, source: 'cache' };
+        } catch (e) { /* ignore */ }
+        if (latestShop) fallback.shop = latestShop;
+        return fallback;
+      });
     });
   }
 
@@ -163,8 +175,12 @@
     $$(selector).forEach(function (img, i) {
       var row = Array.isArray(saved) && saved[i] && saved[i].image_url ? saved[i] : defaults[i];
       if (!row || !/^(https?:\/\/|data:image\/(png|jpeg|webp);base64,|public\/)/i.test(row.image_url)) return;
-      img.onload = function () { img.hidden = false; };
-      img.hidden = false;
+      function reveal() {
+        if (!img.complete || !img.naturalWidth) return;
+        img.hidden = false;
+        img.setAttribute('data-gallery-ready', '');
+      }
+      img.onload = reveal;
       var variant = imageVariant(row.image_url, selector.indexOf('khong-gian') >= 0 ? 960 : 480);
       img.removeAttribute('srcset'); img.removeAttribute('sizes');
       if (variant) {
@@ -175,7 +191,11 @@
         }
       }
       var source = variant ? variant.src : row.image_url;
-      if (img.src !== new URL(source, document.baseURI).href) img.src = source;
+      if (img.src !== new URL(source, document.baseURI).href) {
+        img.removeAttribute('data-gallery-ready');
+        img.src = source;
+      }
+      reveal();
       img.alt = typeof row.image_alt === 'string' ? row.image_alt : '';
       // Correct the legacy description only for this uploaded photo; keep later admin edits.
       if (row.image_url === 'https://qtoiphhaxmqkuggsiidy.supabase.co/storage/v1/object/public/menu-images/import-1aa0c97136c1294553fc.webp' &&

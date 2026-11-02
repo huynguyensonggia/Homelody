@@ -235,6 +235,9 @@ a[aria-disabled="true"] { cursor: default; }
   }
 }
 .space, .menu { padding-block: 120px; }
+/* Keep static fallback photos out of the first paint until current gallery sources load. */
+.js [data-story-stack] .story__card img:not([data-gallery-ready]),
+.js #khong-gian .space-card > img:not([data-gallery-ready]) { opacity: 0; }
 /* Preserve the chapter cover transition with space first and menu incoming. */
 .space-menu { position: relative; isolation: isolate; background: var(--hl-cream); }
 @media (prefers-reduced-motion: no-preference) {
