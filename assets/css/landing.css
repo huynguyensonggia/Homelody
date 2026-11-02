@@ -79,6 +79,7 @@ a[aria-disabled="true"] { cursor: default; }
 .hero::before { background: linear-gradient(90deg, rgb(44 47 30 / .72), rgb(44 47 30 / .42) 38%, rgb(44 47 30 / .04) 75%); }
 .hero__content { width: 58%; max-width: 660px; }
 .hero__title { font-size: clamp(48px, 6vw, 88px); }
+.heading-accent { font-style: italic; font-weight: inherit; }
 .hero__actions { gap: 12px; }
 .hero__actions .btn--ghost-light { border: 1.5px solid rgba(255,255,255,.6); }
 .hero__lead { color: var(--hl-cream); font-weight: 500; text-shadow: 0 1px 3px rgb(44 47 30 / .3); }
@@ -206,6 +207,8 @@ a[aria-disabled="true"] { cursor: default; }
 .bakery__link:hover { color: var(--hl-espresso); }
 .bakery__link:focus-visible { outline: 2px solid var(--hl-wood); outline-offset: 4px; }
 .bakery__media { min-width: 0; margin: 0; }
+.bakery__product-name { margin-top: 24px; font-family: var(--sans); font-size: 18px; font-weight: 500; color: var(--hl-espresso); }
+.bakery__product-name + .bakery__description { margin-top: 10px; }
 .bakery__media img { display: block; width: 100%; height: auto; transform: translateY(var(--bakery-y, 0px)) rotateZ(var(--bakery-angle, 0deg)); filter: drop-shadow(0 18px 16px rgb(76 48 22 / .12)); }
 @media (prefers-reduced-motion: no-preference) {
   .bakery.is-bakery-scroll .bakery__page {
@@ -230,11 +233,6 @@ a[aria-disabled="true"] { cursor: default; }
   .bakery__copy { translate: none; }
 }
 .story__sign { font-family: var(--serif); font-style: italic; font-weight: 400; }
-.story__text--mobile { display: none; }
-@media (max-width: 767px) {
-  .story__text--desktop { display: none; }
-  .story__text--mobile { display: block; }
-}
 @media (prefers-reduced-motion: no-preference) {
   .story.has-scroll-words .story__word { opacity: calc(.45 + .55 * var(--word-reveal, 0)); filter: blur(calc(.9px * (1 - var(--word-reveal, 0)))); }
   .story.has-scroll-words .story__text:focus-within .story__word { opacity: 1; filter: none; }
