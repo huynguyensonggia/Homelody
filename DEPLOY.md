@@ -1,4 +1,17 @@
-﻿# Deploy Homelody trên Netlify Free
+# Hosting hiện tại: Cloudflare Pages
+
+- Website chính: https://homelodyhoian.com/ (có thêm www.homelodyhoian.com).
+- Project Pages: homelody; repository huynguyensonggia/Homelody, nhánh main.
+- Build command: `node scripts/build-site.mjs`; output: `dist`; Node.js: `22`.
+- Khi sửa CSS nguồn, chạy `python scripts/build-assets.py` trước và commit cả `assets/css/site.min.css`.
+- Chỉ thư mục `dist` được triển khai; reports, outputs và cấu hình công cụ local không được đưa lên hosting.
+- Push main sẽ kích hoạt build theo cấu hình Git đã thiết lập. Kiểm tra trạng thái deployment trong Cloudflare sau khi push.
+
+Phần Netlify bên dưới là tài liệu triển khai cũ, giữ để tham khảo.
+
+---
+
+# Deploy Homelody trên Netlify Free
 
 Website HTML/CSS/JavaScript dùng địa chỉ `https://<project-name>.netlify.app` để gửi chủ quán xem. Sau này có thể gắn tên miền riêng. Dữ liệu tiếp tục dùng Supabase hiện có.
 

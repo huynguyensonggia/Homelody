@@ -350,6 +350,7 @@
   var optionsRoot = $('[data-drink-options]');
   var selectorRoot = $('[data-drink-selector]'), nextDrink = $('[data-drink-next]');
   var selectorStart = 0, requestedPageStart = null;
+  var selectorMobile = window.matchMedia('(max-width: 767px)'), selectorInteracting = false;
   var live = $('[data-live]');
   var field = {};
   $$('[data-field]', section).forEach(function (el) { field[el.getAttribute('data-field')] = el; });
@@ -385,7 +386,7 @@
   }
   function stopAutoplay() { clearTimeout(autoplayTimer); autoplayTimer = 0; }
   function canAutoplay() {
-    return playbackReady && stageVisible && !document.hidden && !still() &&
+    return playbackReady && stageVisible && !document.hidden && !still() && !selectorInteracting &&
       dialogState === 'idle' && FEATURED.length > 1;
   }
   function queueAutoplay(delayMs) {
@@ -634,7 +635,7 @@
     options.forEach(function (btn, i) { btn.addEventListener('click', function () { select(i); }); });
     optionsRoot.hidden = FEATURED.length < 2;
     selectorRoot.hidden = FEATURED.length < 2;
-    nextDrink.hidden = FEATURED.length <= 3;
+    nextDrink.hidden = selectorMobile.matches || FEATURED.length <= 3;
     optionsRoot.style.setProperty('--selector-count', Math.min(3, FEATURED.length));
     field.total.textContent = pad(FEATURED.length);
   }
@@ -643,7 +644,7 @@
       selectorStart = Math.min(Math.floor(current / 3) * 3, Math.max(0, FEATURED.length - 3));
     }
     options.forEach(function (btn, i) {
-      btn.hidden = i < selectorStart || i >= selectorStart + 3;
+      btn.hidden = !selectorMobile.matches && (i < selectorStart || i >= selectorStart + 3);
       var on = i === current;
       btn.classList.toggle('is-active', on);
       btn.setAttribute('aria-checked', on ? 'true' : 'false');
@@ -653,6 +654,14 @@
   function movePill(instant) {
     var btn = options[current];
     if (!btn) return;
+    if (selectorMobile.matches) {
+      if (selectorInteracting) return;
+      var left = btn.offsetLeft, right = left + btn.offsetWidth;
+      if (left < optionsRoot.scrollLeft || right > optionsRoot.scrollLeft + optionsRoot.clientWidth) {
+        optionsRoot.scrollTo({ left: left, behavior: instant || still() ? 'instant' : 'smooth' });
+      }
+      return;
+    }
     if (!pill) {
       pill = document.createElement('span');
       pill.className = 'selector__pill';
@@ -675,6 +684,28 @@
     var start = requestedPageStart === null ? selectorStart : requestedPageStart;
     var next = start + 3 >= FEATURED.length ? 0 : Math.min(start + 3, FEATURED.length - 3);
     select(next, false, false, next);
+  });
+  optionsRoot.addEventListener('pointerdown', function () {
+    if (!selectorMobile.matches) return;
+    selectorInteracting = true;
+    stopAutoplay();
+  }, { passive: true });
+  function releaseSelector() {
+    if (!selectorInteracting) return;
+    selectorInteracting = false;
+    queueAutoplay(6000);
+  }
+  window.addEventListener('pointerup', releaseSelector, { passive: true });
+  window.addEventListener('pointercancel', releaseSelector, { passive: true });
+  optionsRoot.addEventListener('scroll', function () {
+    if (selectorMobile.matches) queueAutoplay(6000);
+  }, { passive: true });
+  selectorMobile.addEventListener('change', function () {
+    selectorInteracting = false;
+    nextDrink.hidden = selectorMobile.matches || FEATURED.length <= 3;
+    renderOptions();
+    optionsRoot.scrollLeft = 0;
+    movePill(true);
   });
   optionsRoot.addEventListener('keydown', function (e) {
     var n = FEATURED.length;

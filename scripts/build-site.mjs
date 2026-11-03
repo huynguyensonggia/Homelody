@@ -33,4 +33,4 @@ function copy(relative) {
 for (const entry of ['index.html', '404.html', '_headers', 'admin', 'assets', 'public']) copy(entry);
 // Retain the bundled third-party license in the deployed distribution.
 fs.copyFileSync(path.join(root, 'admin/vendor/SheetJS-LICENSE.txt'), path.join(destination, 'admin/vendor/SheetJS-LICENSE.txt'));
-console.log(`Built dist/: ${count + 1} files, ${(bytes / 1024 / 1024).toFixed(1)} MiB. Ready to deploy to Netlify.`);
+console.log(`Built dist/: ${count + 1} files, ${(bytes / 1024 / 1024).toFixed(1)} MiB. Ready to deploy to static hosting.`);

@@ -1030,7 +1030,7 @@ const storyManager = createImageManager({
 });
 const spaceManager = createImageManager({
   prefix: 'space', defaults: window.HOMELODY_SPACE_IMAGES || [], column: 'space_images', folder: 'space', title: 'Không gian',
-  labels: ['Trái trên · Một góc học bài trên tầng hai', 'Trái dưới · Một chỗ bên hiên', 'Bên phải · Homelody chào bạn'],
+  labels: ['Phải trên · Một góc học bài trên tầng hai', 'Phải dưới · Thảnh thơi bên vườn', 'Bên trái · Homelody chào bạn'],
   hints: ['Ảnh ngang 2:1 · 1200 × 600px', 'Ảnh ngang 2:1 · 1200 × 600px', 'Ảnh vuông 1:1 · 1200 × 1200px'],
   ratios: ['2 / 1', '2 / 1', '1 / 1']
 });
