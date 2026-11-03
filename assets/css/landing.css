@@ -1017,3 +1017,15 @@ html.is-review-open { overflow: hidden; }
 
 /* Keep the footer button treatment with a white ShopeeFood mark. */
 .social__food-logo { display: block; width: 18px; height: 20px; object-fit: cover; object-position: left center; filter: brightness(0) invert(1); }
+
+/* Desktop paging belongs to the copy column, keeping the cards aligned. */
+.drink-info__navigation { display: flex; align-items: center; gap: 20px; }
+.drink-pages { display: flex; align-items: center; gap: 8px; }
+.drink-pages .selector-next { flex: 0 0 36px; width: 36px; height: 36px; }
+.drink-pages .selector-next:disabled { opacity: .35; cursor: default; background: var(--ivory); border-color: var(--line); }
+@media (min-width: 768px) {
+  .selector-row { display: block; width: 100%; }
+  .selector-row .selector { width: 100%; padding: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .stage::before { inset: 0; }
+}
+@media (max-width: 767px) { .drink-pages { display: none; } }

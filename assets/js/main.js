@@ -348,7 +348,7 @@
   var stageBtn = $('[data-drink-stage]');
   var info = $('[data-drink-info]');
   var optionsRoot = $('[data-drink-options]');
-  var selectorRoot = $('[data-drink-selector]'), nextDrink = $('[data-drink-next]');
+  var selectorRoot = $('[data-drink-selector]'), nextDrink = $('[data-drink-next]'), prevDrink = $('[data-drink-prev]');
   var selectorStart = 0, requestedPageStart = null;
   var selectorMobile = window.matchMedia('(max-width: 767px)'), selectorInteracting = false;
   var live = $('[data-live]');
@@ -635,14 +635,16 @@
     options.forEach(function (btn, i) { btn.addEventListener('click', function () { select(i); }); });
     optionsRoot.hidden = FEATURED.length < 2;
     selectorRoot.hidden = FEATURED.length < 2;
-    nextDrink.hidden = selectorMobile.matches || FEATURED.length <= 3;
+    nextDrink.hidden = prevDrink.hidden = selectorMobile.matches || FEATURED.length <= 3;
     optionsRoot.style.setProperty('--selector-count', Math.min(3, FEATURED.length));
     field.total.textContent = pad(FEATURED.length);
   }
   function renderOptions() {
     if (current < selectorStart || current >= selectorStart + 3) {
-      selectorStart = Math.min(Math.floor(current / 3) * 3, Math.max(0, FEATURED.length - 3));
+      selectorStart = Math.floor(current / 3) * 3;
     }
+    prevDrink.disabled = selectorStart === 0;
+    nextDrink.disabled = selectorStart + 3 >= FEATURED.length;
     options.forEach(function (btn, i) {
       btn.hidden = !selectorMobile.matches && (i < selectorStart || i >= selectorStart + 3);
       var on = i === current;
@@ -682,8 +684,15 @@
   nextDrink.addEventListener('click', function () {
     if (FEATURED.length <= 3) return;
     var start = requestedPageStart === null ? selectorStart : requestedPageStart;
-    var next = start + 3 >= FEATURED.length ? 0 : Math.min(start + 3, FEATURED.length - 3);
+    if (start + 3 >= FEATURED.length) return;
+    var next = start + 3;
     select(next, false, false, next);
+  });
+  prevDrink.addEventListener('click', function () {
+    var start = requestedPageStart === null ? selectorStart : requestedPageStart;
+    if (start <= 0) return;
+    var previous = Math.max(0, start - 3);
+    select(previous, false, false, previous);
   });
   optionsRoot.addEventListener('pointerdown', function () {
     if (!selectorMobile.matches) return;
@@ -702,7 +711,7 @@
   }, { passive: true });
   selectorMobile.addEventListener('change', function () {
     selectorInteracting = false;
-    nextDrink.hidden = selectorMobile.matches || FEATURED.length <= 3;
+    nextDrink.hidden = prevDrink.hidden = selectorMobile.matches || FEATURED.length <= 3;
     renderOptions();
     optionsRoot.scrollLeft = 0;
     movePill(true);

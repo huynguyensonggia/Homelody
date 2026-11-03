@@ -29,7 +29,7 @@
   <link rel="preload" fetchpriority="high" as="image" href="assets/images/hero-coffee-banner.webp" imagesrcset="assets/images/hero-coffee-banner-960.webp 960w, assets/images/hero-coffee-banner.webp 1672w" imagesizes="100vw">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm81Rb0.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/QdVMSTAyLFyeg_IDWvOJmVES_HTEJm86Rb0bcw.woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/site.min.css?v=20261103footerwhite">
+  <link rel="stylesheet" href="assets/css/site.min.css?v=20261103desktoppaging">
   <script src="assets/js/bootstrap.js"></script>
 </head>
 <body>
@@ -133,7 +133,13 @@
         <h2 class="h2 drinks__title" id="drinks-title">Chậm một nhịp.<br><em class="heading-accent">Nhấp một ngụm.</em></h2>
 
         <div class="drink-info" data-drink-info>
-          <p class="drink-info__count" aria-hidden="true"><span class="counter__current" data-field="index"></span><span class="counter__sep">/</span><span class="counter__total" data-field="total"></span></p>
+          <div class="drink-info__navigation">
+            <p class="drink-info__count" aria-hidden="true"><span class="counter__current" data-field="index"></span><span class="counter__sep">/</span><span class="counter__total" data-field="total"></span></p>
+            <div class="drink-pages" role="group" aria-label="Chuyển nhóm món yêu thích">
+              <button class="selector-next" type="button" data-drink-prev aria-label="Xem 3 món trước" aria-controls="drink-options" disabled hidden><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="m13 4-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="selector-next" type="button" data-drink-next aria-label="Xem 3 món tiếp theo" aria-controls="drink-options" hidden><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
           <!-- khối chữ thay đổi theo món: giữ sẵn chiều cao của món dài nhất (main.js → lockInfoHeight) để giá và nút đứng yên -->
           <div class="drink-info__text" data-drink-text>
             <h3 class="drink-info__name" data-field="name"></h3>
@@ -162,9 +168,6 @@
           <div class="selector" id="drink-options" role="radiogroup" aria-label="Chọn đồ uống" data-drink-options>
             <!-- Rendered from FEATURED in assets/js/main.js -->
           </div>
-          <button class="selector-next" type="button" data-drink-next aria-label="Xem các đồ uống tiếp theo" aria-controls="drink-options" hidden>
-            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
         </div>
       </div>
     </section>
@@ -450,7 +453,7 @@
   <script src="assets/js/menu-data.js?v=20261020landing"></script>
   <script src="assets/js/image-variants.js?v=20261024performance"></script>
   <script src="assets/js/story-data.js?v=20261023galleries"></script>
-  <script src="assets/js/main.js?v=20261103swipe" defer></script>
+  <script src="assets/js/main.js?v=20261103desktoppaging" defer></script>
   <script src="assets/js/landing.js?v=20261103shopeefoodfooter" defer></script>
 </body>
 </html>
