@@ -743,8 +743,12 @@
     playbackReady = true;
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
-        stageVisible = entries[0].isIntersecting && entries[0].intersectionRatio >= .45;
-        queueAutoplay();
+        var visible = entries[0].isIntersecting && entries[0].intersectionRatio >= .45;
+        if (visible === stageVisible) return;
+        stageVisible = visible;
+        // The initial mobile product is already fully visible: include the next
+        // exit/entry animation in its first cycle, just like subsequent cycles.
+        queueAutoplay(selectorMobile.matches ? AUTOPLAY_MS - OUT_MS - IN_MS : undefined);
       }, { threshold: [0, .45] }).observe(stageEl);
     }
     document.addEventListener('visibilitychange', queueAutoplay);
