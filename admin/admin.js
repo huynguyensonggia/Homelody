@@ -50,7 +50,9 @@ async function supabaseApi() {
     },
     async signOut() { await sb.auth.signOut(); },
     async listDrinks() {
-      return must(await sb.from('drinks').select('*').order('sort_order', { ascending: true }).order('created_at', { ascending: true }));
+      const rows = must(await sb.from('drinks').select('*').order('sort_order', { ascending: true }).order('created_at', { ascending: true }));
+      this.bilingual = rows.length ? Object.prototype.hasOwnProperty.call(rows[0], 'name_en') : !(await sb.from('drinks').select('name_en').limit(0)).error;
+      return rows;
     },
     async saveDrink(row) {
       const { id, created_at, updated_at, ...fields } = row;
@@ -705,6 +707,18 @@ async function move(d, dir) {
 
 /* ---------- editor */
 const editor = $('#editor'), form = $('#drink-form');
+function flavorNotes(input = form.note) {
+  return input.value.split(/[·•,;|\n]+/).map(value => value.trim()).filter(Boolean);
+}
+function validateFlavorNotes() {
+  return [form.note, form.note_en].map(input => {
+    const valid = input.disabled || flavorNotes(input).length <= 3;
+    input.setCustomValidity(valid ? '' : 'Chỉ nhập tối đa 3 hương vị. Vui lòng bỏ bớt hương vị trước khi lưu.');
+    return valid;
+  }).every(Boolean);
+}
+form.note.addEventListener('input', validateFlavorNotes);
+form.note_en.addEventListener('input', validateFlavorNotes);
 const discardEditor = $('#discard-editor');
 let editorSnapshot = '';
 const currentEditorSnapshot = () => JSON.stringify([...new FormData(form)]);
@@ -735,6 +749,17 @@ function openEditor(d) {
   form.category.innerHTML = names.map((n) => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
   form.name.value = v.name; form.category.value = cat; form.price.value = v.price ? String(v.price) : '';
   form.description.value = v.description; form.note.value = v.note; form.ingredients.value = (v.ingredients || []).join(', ');
+  const englishReady = api.demo || api.bilingual;
+  $('#english-fields').disabled = !englishReady;
+  $('#english-status').textContent = englishReady ? 'Dùng cho phiên bản EN. Nhập tên tiếng Anh khi thêm món mới.' : 'Cần chạy supabase/bilingual-menu.sql trong SQL Editor, sau đó tải lại trang để lưu tiếng Anh.';
+  const translated = (window.HOMELODY_PRODUCT_EN || {})[v.name] || [];
+  form.name_en.value = v.name_en || translated[0] || '';
+  form.description_en.value = v.description_en || translated[1] || '';
+  form.note_en.value = v.note_en || translated[2] || '';
+  form.ingredients_en.value = (v.ingredients_en || (v.ingredients || []).map(value => (window.HOMELODY_EN || {})[value] || value)).join(', ');
+  form.image_alt_en.value = v.image_alt_en || translated[0] || '';
+  form.name_en.required = !!englishReady;
+  validateFlavorNotes();
   form.image_alt.value = v.image_alt; form.is_active.checked = v.is_active; form.is_featured.checked = v.is_featured;
   showPreview(d && d.image_url ? viewSrc(d.image_url) : '');
   updatePricePreview();
@@ -772,6 +797,7 @@ $('#img-remove').addEventListener('click', () => { pendingImage = null; removeIm
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  if (!validateFlavorNotes()) { form.reportValidity(); return; }
   const err = $('#drink-error'); err.hidden = true;
   const name = form.name.value.trim(), price = parsePrice(form.price.value);
   if (!name) { err.textContent = 'Nhập tên món.'; err.hidden = false; form.name.focus(); return; }
@@ -784,7 +810,13 @@ form.addEventListener('submit', async (e) => {
         name, price,
         category: form.category.value.trim() || 'Khác',
         description: form.description.value.trim(),
-        note: form.note.value.trim(),
+        note: flavorNotes().join(' · '),
+        ...((api.demo || api.bilingual) ? {
+          name_en: form.name_en.value.trim(), description_en: form.description_en.value.trim(),
+          note_en: flavorNotes(form.note_en).join(' · '),
+          ingredients_en: form.ingredients_en.value.split(/[,;\n]/).map(value => value.trim()).filter(Boolean),
+          image_alt_en: form.image_alt_en.value.trim()
+        } : {}),
         ingredients: form.ingredients.value.split(/[,;\n]/).map((s) => s.trim()).filter(Boolean),
         image_alt: form.image_alt.value.trim() || 'Ly ' + name,
         is_active: form.is_active.checked,

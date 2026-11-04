@@ -89,6 +89,10 @@ a { color: inherit; }
 .field input:focus, .field textarea:focus, .field select:focus, .search:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(145,103,56,.18); }
 .field-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .field-row--2 { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+#english-fields { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; display: grid; gap: 12px; }
+#english-fields legend { padding-inline: 6px; font-weight: 600; }
+#english-status { margin: 0; font-size: 13px; color: var(--muted); }
+#english-fields:disabled { opacity: .7; }
 .form-error { padding: 10px 12px; border-radius: 8px; background: var(--danger-soft); color: var(--danger); font-size: 14px; }
 .warn { padding: 8px 10px; border-radius: 8px; background: #f6efd9; color: #6c5418; font-size: 12.5px; line-height: 1.5; }
 .form-actions { display: flex; justify-content: flex-end; gap: 12px; }

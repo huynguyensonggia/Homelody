@@ -12,6 +12,7 @@
   'use strict';
 
   var CFG = window.HOMELODY_CONFIG || {};
+  var I18N = window.HOMELODY_I18N || { lang: 'vi', t: function (s) { return s; }, product: function (d) { return d; } };
   var FALLBACK = window.HOMELODY_FALLBACK || { drinks: [], shop: {} };
   var CACHE_KEY = 'homelody:menu:v1';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -75,7 +76,7 @@
   }
   function categoryLabel(name) {
     var c = CATEGORIES.filter(function (x) { return x.name === name; })[0];
-    return c && c.en ? c.name + ' · ' + c.en : name;
+    return I18N.lang === 'en' ? (c && c.en || I18N.t(name)) : name;
   }
 
   /* ================================================================== 1. DATA */
@@ -102,6 +103,8 @@
     return {
       id: r.id || 'fallback:' + str(r.category) + ':' + str(r.name),
       name: str(r.name).replace(/^./u, function (c) { return c.toLocaleUpperCase('vi'); }),
+      name_en: str(r.name_en), description_en: str(r.description_en), note_en: str(r.note_en),
+      ingredients_en: Array.isArray(r.ingredients_en) ? r.ingredients_en.map(str).filter(Boolean) : [], image_alt_en: str(r.image_alt_en),
       category: canonicalCategory(str(r.category)) || 'Thức uống',
       price: Number(r.price) || 0,
       description: str(r.description),
@@ -372,7 +375,7 @@
   var playbackReady = false, transitioning = false;
 
   function setStageTone(d) {
-    var key = (d.name + ' ' + d.category).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    var key = ((d.sourceName || d.name) + ' ' + d.category).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     var tone = '#EDE4D6';
     if (/matcha/.test(key)) tone = '#DCE5C7';
     else if (/bac xiu/.test(key)) tone = '#EBD9BF';
@@ -838,21 +841,33 @@
     dialogMode = mode === 'menu' ? 'menu' : 'feature';
     fillDialog(d);
     lockScroll();
-    panel.scrollTop = 0;
-    $('.drink-dialog__body', dialog).scrollTop = 0;
-    panel.style.transform = '';
+    var mobileSheet = sheetQuery.matches, animateOpen = !still();
+    // Establish the off-screen position before Safari moves the dialog into
+    // the top layer. Its first layout/focus pass must not paint a partial sheet.
+    panel.style.transform = animateOpen && mobileSheet ? 'translateY(100%)' : '';
     dialog.showModal();
     closeBtn.focus({ preventScroll: true });
+    // showModal() performs its own focus/scroll steps, so reset AFTER opening.
+    dialog.scrollTop = 0;
+    panel.scrollTop = 0;
+    $('.drink-dialog__body', dialog).scrollTop = 0;
+    panel.getBoundingClientRect();
     requestAnimationFrame(function () { if (dialogState !== 'idle') dialog.classList.add('is-open'); });
-    if (still()) { dialogState = 'open'; return; }
+    if (!animateOpen) { dialogState = 'open'; return; }
 
-    var a = sheetQuery.matches
-      ? panel.animate([{ transform: 'translateY(100%)' }, { transform: 'translateY(0)' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' })
+    var a = mobileSheet
+      ? panel.animate([{ transform: 'translateY(100%)' }, { transform: 'translateY(0)' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both' })
       : panel.animate([{ opacity: 0, transform: 'translateY(12px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 360, easing: DRINK_EASE });
     dAnims.push(a);
+    panel.style.transform = '';
     dAnims.push(dfield.image.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }],
       { duration: 420, delay: 80, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }));
-    done(a).then(function () { if (tk === dToken && dialogState === 'opening') { dialogState = 'open'; } });
+    done(a).then(function () {
+      if (tk === dToken && dialogState === 'opening') {
+        a.cancel(); // Release the transform so touch-drag can control the sheet.
+        dialogState = 'open';
+      }
+    });
   }
 
   function closeDetails(opts) {
@@ -1023,8 +1038,7 @@
   /* ---------- Nhóm món: lấy từ config.js → menuCategories (tên Việt, tên Anh, tên cũ tương đương).
      Thứ tự tab = thứ tự trong cấu hình; nhóm có trong dữ liệu nhưng chưa khai báo được thêm vào cuối, không mất món. */
   function groupHeading(g, tag) {
-    return '<' + tag + ' class="menu-group__title"><span class="menu-group__vi">' + esc(g.name) + '</span>' +
-      (g.en ? '<span class="menu-group__en" lang="en">' + esc(g.en) + '</span>' : '') + '</' + tag + '>';
+    return '<' + tag + ' class="menu-group__title"><span>' + esc(I18N.lang === 'en' ? g.en || I18N.t(g.name) : g.name) + '</span></' + tag + '>';
   }
   function groupList(g, carousel) {
     if (!carousel) return g.items.length
@@ -1329,8 +1343,9 @@
     SOURCE = data.source;
     var categorySettings = window.HOMELODY_CATEGORIES;
     if (categorySettings) CATEGORIES = categorySettings.resolve(data.shop, data.drinks);
+    CATEGORIES.forEach(function (category) { if (category.en && window.HOMELODY_EN) window.HOMELODY_EN[category.name] = category.en; });
     DRINKS = data.drinks.filter(function (d) { return d.name && (!categorySettings || categorySettings.visible(CATEGORIES, d.category)); }).map(function (d) {
-      return Object.assign({}, d, { category: canonicalCategory(d.category) });
+      return I18N.product(Object.assign({}, d, { category: canonicalCategory(d.category) }));
     });
     // Bàn xoay chỉ trình bày món có ảnh hoàn chỉnh; món chưa có ảnh vẫn nằm trong dữ liệu và thực đơn dạng chữ.
     // Món đầu tiên (theo thứ tự trong /admin) là món mặc định.

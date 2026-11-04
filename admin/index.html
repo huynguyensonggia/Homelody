@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css?v=20261101favorites">
+  <link rel="stylesheet" href="admin.css?v=20261103bilingual">
 </head>
 <body>
   <!-- LOGIN -->
@@ -246,8 +246,18 @@
         </label>
         <label class="field">
           <span class="field__label">Ghi chú hương vị</span>
-          <input name="note" maxlength="60" placeholder="Ngọt dịu · Thơm cà phê">
+          <input name="note" maxlength="60" placeholder="Ngọt dịu · Thơm cà phê" aria-describedby="flavor-help">
+          <small id="flavor-help">Tối đa 3 hương vị, ngăn cách bằng dấu · hoặc dấu phẩy.</small>
         </label>
+        <fieldset id="english-fields" class="field">
+          <legend>Nội dung tiếng Anh</legend>
+          <p id="english-status" class="note">Dùng cho phiên bản EN của website.</p>
+          <label class="field"><span class="field__label">Tên món (English)</span><input name="name_en" maxlength="100" placeholder="Vietnamese Milk Coffee"></label>
+          <label class="field"><span class="field__label">Mô tả (English)</span><textarea name="description_en" rows="2" maxlength="240" placeholder="Rich coffee with sweet condensed milk."></textarea></label>
+          <label class="field"><span class="field__label">Hương vị (English) — tối đa 3</span><input name="note_en" maxlength="90" placeholder="Rich coffee · Creamy · Balanced" aria-describedby="flavor-help"></label>
+          <label class="field"><span class="field__label">Thành phần (English, cách nhau bằng dấu phẩy)</span><input name="ingredients_en" maxlength="400" placeholder="Coffee, Condensed milk"></label>
+          <label class="field"><span class="field__label">Mô tả ảnh (English)</span><input name="image_alt_en" maxlength="200" placeholder="A glass of Vietnamese milk coffee"></label>
+        </fieldset>
         <label class="field">
           <span class="field__label">Thành phần <small>(cách nhau bằng dấu phẩy)</small></span>
           <input name="ingredients" placeholder="Cà phê phin, Sữa đặc, Sữa tươi, Đá viên">
@@ -317,6 +327,7 @@
   <script src="../assets/js/featured-menu.js?v=20261101favorites"></script>
   <script src="../assets/js/menu-data.js?v=20261016a"></script>
   <script src="../assets/js/story-data.js?v=20261023import"></script>
-  <script type="module" src="admin.js?v=20261101favorites"></script>
+  <script src="../assets/js/i18n-data.js?v=20261103bilingual"></script>
+  <script type="module" src="admin.js?v=20261103bilingual"></script>
 </body>
 </html>

@@ -405,6 +405,12 @@
     var entries = Array.isArray(cfg.customerReviews) ? cfg.customerReviews.filter(function (review) {
       return review && typeof review.name === 'string' && review.name.trim() && typeof review.text === 'string' && review.text.trim();
     }) : [];
+    if (window.HOMELODY_I18N && window.HOMELODY_I18N.lang === 'en') {
+      entries = entries.map(function (review) {
+        var translated = review.text_en || (window.HOMELODY_REVIEW_EN || {})[review.name];
+        return translated ? Object.assign({}, review, { text: translated, translated: true }) : review;
+      });
+    }
     var sample = !entries.length;
     if (sample) {
       entries = [
@@ -477,7 +483,7 @@
         name.setAttribute('aria-label', 'Xem đánh giá Google của ' + review.name);
       }
       info.appendChild(name);
-      info.appendChild(element('span', 'reviews__author-note', sample ? 'Nội dung mẫu minh họa' :
+      info.appendChild(element('span', 'reviews__author-note', review.translated ? 'Translated from Vietnamese · Google Maps' : sample ? 'Nội dung mẫu minh họa' :
         (name.tagName === 'A' ? 'Chia sẻ trên Google Maps' : 'Khách ghé Homelody')));
       author.appendChild(info); card.appendChild(author);
       return card;
