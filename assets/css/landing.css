@@ -1076,3 +1076,7 @@ html[lang="en"] .hero__title .title-italic { white-space: normal; }
   .drink-info__note [data-field="note"] { min-width: 0; }
   .drink-info__actions { grid-column: 1 / -1; grid-row: 4; margin-top: 18px; }
 }
+
+@media (max-width: 767px) {
+  .story__body { text-wrap: pretty; }
+}
