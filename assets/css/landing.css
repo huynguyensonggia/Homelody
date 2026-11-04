@@ -1023,6 +1023,7 @@ html.is-review-open { overflow: hidden; }
 
 /* Keep the footer button treatment with a white ShopeeFood mark. */
 .social__food-logo { display: block; width: 18px; height: 20px; object-fit: cover; object-position: left center; filter: brightness(0) invert(1); }
+.order__food-logo { display: block; flex-shrink: 0; width: 18px; height: 20px; object-fit: cover; object-position: left center; }
 .language-switch { display: flex; align-items: center; gap: 2px; font-size: 12px; font-weight: 600; flex-shrink: 0; }
 .language-switch a { display: grid; place-items: center; min-width: 32px; min-height: 44px; text-decoration: none; opacity: .6; }
 .language-switch a { position: relative; }
