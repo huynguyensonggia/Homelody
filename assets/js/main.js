@@ -775,6 +775,7 @@
 
   var dialogState = 'idle';          // idle → opening → open → closing → idle
   var dAnims = [], dToken = 0, opener = null, dialogMode = 'feature';
+  var menuOpenPending = false;
 
   var savedScroll = 0, savedBodyStyle = null;
 
@@ -875,6 +876,7 @@
     if (dialogState === 'idle' || dialogState === 'closing') return;
     cancelAll(dAnims);
     dialogState = 'closing';
+    if (opener) opener.classList.remove('is-detail-active');
     var tk = ++dToken;
     dialog.classList.remove('is-open');
     var finish = function () { if (tk === dToken) endClose(opts); };
@@ -1015,7 +1017,26 @@
 
   function bindMenuItems(root) {
     $$('[data-menu-detail]', root).forEach(function (btn) {
-      btn.addEventListener('click', function () { openDetails(DRINKS[Number(btn.getAttribute('data-menu-detail'))], btn, 'menu'); });
+      btn.addEventListener('click', function () {
+        if (dialogState !== 'idle' || menuOpenPending) return;
+        var drink = DRINKS[Number(btn.getAttribute('data-menu-detail'))];
+        if (!drink) return;
+        if (!window.matchMedia('(hover: none), (pointer: coarse)').matches || still()) {
+          openDetails(drink, btn, 'menu');
+          return;
+        }
+        // Touch feedback belongs to activation, not the focus restored on close.
+        menuOpenPending = true;
+        btn.classList.add('is-detail-active');
+        setTimeout(function () {
+          menuOpenPending = false;
+          if (!btn.isConnected || document.hidden) {
+            btn.classList.remove('is-detail-active');
+            return;
+          }
+          openDetails(drink, btn, 'menu');
+        }, 180);
+      });
     });
   }
 

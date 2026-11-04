@@ -689,11 +689,17 @@ html:lang(vi) .menu .menu-group__en { display: none; }
 .menu-card__image::before { content: ""; position: absolute; z-index: 2; top: 50%; left: 50%; width: 0; aspect-ratio: 1; border-radius: 50%; background: rgb(44 47 30 / .2); transform: translate(-50%, -50%); transition: width 1s cubic-bezier(1, 0, 0, 1) .2s; pointer-events: none; }
 .menu-card__more { position: absolute; z-index: 3; top: 50%; left: 50%; display: flex; justify-content: center; align-items: center; width: 80px; height: 80px; padding: 12px; border-radius: 50%; background: rgb(44 47 30 / .8); color: var(--ivory); font-size: 12px; font-weight: 600; transform: translate(-50%, -50%) scale(0); transition: transform .3s ease-in-out; }
 .menu .menu-card:focus-visible { outline-offset: 5px; background: transparent; }
-.menu-card:focus-visible .menu-card__category { transform: translateY(100%); }
-.menu .menu-card:focus-visible .menu-item__body { transform: translateY(-100%); }
-.menu-card:focus-visible .menu-card__image::before { width: 160%; transition-delay: 0s; }
-.menu-card:focus-visible .menu-card__more { transform: translate(-50%, -50%) scale(1); transition-delay: .4s; }
+.menu-card.is-detail-active .menu-card__category { transform: translateY(100%); }
+.menu .menu-card.is-detail-active .menu-item__body { transform: translateY(-100%); }
+.menu-card.is-detail-active .menu-card__image::before { width: 160%; transition-delay: 0s; }
+.menu-card.is-detail-active .menu-card__category,
+.menu .menu-card.is-detail-active .menu-item__body,
+.menu-card.is-detail-active .menu-card__image::before { transition-duration: 180ms; transition-delay: 0s; }
 @media (hover: hover) and (pointer: fine) {
+  .menu-card:focus-visible .menu-card__category { transform: translateY(100%); }
+  .menu .menu-card:focus-visible .menu-item__body { transform: translateY(-100%); }
+  .menu-card:focus-visible .menu-card__image::before { width: 160%; transition-delay: 0s; }
+  .menu-card:focus-visible .menu-card__more { transform: translate(-50%, -50%) scale(1); transition-delay: .4s; }
   .menu-card:hover .menu-card__category { transform: translateY(100%); }
   .menu .menu-card:hover .menu-item__body { transform: translateY(-100%); }
   .menu-card:hover .menu-card__image::before { width: 160%; transition-delay: 0s; }
@@ -1078,5 +1084,10 @@ html[lang="en"] .hero__title .title-italic { white-space: normal; }
 }
 
 @media (max-width: 767px) {
-  .story__body { text-wrap: pretty; }
+  .story__text {
+    max-width: 36rem;
+    padding-inline: 12px;
+    text-align: center;
+  }
+  .story__body { text-wrap: balance; }
 }
