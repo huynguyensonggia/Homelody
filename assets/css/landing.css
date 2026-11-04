@@ -1032,7 +1032,7 @@ html.is-review-open { overflow: hidden; }
 .language-switch a[aria-current="true"]::after { content: ''; position: absolute; bottom: 7px; width: 18px; height: 2px; border-radius: 2px; background: currentColor; }
 .language-switch a:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
 @media (min-width: 960px) {
-  .site-header__inner { grid-template-columns: minmax(0,1fr) auto auto auto; gap: 20px; }
+  .site-header__inner { grid-template-columns: auto minmax(0,1fr) auto auto; gap: 20px; }
   .site-nav { gap: 20px; }
 }
 @media (max-width: 959px) {
