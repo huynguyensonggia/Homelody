@@ -56,7 +56,7 @@
     document.querySelector('meta[property="og:locale"]').content = 'en_US';
     ['description', 'og:description', 'twitter:description'].forEach(function (name) {
       var meta = document.querySelector('meta[name="' + name + '"],meta[property="' + name + '"]');
-      if (meta) meta.content = 'Coffee, homemade treats and a leafy garden in Hoi An. Make yourself at home at Homelody Coffee & Brunch.';
+      if (meta) meta.content = 'Garden café at 100 Ly Thuong Kiet, Hoi An – koi pond, quiet air-conditioned upstairs room for working, salted coffee and homemade cheese bread. Open 6:30am–10pm.';
     });
     ['og:title', 'twitter:title'].forEach(function (name) { var m = document.querySelector('meta[name="' + name + '"],meta[property="' + name + '"]'); if (m) m.content = document.title; });
     var canonical = 'https://homelodyhoian.com/?lang=en';
