@@ -38,10 +38,27 @@
     var url = d.image || '', variant = imageVariant(url, width || 800);
     return variant ? variant.src : url;
   }
-  function imageAttrs(d, width) {
-    var variant = imageVariant(d.image, width);
-    return 'src="' + esc(imgSrc(d, width)) + '" width="' + (variant ? variant.width : 400) + '" height="' + (variant ? variant.height : 780) + '"';
+  function variantSet(url) {
+    var variants = imageVariants[url];
+    return variants && variants.length > 1 ? variants.map(function (v) { return v.src + ' ' + v.width + 'w'; }).join(', ') : '';
   }
+  // Kích thước thật của biến thể; ảnh mới chưa có biến thể thì để trình duyệt tự lấy kích thước gốc.
+  function imageAttrs(d, width, sizes) {
+    var variant = imageVariant(d.image, width), set = sizes && variantSet(d.image);
+    return 'src="' + esc(imgSrc(d, width)) + '"' + (set ? ' srcset="' + esc(set) + '" sizes="' + sizes + '"' : '') +
+      (variant ? ' width="' + variant.width + '" height="' + variant.height + '"' : '');
+  }
+  function setProductImage(img, d, sizes) {
+    var variant = imageVariant(d.image, 800), set = variantSet(d.image);
+    if (variant) { img.width = variant.width; img.height = variant.height; }
+    else { img.removeAttribute('width'); img.removeAttribute('height'); }
+    if (!set) { img.removeAttribute('srcset'); img.removeAttribute('sizes'); }
+    else if (img.getAttribute('srcset') !== set) { img.sizes = sizes; img.srcset = set; }
+  }
+  var GLASS_SIZES = '(max-width: 767px) 120px, (max-width: 1023px) 180px, 220px';
+  var DIALOG_SIZES = '(max-width: 767px) 270px, 220px';
+  // Admin tự điền "Ly " + tên khi để trống; so sánh bỏ qua hoa/thường, dấu câu và khoảng trắng.
+  function altKey(s) { return String(s || '').toLocaleLowerCase('vi').replace(/[^\p{L}\p{N}]+/gu, ''); }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function cancelAll(list) { list.forEach(function (a) { try { a.cancel(); } catch (e) { /* already gone */ } }); list.length = 0; }
   function done(anim) { return anim.finished.catch(function () {}); }
@@ -99,10 +116,13 @@
     var ing = r.ingredients;
     if (typeof ing === 'string') ing = ing.split(/[,;\n]/);
     var override = (CFG.productDisplayOverrides || {})[str(r.name).toLocaleLowerCase('vi')] || {};
+    var rawName = str(r.name), savedAlt = str(r.image_alt) || str(r.alt);
     r = Object.assign({}, r, override);
+    var name = str(r.name).replace(/^./u, function (c) { return c.toLocaleUpperCase('vi'); });
+    var autoAlt = !savedAlt || altKey(savedAlt) === altKey('Ly ' + rawName) || altKey(savedAlt) === altKey('Ly ' + name);
     return {
       id: r.id || 'fallback:' + str(r.category) + ':' + str(r.name),
-      name: str(r.name).replace(/^./u, function (c) { return c.toLocaleUpperCase('vi'); }),
+      name: name,
       name_en: str(r.name_en), description_en: str(r.description_en), note_en: str(r.note_en),
       ingredients_en: Array.isArray(r.ingredients_en) ? r.ingredients_en.map(str).filter(Boolean) : [], image_alt_en: str(r.image_alt_en),
       category: canonicalCategory(str(r.category)) || 'Thức uống',
@@ -112,7 +132,7 @@
       ingredients: (Array.isArray(ing) ? ing : []).map(str).filter(Boolean),
       image: str(r.image_url) || str(r.image),
       stageTone: str(r.stageTone),
-      alt: str(r.image_alt) || str(r.alt) || ('Ly ' + str(r.name)),
+      alt: autoAlt ? name + ' – Homelody Hội An' : savedAlt,
       featured: !!(r.is_featured || r.featured)
     };
   }
@@ -188,9 +208,12 @@
       img.removeAttribute('srcset'); img.removeAttribute('sizes');
       if (variant) {
         img.width = variant.width; img.height = variant.height;
-        if (selector.indexOf('khong-gian') >= 0) {
-          img.srcset = imageVariants[row.image_url].map(function (v) { return v.src + ' ' + v.width + 'w'; }).join(', ');
-          img.sizes = '(max-width: 599px) calc(100vw - 40px), (max-width: 959px) calc((100vw - 64px) / 2), 650px';
+        var set = variantSet(row.image_url);
+        if (set) {
+          img.srcset = set;
+          img.sizes = selector.indexOf('khong-gian') >= 0
+            ? '(max-width: 599px) calc(100vw - 40px), (max-width: 959px) calc((100vw - 64px) / 2), 650px'
+            : '(max-width: 767px) 40vw, (max-width: 1023px) 32vw, 320px';
         }
       }
       var source = variant ? variant.src : row.image_url;
@@ -458,9 +481,7 @@
     var img = new Image();
     img.className = 'glass__img';
     img.alt = d.alt;
-    var variant = imageVariant(d.image, 800);
-    img.width = variant ? variant.width : 400;
-    img.height = variant ? variant.height : 780;
+    setProductImage(img, d, GLASS_SIZES);
     img.decoding = 'async'; img.draggable = false;
     var src = imgSrc(d);
     if (/^https?:\/\//i.test(src) && src.indexOf(location.origin) !== 0) img.crossOrigin = 'anonymous';   // để đọc được vùng nhìn thấy (Supabase cho phép CORS)
@@ -629,7 +650,7 @@
   function renderSelector() {
     optionsRoot.innerHTML = FEATURED.map(function (d, i) {
       return '<button class="option" type="button" role="radio" aria-checked="false" tabindex="-1" data-drink="' + i + '">' +
-        '<span class="option__thumb"><img ' + imageAttrs(d, 400) + ' alt="" loading="lazy" decoding="async"></span>' +
+        '<span class="option__thumb"><img ' + imageAttrs(d, 160, '52px') + ' alt="" loading="lazy" decoding="async"></span>' +
         '<span class="option__text"><span class="option__name" title="' + esc(d.name) + '">' + esc(d.name) + '</span>' +
         '<span class="option__price">' + formatPrice(d.price) + '</span></span></button>';
     }).join('');
@@ -782,9 +803,7 @@
   function fillDialog(d) {
     var fi = FEATURED.indexOf(d);
     if (d.image) {
-      var variant = imageVariant(d.image, 800);
-      dfield.image.width = variant ? variant.width : 400;
-      dfield.image.height = variant ? variant.height : 780;
+      setProductImage(dfield.image, d, DIALOG_SIZES);
       function revealDialogImage() {
         if (dfield.image.complete && dfield.image.naturalWidth) {
           dfield.image.hidden = false;
@@ -798,7 +817,7 @@
       }
       revealDialogImage();
     }
-    else { dfield.image.removeAttribute('src'); dfield.image.removeAttribute('data-product-ready'); dfield.image.hidden = true; }
+    else { dfield.image.removeAttribute('srcset'); dfield.image.removeAttribute('src'); dfield.image.removeAttribute('data-product-ready'); dfield.image.hidden = true; }
     dfield.image.alt = d.alt;
     dfield.label.textContent = fi > -1 ? pad(fi + 1) + ' / ' + pad(FEATURED.length) + ' · Món được yêu thích' : categoryLabel(d.category);
     dfield.name.textContent = d.name;
@@ -1006,7 +1025,7 @@
         ' aria-label="' + esc(d.name + ', ' + formatPrice(d.price) + '. Xem chi tiết') + '">' +
         '<span class="menu-card__category"><span>' + esc(d.category) + '</span>' + cup + '</span>' +
         '<span class="menu-card__image">' +
-        (d.image ? '<img ' + imageAttrs(d, 400) + ' alt="" loading="lazy" decoding="async">' : '<span class="menu-card__symbol" aria-hidden="true">' + cup + '</span>') +
+        (d.image ? '<img ' + imageAttrs(d, 480, '(max-width: 767px) calc(100vw - 154px), 342px') + ' alt="' + esc(d.alt) + '" loading="lazy" decoding="async">' : '<span class="menu-card__symbol" aria-hidden="true">' + cup + '</span>') +
         '<span class="menu-item__price">' + formatPrice(d.price) + '</span>' +
         '<span class="menu-card__more" aria-hidden="true">Xem thêm</span></span>' +
         '<span class="menu-item__body"><span class="menu-item__name">' + esc(d.name) + '</span>' +
@@ -1396,9 +1415,7 @@
     var first = FEATURED[0];
     setStageTone(first);
     var g = currentGlass(), img = $('img', g);
-    var firstVariant = imageVariant(first.image, 800);
-    img.width = firstVariant ? firstVariant.width : 400;
-    img.height = firstVariant ? firstVariant.height : 780;
+    setProductImage(img, first, GLASS_SIZES);
     if (img.getAttribute('src') !== imgSrc(first)) img.src = imgSrc(first);
     img.addEventListener('load', function () { layoutGlass(g); }, { once: true });
     img.alt = first.alt;

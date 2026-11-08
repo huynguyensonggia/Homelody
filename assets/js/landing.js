@@ -391,7 +391,7 @@
   var social = document.querySelector('[data-social]');
   if (social) {
     var networks = [['Facebook','FACEBOOK_URL','facebook'],['Instagram','INSTAGRAM_URL','instagram'],['Zalo','ZALO_URL','chat'],['GrabFood','GRABFOOD_URL','grab'],['ShopeeFood','SHOPEEFOOD_URL','shopee'],['TikTok','TIKTOK_URL','tiktok']];
-    social.innerHTML = networks.map(function (n) { return '<li><a class="social__link" data-link="' + n[1] + '" aria-label="' + n[0] + '" tabindex="0"><span class="social__tooltip" aria-hidden="true">' + n[0] + '</span>' + (n[1] === 'SHOPEEFOOD_URL' ? '<img class="social__food-logo" src="assets/icons/shopeefood.png" width="26" height="28" alt="" aria-hidden="true">' : svg(n[2])) + '</a></li>'; }).join('');
+    social.innerHTML = networks.map(function (n) { return '<li><a class="social__link" data-link="' + n[1] + '" aria-label="' + n[0] + '" tabindex="0"><span class="social__tooltip" aria-hidden="true">' + n[0] + '</span>' + (n[1] === 'SHOPEEFOOD_URL' ? '<img class="social__food-logo" src="assets/icons/shopeefood.png" width="26" height="28" alt="ShopeeFood">' : svg(n[2])) + '</a></li>'; }).join('');
     social.hidden = false;
   }
   (function setupReviews() {

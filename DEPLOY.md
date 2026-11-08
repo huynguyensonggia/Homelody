@@ -4,6 +4,7 @@
 - Project Pages: homelody; repository huynguyensonggia/Homelody, nhánh main.
 - Build command: `node scripts/build-site.mjs`; output: `dist`; Node.js: `22`.
 - Khi sửa CSS nguồn, chạy `python scripts/build-assets.py` trước và commit cả `assets/css/site.min.css`.
+- Khi thêm/đổi ảnh món, ảnh Câu chuyện hoặc Không gian qua admin, chạy `python scripts/build-image-variants.py` rồi commit + push (`assets/images/optimized/` và `assets/js/image-variants.js`), sau đó tăng `?v=` của `image-variants.js` trong `index.html`. Script chỉ đọc dữ liệu công khai, không ghi gì lên Supabase. Lần đầu cần cài Pillow: `python -m pip install --user pillow`. Chưa chạy thì ảnh mới vẫn hiển thị bằng ảnh gốc trên Supabase, chỉ nặng hơn.
 - Chỉ thư mục `dist` được triển khai; reports, outputs và cấu hình công cụ local không được đưa lên hosting.
 - Push main sẽ kích hoạt build theo cấu hình Git đã thiết lập. Kiểm tra trạng thái deployment trong Cloudflare sau khi push.
 

@@ -26,13 +26,17 @@
   function product(d) {
     if (!english) return d;
     var fallback = (window.HOMELODY_PRODUCT_EN || {})[d.name] || [];
+    var name = d.name_en || fallback[0] || d.name;
+    // Admin điền sẵn alt EN bằng tên EN; khi đó dùng mẫu chung, còn alt tự viết thì giữ nguyên.
+    var key = function (s) { return String(s || '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ''); };
+    var savedAlt = d.image_alt_en, autoAlt = !savedAlt || key(savedAlt) === key(name) || key(savedAlt) === key(d.name_en);
     return Object.assign({}, d, {
       sourceName: d.name,
-      name: d.name_en || fallback[0] || d.name,
+      name: name,
       description: d.description_en || fallback[1] || '',
       note: d.note_en || fallback[2] || '',
       ingredients: d.ingredients_en && d.ingredients_en.length ? d.ingredients_en : d.ingredients.map(function (value) { return value === 'Đá xay' ? 'Crushed ice' : t(value); }),
-      alt: d.image_alt_en || d.name_en || fallback[0] || d.name
+      alt: autoAlt ? name + ' – Homelody Hoi An' : savedAlt
     });
   }
   var attrs = ['aria-label', 'title', 'alt', 'placeholder'];
