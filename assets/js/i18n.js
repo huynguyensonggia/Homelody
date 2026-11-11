@@ -6,6 +6,14 @@
   var lang = /^(vi|en)$/.test(requested || '') ? requested : saved === 'en' ? 'en' : 'vi';
   var english = lang === 'en', dictionary = window.HOMELODY_EN || {};
   document.documentElement.lang = lang;
+  function updateLocalizedHrefs() {
+    document.querySelectorAll('a[data-href-en]').forEach(function (link) {
+      if (!link.hasAttribute('data-href-vi')) link.dataset.hrefVi = link.getAttribute('href');
+      link.setAttribute('href', document.documentElement.lang === 'en' ? link.dataset.hrefEn : link.dataset.hrefVi);
+    });
+  }
+  updateLocalizedHrefs();
+  new MutationObserver(updateLocalizedHrefs).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   try { localStorage.setItem('homelody:language', lang); } catch (_) {}
   function t(value) {
     if (!english || typeof value !== 'string') return value;

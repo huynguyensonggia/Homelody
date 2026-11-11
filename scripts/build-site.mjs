@@ -74,6 +74,8 @@ for (const entry of [
   "admin",
   "assets",
   "public",
+  "lam-viec",
+  "en",
 ])
   copy(entry);
 // Retain the bundled third-party license in the deployed distribution.

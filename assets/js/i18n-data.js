@@ -1,5 +1,6 @@
 /* Reviewed English copy. Product translations are editable in the admin. */
 window.HOMELODY_EN = {
+  "Xem góc làm việc →": "See our workspace →",
   "Bỏ qua tới nội dung chính": "Skip to main content",
   "Homelody – Quán cà phê sân vườn có máy lạnh ở Hội An": "Homelody – Garden Coffee Shop & Quiet Workspace in Hoi An",
   "Homelody Coffee & Brunch — về đầu trang": "Homelody Coffee & Brunch — back to top",
